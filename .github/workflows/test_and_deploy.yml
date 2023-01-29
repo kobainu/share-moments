@@ -64,7 +64,7 @@ jobs:
         run: bundle exec rubocop
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: [rspec, rubocop]
     steps:
 
