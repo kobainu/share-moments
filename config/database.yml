@@ -15,3 +15,12 @@ development:
 test:
   <<: *default
   database: share-moments_test
+
+production:
+  <<: *default
+  database: share-moments_production
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
+  username: <%= Rails.application.credentials.db[:user_name] %>
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:endpoint] %>
