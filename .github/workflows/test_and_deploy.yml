@@ -1,0 +1,90 @@
+name: test_and_deploy
+
+on:
+  push:
+  # pull_request:
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Bundler and gem install
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
+      - name: Yarn install
+        run: yarn install --check-files
+      - name: Database create and migrate
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
+      - name: Run rspec
+        run: bundle exec rspec
+
+  rubocop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Run rubocop
+        run: bundle exec rubocop
+
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: [rspec, rubocop]
+    steps:
+      - name: Public IP Install
+        id: ip
+        uses: haythem/public-ip@v1.2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: AWS CLI install
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install --update
+          aws --version
+      - name: AWS set Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+      - name: Deploy
+        run: |
+          # SSHのセキュリティグループを開放する
+          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+          # SSH接続して、git pullする
+          echo "${{ secrets.GIT_PRIVATE_KEY }}" > private_key
+          chmod 600 private_key
+          ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd /var/www/share-moments && git fetch --prune && git checkout feature/initial-setup && git pull origin feature/initial-setup"
+          # SSHのセキュリティグループを閉じる
+          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
