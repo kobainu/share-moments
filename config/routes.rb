@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/profile'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
@@ -13,4 +12,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
+  get 'users/profile', to: 'users#profile'
+  post 'users/profile', to: 'users#update'
 end

@@ -1,2 +1,7 @@
-h1 Users#profile
-p Find me in app/views/users/profile.html.slim
+h1 プロフィール編集
+= form_with url: users_profile_path do |f|
+  = f.label :name
+  br
+  = f.text_field :name, value: @user.name, placeholder:"名前を入力"
+  br
+  = f.submit '更新する'
