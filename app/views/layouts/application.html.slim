@@ -13,6 +13,7 @@ html
       li = link_to 'トップ', root_path
       - if user_signed_in?
         li = link_to 'ログアウト', destroy_user_session_path, method: :delete
+        li = link_to 'アカウント編集', edit_user_registration_path
         li = "ログインユーザー: #{current_user.name}"
     p.notice = notice
     p.alert = alert
