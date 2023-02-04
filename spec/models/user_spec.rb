@@ -17,7 +17,8 @@ RSpec.describe User, type: :model do
   #     email: 'test@example.com',
   #     password: 'password'
   #   )
-  #   expect(user).to be_valid
+  #   user.valid?
+  #   expect(user.errors[:name]).to include("can't be blank")
   # end
 
   # it "メールアドレスがない場合、無効である" do

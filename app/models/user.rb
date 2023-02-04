@@ -10,4 +10,6 @@ class User < ApplicationRecord
       user.name = "ゲスト"
     end
   end
+
+  validates :name, presence: true
 end
