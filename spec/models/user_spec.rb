@@ -46,13 +46,13 @@ RSpec.describe User, type: :model do
     expect(other_user.errors[:email]).to include("has already been taken")
   end
 
-  # it 'パスワードがない場合、無効である' do
-  #   user = User.new(
-  #     name: 'test_user',
-  #     email: 'test@example.com',
-  #     password: 'password'
-  #   )
-  #   expect(user).to be_valid
-  # end
-
+  it 'パスワードがない場合、無効である' do
+    user = User.new(
+      name: 'test_user',
+      email: 'test@example.com',
+      password: nil
+    )
+    user.valid?
+    expect(user.errors[:password]).to include("can't be blank")
+  end
 end
