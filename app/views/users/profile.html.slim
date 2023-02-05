@@ -1,5 +1,8 @@
 h1 プロフィール編集
 = form_with url: users_profile_path do |f|
+  - if @user.image?
+    = image_tag(@user.image.url, class: 'profile-image')
+  br
   = f.label :プロフィール画像
   br
   = f.file_field :image
