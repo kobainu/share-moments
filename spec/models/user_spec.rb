@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
       password: 'password'
     )
     user.valid?
-    expect(user.errors[:name]).to include("can't be blank")
+    expect(user.errors[:name]).to include("が入力されていません。")
   end
 
   it 'メールアドレスがない場合、無効である' do
@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
       password: 'password'
     )
     user.valid?
-    expect(user.errors[:email]).to include("can't be blank")
+    expect(user.errors[:email]).to include("が入力されていません。")
   end
 
   it '重複したメールアドレスの場合、無効である' do
@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
       password: 'password'
     )
     other_user.valid?
-    expect(other_user.errors[:email]).to include("has already been taken")
+    expect(other_user.errors[:email]).to include("は既に使用されています。")
   end
 
   it 'パスワードがない場合、無効である' do
@@ -52,6 +52,6 @@ RSpec.describe User, type: :model do
       password: nil
     )
     user.valid?
-    expect(user.errors[:password]).to include("can't be blank")
+    expect(user.errors[:password]).to include("が入力されていません。")
   end
 end

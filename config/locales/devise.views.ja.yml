@@ -4,6 +4,8 @@ ja:
       models:
         user:
           attributes:
+            name:
+              blank: "が入力されていません。"
             email:
               taken: "は既に使用されています。"
               blank: "が入力されていません。"
@@ -20,10 +22,11 @@ ja:
     attributes:
       user:
         current_password: "現在のパスワード"
-        name: 名前
+        name: ニックネーム
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認用パスワード"
+        new_password: "新しいパスワード"
         remember_me: "次回から自動的にログイン"
     models:
       user: "ユーザ"
