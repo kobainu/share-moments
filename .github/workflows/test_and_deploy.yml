@@ -15,7 +15,6 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - name: Checkout code
@@ -38,6 +37,7 @@ jobs:
       - name: Yarn install
         run: yarn install --check-files
       - name: Database create and migrate
+        env: RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           cp config/database.yml.ci config/database.yml
           bundle exec rails db:create RAILS_ENV=test
