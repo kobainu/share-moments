@@ -37,13 +37,15 @@ jobs:
       - name: Yarn install
         run: yarn install --check-files
       - name: Database create and migrate
-        env: 
+        env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           cp config/database.yml.ci config/database.yml
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
       - name: Run rspec
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bundle exec rspec
 
   rubocop:
