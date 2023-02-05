@@ -91,6 +91,5 @@ jobs:
           && git checkout feature/develop-app
           && git pull origin feature/develop-app
           && bundle install
-          && bin/rails db:migrate RAILS_ENV=production"
           # SSHのセキュリティグループを閉じる
           aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
