@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'posts/index'
+  get 'posts/new'
+  get 'posts/create'
+  get 'posts/show'
+  get 'posts/edit'
+  get 'posts/update'
+  get 'posts/destroy'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
@@ -14,4 +21,5 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'users/profile', to: 'users#profile'
   post 'users/profile', to: 'users#update'
+  resources :posts
 end
