@@ -1,6 +1,9 @@
 div.header
   div.app-logo
-    li = link_to 'Share-moments', root_path
+    - if user_signed_in?
+      = link_to 'Share-moments', posts_path
+    - else
+      = link_to 'Share-moments', root_path
   div.nav-list-container
     ul.nav-list
       - if user_signed_in?
