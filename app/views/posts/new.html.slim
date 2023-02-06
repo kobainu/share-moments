@@ -1,2 +1,15 @@
-h1 Posts#new
-p Find me in app/views/posts/new.html.slim
+h1 投稿画面
+= form_with url: posts_path do |f|
+  = f.label :投稿写真
+  br
+  = f.file_field :photo
+  br
+  = f.label :タイトル
+  br
+  = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
+  br
+  = f.label :説明
+  br
+  = f.text_area :description, value: @post.description, placeholder:"説明を入力"
+  br
+  = f.submit '投稿'

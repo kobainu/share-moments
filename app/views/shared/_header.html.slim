@@ -11,6 +11,7 @@ div.header
         - if !(current_user.email == 'guest@example.com')
           li = link_to 'アカウント編集', edit_user_registration_path
           li = link_to 'プロフィール編集', users_profile_path
+          li = link_to '投稿する', new_post_path
         li = "ログインユーザー: #{current_user.name}"
         - if current_user.image?
           = image_tag(current_user.image.url, class: 'profile-image')
