@@ -1,5 +1,5 @@
 h1 投稿画面
-= form_with url: posts_path do |f|
+= form_with model: @post do |f|
   = f.label :投稿写真
   br
   = f.file_field :photo

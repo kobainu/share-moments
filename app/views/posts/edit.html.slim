@@ -1,2 +1,13 @@
-h1 Posts#edit
-p Find me in app/views/posts/edit.html.slim
+h1 投稿編集
+= image_tag(@post.photo.url, class: 'post-image')
+= form_with model: @post do |f|
+  br
+  = f.label :title, 'タイトル'
+  br
+  = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
+  br
+  = f.label :description, '投稿紹介'
+  br
+  = f.text_area :description, value: @post.description, placeholder:"説明を入力"
+  br
+  = f.submit '更新'

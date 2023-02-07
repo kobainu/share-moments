@@ -21,12 +21,22 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @user = User.find(@post.user_id)
   end
 
   def edit
+    @post = Post.find(params[:id])
   end
 
   def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      flash[:notice] = "投稿内容を更新しました"
+      redirect_to posts_path
+    else
+      flash.now[:notice] = "更新に失敗しました"
+      render edit_post_path(@post.id)
+    end
   end
 
   def destroy
@@ -35,6 +45,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:title, :photo, :description)
+    params.require(:post).permit(:title, :photo, :description)
   end
 end

@@ -1,5 +1,10 @@
 h1 投稿詳細
 div
+  = image_tag(@user.image.url, class: 'profile-image')
+  = @user.name
+div
   = image_tag(@post.photo.url, class: 'post-image')
   p タイトル: #{@post.title}
-  p #{@post.description}
+  p 投稿者コメント: #{@post.description}
+  - if @post.user_id == current_user.id
+    = link_to '編集', edit_post_path(@post.id)
