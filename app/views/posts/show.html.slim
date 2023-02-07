@@ -1,2 +1,5 @@
-h1 Posts#show
-p Find me in app/views/posts/show.html.slim
+h1 投稿詳細
+div
+  = image_tag(@post.photo.url, class: 'post-image')
+  p タイトル: #{@post.title}
+  p #{@post.description}
