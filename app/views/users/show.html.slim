@@ -1,0 +1,12 @@
+h1 ユーザー詳細
+div
+  = image_tag(@user.image.url, class: 'profile-image')
+  br
+  = "ニックネーム: #{@user.name}"
+  br
+  = "自己紹介: #{@user.introduction}"
+div
+  p <ユーザーの投稿一覧>
+  - @posts.each do |post|
+    = link_to image_tag(post.photo.url, class: 'post-image'), post_path(post.id)
+
