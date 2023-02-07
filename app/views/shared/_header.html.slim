@@ -10,7 +10,7 @@ div.header
         li = link_to 'ログアウト', destroy_user_session_path, method: :delete
         - if !(current_user.email == 'guest@example.com')
           li = link_to 'アカウント編集', edit_user_registration_path
-          li = link_to 'プロフィール編集', users_profile_path
+          li = link_to 'プロフィール編集', profile_users_path
           li = link_to '投稿する', new_post_path
         li = "ログインユーザー: #{current_user.name}"
         - if current_user.image?

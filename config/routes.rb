@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
-  get 'users/profile', to: 'users#profile'
-  post 'users/profile', to: 'users#update'
+  resources :users do
+    collection do
+      get 'profile'
+      post 'profile'
+    end
+  end
   resources :posts
 end
