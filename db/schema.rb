@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_08_000049) do
+ActiveRecord::Schema.define(version: 2023_02_08_064302) do
 
   create_table "favorites", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 2023_02_08_000049) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "relationships", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "follower_id"
+    t.bigint "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -47,4 +56,6 @@ ActiveRecord::Schema.define(version: 2023_02_08_000049) do
 
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "relationships", "users", column: "followed_id"
+  add_foreign_key "relationships", "users", column: "follower_id"
 end
