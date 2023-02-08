@@ -1,0 +1,11 @@
+h1 フォロワー一覧
+- if @users.exists?
+  div
+    - @users.each do |user|
+      - if current_user.image?
+        = link_to image_tag(user.image.url, class: 'profile-image'), user_path(user.id)
+      - else
+        = image_tag('user/default_user_icon.png', class: 'profile-image')
+      = link_to user.name, user_path(user)
+- else
+  p フォロワーはいません
