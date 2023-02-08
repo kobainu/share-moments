@@ -9,4 +9,10 @@ div
   p <ユーザーの投稿一覧>
   - @posts.each do |post|
     = link_to image_tag(post.photo.url, class: 'post-image'), post_path(post.id)
-
+div
+  p <お気に入り投稿一覧>
+  - if @user_favorites.exists?
+    - @user_favorites.reverse_each do |favorite|
+      = link_to image_tag(favorite.post.photo.url, class: 'post-image'), post_path(favorite.post.id)
+  - else
+    p お気に入りはありません
