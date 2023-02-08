@@ -19,6 +19,10 @@ Rails.application.routes.draw do
       get 'profile'
       post 'profile'
     end
+    member do
+      get :follows, :followers
+    end
+    resource :relationships, only: [:create, :destroy]
   end
   resources :posts
   post 'favorite/:id' => 'favorites#create', as: 'create_favorite'
