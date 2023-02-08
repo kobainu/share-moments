@@ -17,4 +17,8 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates :name, presence: true
+
+  def favorite_find(post_id)
+    favorites.where(post_id: post_id).exists?
+  end
 end
