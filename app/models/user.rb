@@ -24,10 +24,10 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   def favorite_find(post_id)
-    favorites.where(post_id: post_id).exists?
+    favorites.exists?(post_id: post_id)
   end
 
-    # ユーザーをフォローする
+  # ユーザーをフォローする
   def follow(user_id)
     follower.create(followed_id: user_id)
   end
