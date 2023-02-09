@@ -16,4 +16,4 @@ div.header
         - if current_user.image?
           = link_to image_tag(current_user.image.url, class: 'profile-image'), user_path(current_user.id)
         - else
-          = image_tag('user/default_user_icon.png', class: 'profile-image')
+          = link_to image_tag('user/default_user_icon.png', class: 'profile-image'), user_path(current_user.id)
