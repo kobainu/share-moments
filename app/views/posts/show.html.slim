@@ -8,3 +8,19 @@ div
   p 投稿者コメント: #{@post.description}
   - if @post.user_id == current_user.id
     = link_to '編集', edit_post_path(@post.id)
+div.comments-area
+  p コメント
+  div
+    = form_with(model:[@post, @comment], local: true) do |f|
+      = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
+      = f.submit "送信する"
+  div
+    = "コメント件数: #{@comments.count}"
+    div
+      - @comments.each do |comment|
+        div
+          = comment.user.name
+        div
+          = comment.comment
+          - if comment.user == current_user
+            = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}
