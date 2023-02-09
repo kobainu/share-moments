@@ -3,6 +3,10 @@ body {
   flex-direction: column;
 }
 
+div {
+  border: solid 1px red;
+}
+
 .header {
   width: 100%;
   height: 50px;
@@ -36,6 +40,11 @@ body {
 
 .post-container {
   margin: 10px;
+}
+
+.other-posts {
+  width: 50px;
+  height: 50px;
 }
 
 .footer {

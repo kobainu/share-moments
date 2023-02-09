@@ -22,6 +22,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @posts = Post.where(user_id: @post.user_id).where.not(id: @post.id)
     @user = User.find(@post.user_id)
     @comment = Comment.new
     @comments = @post.comments.reverse_order
