@@ -1,0 +1,17 @@
+.profile-container
+  .profile-image-container
+    - if current_user.image?
+      = link_to image_tag(current_user.image.url, class: 'profile-image'), user_path(current_user.id)
+    - else
+      = link_to image_tag('user/default_user_icon.png', class: 'profile-image'), user_path(current_user.id)
+  .user-name
+    = current_user.name
+.nav-container
+  ul.nav-container
+    .nav-list
+      li = link_to '投稿する', new_post_path
+    - if !(current_user.email == 'guest@example.com')
+      .nav-list
+        li = link_to 'アカウント編集', edit_user_registration_path
+      .nav-list
+        li = link_to 'プロフィール編集', profile_users_path

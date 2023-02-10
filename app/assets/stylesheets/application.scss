@@ -28,11 +28,27 @@ div {
 
 .main-wrapper {
   display: flex;
+  width: 100%;
 }
 
 .sidebar {
-  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
   height: auto;
+  padding: 10px;
+}
+
+.main-contents {
+  width: 100%;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 10px;
 }
 
 .profile-image {
@@ -40,6 +56,17 @@ div {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 10px;
+}
+
+.nav-list li {
+  padding: 20px;
 }
 
 .main-container {

@@ -4,16 +4,6 @@ div.header
       = link_to 'Share-moments', posts_path
     - else
       = link_to 'Share-moments', root_path
-  div.nav-list-container
-    ul.nav-list
-      - if user_signed_in?
-        li = link_to 'ログアウト', destroy_user_session_path, method: :delete
-        - if !(current_user.email == 'guest@example.com')
-          li = link_to 'アカウント編集', edit_user_registration_path
-          li = link_to 'プロフィール編集', profile_users_path
-          li = link_to '投稿する', new_post_path
-        li = "ログインユーザー: #{current_user.name}"
-        - if current_user.image?
-          = link_to image_tag(current_user.image.url, class: 'profile-image'), user_path(current_user.id)
-        - else
-          = link_to image_tag('user/default_user_icon.png', class: 'profile-image'), user_path(current_user.id)
+  div.logout-container
+    - if user_signed_in?
+      div = link_to 'ログアウト', destroy_user_session_path, method: :delete
