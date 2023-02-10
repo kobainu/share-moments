@@ -26,6 +26,15 @@ div {
   }
 }
 
+.main-wrapper {
+  display: flex;
+}
+
+.sidebar {
+  width: 1000px;
+  height: auto;
+}
+
 .profile-image {
   width: 50px;
   height: 50px;

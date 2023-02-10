@@ -13,6 +13,7 @@ html
     = render partial: 'shared/header'
     p.notice = notice
     p.alert = alert
-    div.main-contents
-      = yield
+    .main-wrapper
+      .sidebar = render partial: 'layouts/sidebar'
+      .main-contents = yield
     = render partial: 'shared/footer'
