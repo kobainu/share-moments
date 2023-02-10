@@ -15,6 +15,7 @@ html
     p.alert = alert
     .main-wrapper
       - if user_signed_in?
-        .sidebar = render partial: 'layouts/sidebar'
+        .sidebar-wrapper
+          .sidebar = render partial: 'layouts/sidebar'
       .main-contents = yield
     = render partial: 'shared/footer'
