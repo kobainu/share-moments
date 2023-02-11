@@ -20,7 +20,7 @@ class PostsController < ApplicationController
 
   def tag_search
     @tag_list = Tag.all
-    @tag = Tag.find(params[:tag_id]) #クリックしたタグ
+    @tag = Tag.find(params[:tag_id]) # クリックしたタグ
     @posts = @tag.posts.all # クリックしたタグに紐付けられた全ての投稿
   end
 
