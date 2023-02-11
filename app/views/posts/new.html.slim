@@ -14,6 +14,6 @@ h1 投稿画面
   br
   = "半角スペースで区切ることで複数のタグを付けることができます。"
   = "例：「桜 犬 春」"
-  = f.text_field :tag_name
-  br
+  .tag_form
+    = f.text_field :tag_name
   = f.submit '投稿'

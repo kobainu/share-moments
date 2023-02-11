@@ -2,7 +2,7 @@ h1 投稿一覧
 h3 タグリスト
 - @tag_list.each do |list|
   span
-    = list.tag_name
+    = link_to list.tag_name, tag_search_posts_path(tag_id: list.id)
     = "(#{list.posts.count})"
 div.main-container
   - @posts.reverse_each do |post|

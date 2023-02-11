@@ -10,5 +10,9 @@ h1 投稿編集
   br
   = f.text_area :description, value: @post.description, placeholder:"説明を入力"
   br
+  = "半角スペースで区切ることで複数のタグを付けることができます。"
+  = "例：「桜 犬 春」"
+  .tag_form
+    = f.text_field :tag_name, value: @tag_list
   = f.submit '更新'
 = link_to '投稿を削除', post_path(@post.id), method: :delete, data: {confirm: "本当に削除しますか？"}
