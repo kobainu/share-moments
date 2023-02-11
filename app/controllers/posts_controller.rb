@@ -18,6 +18,12 @@ class PostsController < ApplicationController
     end
   end
 
+  def tag_search
+    @tag_list = Tag.all  #こっちの投稿一覧表示ページでも全てのタグを表示するために、タグを全取得
+    @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
+    @posts = @tag.posts.all           #クリックしたタグに紐付けられた投稿を全て表示
+  end
+
   def new
     @post = Post.new
   end

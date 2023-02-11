@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :comments, only:[:create, :destroy]
     collection do
       get 'search'
+      get 'tag_search', as: 'tag_search'
       get 'following', as: 'following'
     end
   end

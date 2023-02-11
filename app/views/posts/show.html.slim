@@ -16,8 +16,8 @@ h1 投稿詳細
       .post-tags
         p タグ
         - @post_tags.each do |tag|
-          = "#{tag.tag_name}(#{tag.posts.count}) "
-          / = link_to tag.tag_name, tag_posts_path(tag_id: tag.id)
+          = link_to tag.tag_name, tag_search_posts_path(tag_id: tag.id)
+          = "(#{tag.posts.count}) "
       .photograph-info
         div
           撮影情報
