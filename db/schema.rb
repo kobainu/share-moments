@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_09_064301) do
+ActiveRecord::Schema.define(version: 2023_02_11_084758) do
 
   create_table "comments", charset: "utf8mb3", force: :cascade do |t|
     t.text "comment"
@@ -47,6 +47,21 @@ ActiveRecord::Schema.define(version: 2023_02_09_064301) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "tag_maps", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_tag_maps_on_post_id"
+    t.index ["tag_id"], name: "index_tag_maps_on_tag_id"
+  end
+
+  create_table "tags", charset: "utf8mb3", force: :cascade do |t|
+    t.string "tag_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -66,4 +81,6 @@ ActiveRecord::Schema.define(version: 2023_02_09_064301) do
   add_foreign_key "favorites", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "follower_id"
+  add_foreign_key "tag_maps", "posts"
+  add_foreign_key "tag_maps", "tags"
 end
