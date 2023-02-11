@@ -1,30 +1,63 @@
 h1 投稿詳細
-div
-  = link_to image_tag(@user.image.url, class: 'profile-image'), user_path(@user.id)
-  = @user.name
-div
-  = image_tag(@post.photo.url, class: 'post-image')
-  p タイトル: #{@post.title}
-  p 投稿者コメント: #{@post.description}
-  - if @post.user_id == current_user.id
-    = link_to '編集', edit_post_path(@post.id)
-div
-  h2 = "#{@user.name}さんの他の投稿"
-  - @posts.each do |post|
-    = link_to image_tag(post.photo.url, class: 'other-posts'), post_path(post.id)
-div.comments-area
-  p コメント
-  div
-    = form_with(model:[@post, @comment], local: true) do |f|
-      = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
-      = f.submit "送信する"
-  div
-    = "コメント件数: #{@comments.count}"
+.post-container
+  .post-main-area
+    .post-image-area
+      = image_tag(@post.photo.url, class: 'post-main-image')
+    .post-detail-info
+      .contributor-info
+        = link_to image_tag(@user.image.url, class: 'profile-image'), user_path(@user.id)
+        = @user.name
+      .post-title
+        p タイトル: #{@post.title}
+      .post-description
+        p 投稿者コメント: #{@post.description}
+        - if @post.user_id == current_user.id
+          = link_to '編集', edit_post_path(@post.id)
+      .post-tags
+        p タグ
+      .photograph-info
+        div
+          撮影情報
+        div
+          p 撮影モード
+        div
+          p F値
+        div
+          p シャッタースピード
+        div
+          p ISO感度
+        div
+          p 露光補正
+        div
+          p 焦点距離
+        div
+          p カメラ
+        div
+          p レンズ
+        div
+          p 撮影日時
+        div
+          p その他撮影のポイント
+
+
+  .contributor-other-posts-area
+    h2 = "#{@user.name}さんの他の投稿"
+    .contributor-other-posts
+      - @posts.each do |post|
+        = link_to image_tag(post.photo.url, class: 'other-post'), post_path(post.id)
+  .comments-container
+    p コメント
+    .comment-form
+      = form_with(model:[@post, @comment], local: true) do |f|
+        = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
+        = f.submit "送信する"
     div
-      - @comments.each do |comment|
-        div
-          = comment.user.name
-        div
-          = comment.comment
-          - if comment.user == current_user
-            = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}
+      = "コメント件数: #{@comments.count}"
+      .comments-area
+        - @comments.each do |comment|
+          div
+            = comment.user.name
+          div
+            = comment.comment
+            - if comment.user == current_user
+              = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}

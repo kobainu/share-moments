@@ -9,7 +9,17 @@
 .nav-container
   ul.nav-container
     .nav-list
+      li = link_to '投稿一覧', posts_path
+    .nav-list
       li = link_to '投稿する', new_post_path
+    .nav-list
+      li 検索
+    .nav-list
+      li 地域別
+    .nav-list
+      li カメラ別
+    .nav-list
+      li レンズ別
     - if !(current_user.email == 'guest@example.com')
       .nav-list
         li = link_to 'アカウント編集', edit_user_registration_path

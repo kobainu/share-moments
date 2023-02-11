@@ -1,9 +1,9 @@
-div.header
-  div.app-logo
+.header
+  .app-logo
     - if user_signed_in?
       = link_to 'Share-moments', posts_path
     - else
       = link_to 'Share-moments', root_path
-  div.logout-container
+  .logout-container
     - if user_signed_in?
-      div = link_to 'ログアウト', destroy_user_session_path, method: :delete
+      .logout-btn = link_to 'ログアウト', destroy_user_session_path, method: :delete
