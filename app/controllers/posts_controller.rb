@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   def index
     @posts = Post.all
+    @tag_list = Tag.all
+    @post = current_user.posts.new
   end
 
   def following
@@ -40,6 +42,7 @@ class PostsController < ApplicationController
     @user = User.find(@post.user_id)
     @comment = Comment.new
     @comments = @post.comments.reverse_order
+    @post_tags = @post.tags
   end
 
   def edit
