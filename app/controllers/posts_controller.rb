@@ -4,6 +4,10 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def following
+    @posts = Post.where(user_id: [current_user.following_user.ids])
+  end
+
   def search
     if params[:title].present?
       @posts = Post.where('title LIKE ?', "%#{params[:title]}%")
