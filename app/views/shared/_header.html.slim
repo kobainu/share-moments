@@ -4,6 +4,10 @@
       = link_to 'Share-moments', posts_path
     - else
       = link_to 'Share-moments', root_path
+  .search-area
+    = form_with url: search_posts_path, method: :get, local: true do |f|
+      = f.text_field :title
+      = f.submit :タイトル検索
   .logout-container
     - if user_signed_in?
       .logout-btn = link_to 'ログアウト', destroy_user_session_path, method: :delete
