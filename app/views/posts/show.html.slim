@@ -15,6 +15,9 @@ h1 投稿詳細
           = link_to '編集', edit_post_path(@post.id)
       .post-tags
         p タグ
+        - @post_tags.each do |tag|
+          = "#{tag.tag_name}(#{tag.posts.count}) "
+          / = link_to tag.tag_name, tag_posts_path(tag_id: tag.id)
       .photograph-info
         div
           撮影情報
