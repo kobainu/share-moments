@@ -23,7 +23,9 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+    tag_list = params[:post][:tag_name].split(nil)
     if @post.save
+      @post.save_tag(tag_list)
       flash[:notice] = "新しく投稿しました"
       redirect_to posts_path
     else
