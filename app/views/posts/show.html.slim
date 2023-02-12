@@ -22,23 +22,23 @@ h1 投稿詳細
         div
           撮影情報
         div
+          = "カメラ: #{@exif.model}"
+        div
+          = "レンズ: #{@exif.lens_model}"
+        div
+          = "シャッタースピード: #{@exif.exposure_time.to_s}秒"
+        div
+          = "絞り: f/#{@exif.f_number.to_f}"
+        div
+          = "ISO感度: #{@exif.iso_speed_ratings}"
+        div
+          = "露出補正: #{@exif.exposure_bias_value}"
+        div
+          = "焦点距離: #{@exif.focal_length.to_i}mm"
+        div
+          = "撮影日時: #{@exif.date_time_original.strftime("%Y/%m/%d %H:%M:%S")}"
+        div
           p 撮影モード
-        div
-          p F値
-        div
-          p シャッタースピード
-        div
-          p ISO感度
-        div
-          p 露光補正
-        div
-          p 焦点距離
-        div
-          p カメラ
-        div
-          p レンズ
-        div
-          p 撮影日時
         div
           p その他撮影のポイント
 

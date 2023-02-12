@@ -43,7 +43,9 @@ class PostsController < ApplicationController
   end
 
   def show
+    require 'exifr/jpeg'
     @post = Post.find(params[:id])
+    @exif = EXIFR::JPEG.new(@post.photo.file.file).exif
     @posts = Post.where(user_id: @post.user_id).where.not(id: params[:id])
     @user = User.find(@post.user_id)
     @comment = Comment.new
