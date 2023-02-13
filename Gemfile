@@ -32,6 +32,8 @@ gem 'devise-i18n'
 gem 'slim-rails'
 gem 'html2slim'
 gem 'pry-rails'
+gem 'gmaps4rails'
+gem 'geocoder'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

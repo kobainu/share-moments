@@ -32,13 +32,19 @@ h1 投稿詳細
         div
           = "ISO感度: #{@exif.iso_speed_ratings}"
         div
-          = "露出補正: #{@exif.exposure_bias_value.to_f}"
+          = "露出補正値: #{@exif.exposure_bias_value.to_f}"
         div
           = "焦点距離: #{@exif.focal_length.to_i}mm"
         div
           = "撮影日時: #{@exif.date_time_original.strftime("%Y/%m/%d %H:%M:%S")}"
         div
-          p 撮影モード
+          = "幅: #{@exif.pixel_x_dimension}"
+        div
+          = "高さ: #{@exif.pixel_y_dimension}"
+        div
+          = "経度: #{@exif.gps.longitude}"
+        div
+          = "緯度: #{@exif.gps.latitude}"
         div
           p その他撮影のポイント
 
