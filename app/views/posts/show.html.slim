@@ -20,7 +20,7 @@ h1 投稿詳細
           = "(#{tag.posts.count}) "
       .photograph-info
         div
-          撮影情報
+          h1 撮影情報
         div
           = "カメラ: #{@exif.model}"
         div
@@ -37,18 +37,27 @@ h1 投稿詳細
           = "焦点距離: #{@exif.focal_length.to_i}mm"
         div
           = "撮影日時: #{@exif.date_time_original.strftime("%Y/%m/%d %H:%M:%S")}"
-        div
-          = "幅: #{@exif.pixel_x_dimension}"
-        div
-          = "高さ: #{@exif.pixel_y_dimension}"
-        div
-          = "経度: #{@exif.gps.longitude}"
-        div
-          = "緯度: #{@exif.gps.latitude}"
-        div
-          p その他撮影のポイント
-
-
+        .location-map-area
+          #location-map
+          / APIを読み込み
+          - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_map_api_key }&callback=initMap".html_safe
+          script{ async src=google_api }
+          javascript:
+            let map;
+            function initMap() {
+              geocoder = new google.maps.Geocoder()
+              // マップを作成
+              map = new google.maps.Map(document.getElementById('location-map'), {
+                // マップの中心に表示する場所の緯度経度を指定
+                center: { lat: #{@exif.gps.latitude}, lng: #{@exif.gps.longitude} },
+                zoom: 12,
+              });
+              // マーカーを立てる場所の緯度経度を指定
+              marker = new google.maps.Marker({
+                position: { lat: #{@exif.gps.latitude}, lng: #{@exif.gps.longitude} },
+                map: map
+              });
+            }
   .contributor-other-posts-area
     h2 = "#{@user.name}さんの他の投稿"
     .contributor-other-posts
