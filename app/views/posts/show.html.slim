@@ -32,7 +32,7 @@ h1 投稿詳細
         div
           = "ISO感度: #{@exif.iso_speed_ratings}"
         div
-          = "露出補正値: #{@exif.exposure_bias_value.to_f}"
+          = "露出補正値: #{@exif.exposure_bias_value.to_f.round(1)}EV"
         div
           = "焦点距離: #{@exif.focal_length.to_i}mm"
         div
