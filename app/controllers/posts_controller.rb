@@ -13,6 +13,7 @@ class PostsController < ApplicationController
   def search
     if params[:title].present?
       @posts = Post.where('title LIKE ?', "%#{params[:title]}%")
+      # @posts = Post.where(['title LIKE(?) OR camera LIKE(?)', "%#{params[:title]}%", "%#{params[:camera]}%"])
     else
       @posts = Post.none
     end
@@ -22,6 +23,11 @@ class PostsController < ApplicationController
     @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id]) # クリックしたタグ
     @posts = @tag.posts.all # クリックしたタグに紐付けられた全ての投稿
+  end
+
+  def camera_search
+    @camera = params[:camera]
+    @posts = Post.where(camera: @camera)
   end
 
   def new

@@ -17,7 +17,11 @@ h1 投稿画面
   .tag_form
     = f.text_field :tag_name
   br
-  = f.check_box :hide_location_info
-  = f.label :'撮影地情報を非表示にする場合はチェックを入れて下さい(※投稿写真に位置情報が存在しない場合はいずれも表示されません)'
+  - if @post.latitude.present?
+    div
+      = f.check_box :hide_location_info
+      = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
+  - else
+    div 選択された写真には位置情報がありません。
   br
   = f.submit '投稿'

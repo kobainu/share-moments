@@ -23,8 +23,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     @exposure_bias_value = exif.exposure_bias_value.to_f
     @focal_length = exif.focal_length.to_i
     @shooting_date_time = exif.date_time_original
-    @latitude = exif.gps.latitude
-    @longitude = exif.gps.longitude
+    if exif.gps.present?
+      @latitude = exif.gps.latitude
+      @longitude = exif.gps.longitude
+    end
   end
 
   # Override the directory where uploaded files will be stored.
