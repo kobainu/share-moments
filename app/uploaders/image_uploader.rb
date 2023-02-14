@@ -1,5 +1,5 @@
 class ImageUploader < CarrierWave::Uploader::Base
-  attr_accessor :camera, :lens_model, :iso_speed_ratings, :exposure_time, :f_number, :exposure_bias_value, :focal_length, :shooting_date_time,  :latitude, :longitude
+  attr_accessor :camera, :lens_model, :iso_speed_ratings, :exposure_time, :f_number, :exposure_bias_value, :focal_length, :shooting_date_time, :latitude, :longitude
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -13,21 +13,18 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   process :get_exif_info
   def get_exif_info
-    begin
     require 'exifr/jpeg'
-      exif = EXIFR::JPEG::new(self.file.file).exif
-      @camera = exif.model
-      @lens_model = exif.lens_model
-      @iso_speed_ratings = exif.iso_speed_ratings.to_i
-      @exposure_time = exif.exposure_time.to_s
-      @f_number = exif.f_number.to_f
-      @exposure_bias_value = exif.exposure_bias_value.to_f
-      @focal_length = exif.focal_length.to_i
-      @shooting_date_time = exif.date_time_original
-      @latitude = exif.gps.latitude
-      @longitude = exif.gps.longitude
-    rescue
-    end
+    exif = EXIFR::JPEG.new(file.file).exif
+    @camera = exif.model
+    @lens_model = exif.lens_model
+    @iso_speed_ratings = exif.iso_speed_ratings.to_i
+    @exposure_time = exif.exposure_time.to_s
+    @f_number = exif.f_number.to_f
+    @exposure_bias_value = exif.exposure_bias_value.to_f
+    @focal_length = exif.focal_length.to_i
+    @shooting_date_time = exif.date_time_original
+    @latitude = exif.gps.latitude
+    @longitude = exif.gps.longitude
   end
 
   # Override the directory where uploaded files will be stored.
