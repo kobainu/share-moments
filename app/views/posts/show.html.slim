@@ -38,26 +38,30 @@ h1 投稿詳細
         div
           = "撮影日時: #{@post.shooting_date_time.strftime("%Y/%m/%d %H:%M:%S")}"
         .location-map-area
-          #location-map
-          / APIを読み込み
-          - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_map_api_key }&callback=initMap".html_safe
-          script{ async src=google_api }
-          javascript:
-            let map;
-            function initMap() {
-              geocoder = new google.maps.Geocoder()
-              // マップを作成
-              map = new google.maps.Map(document.getElementById('location-map'), {
-                // マップの中心に表示する場所の緯度経度を指定
-                center: { lat: #{@post.latitude}, lng: #{@post.longitude} },
-                zoom: 12,
-              });
-              // マーカーを立てる場所の緯度経度を指定
-              marker = new google.maps.Marker({
-                position: { lat: #{@post.latitude}, lng: #{@post.longitude} },
-                map: map
-              });
-            }
+          - if !@post.hide_location_info?
+            p 撮影地:
+            #location-map
+            / APIを読み込み
+            - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_map_api_key }&callback=initMap".html_safe
+            script{ async src=google_api }
+            javascript:
+              let map;
+              function initMap() {
+                geocoder = new google.maps.Geocoder()
+                // マップを作成
+                map = new google.maps.Map(document.getElementById('location-map'), {
+                  // マップの中心に表示する場所の緯度経度を指定
+                  center: { lat: #{@post.latitude}, lng: #{@post.longitude} },
+                  zoom: 12,
+                });
+                // マーカーを立てる場所の緯度経度を指定
+                marker = new google.maps.Marker({
+                  position: { lat: #{@post.latitude}, lng: #{@post.longitude} },
+                  map: map
+                });
+              }
+          - else
+            p 撮影地: ---
   .contributor-other-posts-area
     h2 = "#{@user.name}さんの他の投稿"
     .contributor-other-posts

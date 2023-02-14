@@ -16,4 +16,8 @@ h1 投稿画面
   = "例：「桜 犬 春」"
   .tag_form
     = f.text_field :tag_name
+  br
+  = f.check_box :hide_location_info
+  = f.label :'撮影地情報を非表示にする場合はチェックを入れて下さい(※投稿写真に位置情報が存在しない場合はいずれも表示されません)'
+  br
   = f.submit '投稿'
