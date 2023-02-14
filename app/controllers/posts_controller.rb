@@ -31,6 +31,16 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+    @post.camera = @post.photo.camera
+    @post.lens = @post.photo.lens_model
+    @post.iso_speed_ratings = @post.photo.iso_speed_ratings
+    @post.exposure_time = @post.photo.exposure_time
+    @post.f_number = @post.photo.f_number
+    @post.exposure_bias_value = @post.photo.exposure_bias_value
+    @post.focal_length = @post.photo.focal_length
+    @post.shooting_date_time = @post.photo.shooting_date_time
+    @post.latitude = @post.photo.latitude
+    @post.longitude = @post.photo.longitude
     tag_list = params[:post][:tag_name].split(nil)
     if @post.save
       @post.save_tag(tag_list)
@@ -45,7 +55,7 @@ class PostsController < ApplicationController
   def show
     require 'exifr/jpeg'
     @post = Post.find(params[:id])
-    @exif = EXIFR::JPEG.new(@post.photo.file.file).exif
+    # @exif = EXIFR::JPEG.new(@post.photo.file.file).exif
     @posts = Post.where(user_id: @post.user_id).where.not(id: params[:id])
     @user = User.find(@post.user_id)
     @comment = Comment.new

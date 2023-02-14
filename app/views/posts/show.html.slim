@@ -22,21 +22,21 @@ h1 投稿詳細
         div
           h1 撮影情報
         div
-          = "カメラ: #{@exif.model}"
+          = "カメラ: #{@post.camera}"
         div
-          = "レンズ: #{@exif.lens_model}"
+          = "レンズ: #{@post.lens}"
         div
-          = "シャッタースピード: #{@exif.exposure_time.to_s}秒"
+          = "シャッタースピード: #{@post.exposure_time}秒"
         div
-          = "絞り: f/#{@exif.f_number.to_f}"
+          = "絞り: f/#{@post.f_number}"
         div
-          = "ISO感度: #{@exif.iso_speed_ratings}"
+          = "ISO感度: #{@post.iso_speed_ratings}"
         div
-          = "露出補正値: #{@exif.exposure_bias_value.to_f.round(1)}EV"
+          = "露出補正値: #{@post.exposure_bias_value.round(1)}EV"
         div
-          = "焦点距離: #{@exif.focal_length.to_i}mm"
+          = "焦点距離: #{@post.focal_length}mm"
         div
-          = "撮影日時: #{@exif.date_time_original.strftime("%Y/%m/%d %H:%M:%S")}"
+          = "撮影日時: #{@post.shooting_date_time.strftime("%Y/%m/%d %H:%M:%S")}"
         .location-map-area
           #location-map
           / APIを読み込み
@@ -49,12 +49,12 @@ h1 投稿詳細
               // マップを作成
               map = new google.maps.Map(document.getElementById('location-map'), {
                 // マップの中心に表示する場所の緯度経度を指定
-                center: { lat: #{@exif.gps.latitude}, lng: #{@exif.gps.longitude} },
+                center: { lat: #{@post.latitude}, lng: #{@post.longitude} },
                 zoom: 12,
               });
               // マーカーを立てる場所の緯度経度を指定
               marker = new google.maps.Marker({
-                position: { lat: #{@exif.gps.latitude}, lng: #{@exif.gps.longitude} },
+                position: { lat: #{@post.latitude}, lng: #{@post.longitude} },
                 map: map
               });
             }
