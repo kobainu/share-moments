@@ -47,6 +47,7 @@ class PostsController < ApplicationController
     @post.shooting_date_time = @post.photo.date_time_original
     @post.latitude = @post.photo.latitude
     @post.longitude = @post.photo.longitude
+    @post.address = Geocoder.search([@post.latitude, @post.longitude]).first.address
     tag_list = params[:post][:tag_name].split(nil)
     if @post.save
       @post.save_tag(tag_list)
