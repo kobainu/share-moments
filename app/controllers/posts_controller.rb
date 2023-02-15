@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   def search
     if params[:title].present?
       @posts = Post.where('title LIKE ?', "%#{params[:title]}%")
-      # @posts = Post.where(['title LIKE(?) OR camera LIKE(?)', "%#{params[:title]}%", "%#{params[:camera]}%"])
+      @posts = Post.where(['title LIKE(?) OR camera LIKE(?)', "%#{params[:title]}%", "%#{params[:camera]}%"])
     else
       @posts = Post.none
     end
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
     @post.f_number = @post.photo.f_number
     @post.exposure_bias_value = @post.photo.exposure_bias_value
     @post.focal_length = @post.photo.focal_length
-    @post.shooting_date_time = @post.photo.shooting_date_time
+    @post.shooting_date_time = @post.photo.date_time_original
     @post.latitude = @post.photo.latitude
     @post.longitude = @post.photo.longitude
     tag_list = params[:post][:tag_name].split(nil)
@@ -61,7 +61,6 @@ class PostsController < ApplicationController
   def show
     require 'exifr/jpeg'
     @post = Post.find(params[:id])
-    # @exif = EXIFR::JPEG.new(@post.photo.file.file).exif
     @posts = Post.where(user_id: @post.user_id).where.not(id: params[:id])
     @user = User.find(@post.user_id)
     @comment = Comment.new

@@ -36,7 +36,7 @@ h1 投稿詳細
         div
           = "焦点距離: #{@post.focal_length}mm"
         div
-          = "撮影日時: #{@post.shooting_date_time.strftime("%Y/%m/%d %H:%M:%S")}"
+          = "撮影日時: #{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
         .location-map-area
         - if @post.latitude.present?
           - if !@post.hide_location_info?

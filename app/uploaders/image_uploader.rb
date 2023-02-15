@@ -1,5 +1,5 @@
 class ImageUploader < CarrierWave::Uploader::Base
-  attr_accessor :camera, :lens_model, :iso_speed_ratings, :exposure_time, :f_number, :exposure_bias_value, :focal_length, :shooting_date_time, :latitude, :longitude
+  attr_accessor :camera, :lens_model, :iso_speed_ratings, :exposure_time, :f_number, :exposure_bias_value, :focal_length, :date_time_original, :latitude, :longitude
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -22,7 +22,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     @f_number = exif.f_number.to_f
     @exposure_bias_value = exif.exposure_bias_value.to_f
     @focal_length = exif.focal_length.to_i
-    @shooting_date_time = exif.date_time_original
+    @date_time_original = exif.date_time_original
     if exif.gps.present?
       @latitude = exif.gps.latitude
       @longitude = exif.gps.longitude
