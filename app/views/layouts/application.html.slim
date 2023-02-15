@@ -10,7 +10,7 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = render partial: 'shared/header'
+    = render partial: 'layouts/header'
     p.notice = notice
     p.alert = alert
     .main-wrapper
@@ -18,4 +18,4 @@ html
         .sidebar-wrapper
           .sidebar = render partial: 'layouts/sidebar'
       .main-contents = yield
-    = render partial: 'shared/footer'
+    = render partial: 'layouts/footer'
