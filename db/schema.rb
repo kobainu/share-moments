@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_14_150308) do
+ActiveRecord::Schema.define(version: 2023_02_17_074733) do
 
   create_table "comments", charset: "utf8mb3", force: :cascade do |t|
     t.text "comment"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2023_02_14_150308) do
     t.integer "iso_speed_ratings"
     t.string "exposure_time"
     t.float "f_number"
-    t.float "exposure_bias_value"
+    t.string "exposure_bias_value"
     t.integer "focal_length"
     t.string "shooting_date_time"
     t.boolean "hide_location_info"

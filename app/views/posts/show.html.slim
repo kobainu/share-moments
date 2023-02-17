@@ -21,21 +21,45 @@
       div
         h1 撮影情報
       div
-        = link_to "カメラ: #{@post.camera}", camera_search_posts_path(camera: @post.camera)
+        div
+          p カメラ:
+        div
+          = @post.camera ? (link_to @post.camera, camera_search_posts_path(camera: @post.camera)) : '---'
       div
-        = "レンズ: #{@post.lens}"
+        div
+          p レンズ:
+        div
+          = @post.lens ? @post.lens : '---'
       div
-        = "シャッタースピード: #{@post.exposure_time}秒"
+        div
+          p シャッタースピード:
+        div
+          = @post.exposure_time != "" ? "#{@post.exposure_time}秒" : '---'
       div
-        = "絞り: f/#{@post.f_number}"
+        div
+          p 絞り:
+        div
+          = @post.f_number != 0 ? "f/#{@post.f_number}" : '---'
       div
-        = "ISO感度: #{@post.iso_speed_ratings}"
+        div
+          p ISO感度:
+        div
+          = @post.iso_speed_ratings != 0 ? "#{@post.iso_speed_ratings}" : '---'
       div
-        = "露出補正値: #{@post.exposure_bias_value.round(1)}EV"
+        div
+          p 露出補正値:
+        div
+          = @post.exposure_bias_value != "" ? "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV" : '---'
       div
-        = "焦点距離: #{@post.focal_length}mm"
+        div
+          p 焦点距離:
+        div
+          = @post.focal_length != 0 ? "#{@post.focal_length}mm" : '---'
       div
-        = "撮影日時: #{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
+        div
+          p 撮影日時:
+        div
+          = @post.shooting_date_time ? "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}" : '---'
       .location-map-area
         - if @post.latitude.present?
           - if !@post.hide_location_info?

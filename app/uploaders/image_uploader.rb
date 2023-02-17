@@ -20,7 +20,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     @iso_speed_ratings = exif.iso_speed_ratings.to_i
     @exposure_time = exif.exposure_time.to_s
     @f_number = exif.f_number.to_f
-    @exposure_bias_value = exif.exposure_bias_value.to_f
+    @exposure_bias_value = exif.exposure_bias_value
     @focal_length = exif.focal_length.to_i
     @date_time_original = exif.date_time_original
     if exif.gps.present?
