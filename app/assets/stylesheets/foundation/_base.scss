@@ -1,0 +1,31 @@
+* {
+  font-family: "M PLUS Rounded 1c";
+  background-color: #fbf2d3;
+}
+
+body {
+  min-width: 100vh;
+  min-height: 100vh;
+  display: grid;
+  // display: flex;
+  // flex-direction: column;
+}
+
+.grid {
+  display: grid;
+  grid-template:
+  "head head" 50px
+  "side main" 1fr
+  "foot foot" 100px
+  / 240px 1fr;
+}
+
+.main {
+  grid-area: main;
+}
+
+
+div {
+  border: solid 1px gray;
+  // padding: 10px;
+}

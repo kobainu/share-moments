@@ -1,29 +1,29 @@
-.profile-container
-  .profile-image-container
-    - if current_user.image?
-      = link_to image_tag(current_user.image.url, class: 'profile-image'), user_path(current_user.id)
-    - else
-      = link_to image_tag('user/default_user_icon.png', class: 'profile-image'), user_path(current_user.id)
-  .user-name
-    = current_user.name
-.nav-container
-  ul.nav-container
-    .nav-list
+aside.l-sidebar
+  .l-sidebar__profile
+    div
+      - if current_user.image?
+        = link_to image_tag(current_user.image.url, class: 'profile-image'), user_path(current_user.id)
+      - else
+        = link_to image_tag('user/default_user_icon.png', class: 'profile-image'), user_path(current_user.id)
+    div
+      = current_user.name
+  ul.l-sidebar__nav
+    .l-sidebar__nav__item
       li = link_to '投稿一覧', posts_path
-    .nav-list
+    .l-sidebar__nav__item
       li = link_to 'フォローユーザーの投稿一覧', following_posts_path
-    .nav-list
+    .l-sidebar__nav__item
       li = link_to '投稿する', new_post_path
-    .nav-list
+    .l-sidebar__nav__item
       li 検索
-    .nav-list
+    .l-sidebar__nav__item
       li 地域別
-    .nav-list
+    .l-sidebar__nav__item
       li カメラ別
-    .nav-list
+    .l-sidebar__nav__item
       li レンズ別
     - if !(current_user.email == 'guest@example.com')
-      .nav-list
+      .l-sidebar__nav__item
         li = link_to 'アカウント編集', edit_user_registration_path
-      .nav-list
+      .l-sidebar__nav__item
         li = link_to 'プロフィール編集', profile_users_path

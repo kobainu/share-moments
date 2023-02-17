@@ -1,43 +1,42 @@
-h1 投稿詳細
-.post-container
-  .post-main-area
-    .post-image-area
-      = image_tag(@post.photo.url, class: 'post-main-image')
-    .post-detail-info
-      .contributor-info
-        = link_to image_tag(@user.image.url, class: 'profile-image'), user_path(@user.id)
-        = @user.name
-      .post-title
-        p タイトル: #{@post.title}
-      .post-description
-        p 投稿者コメント: #{@post.description}
-        - if @post.user_id == current_user.id
-          = link_to '編集', edit_post_path(@post.id)
-      .post-tags
-        p タグ
-        - @post_tags.each do |tag|
-          = link_to tag.tag_name, tag_search_posts_path(tag_id: tag.id)
-          = "(#{tag.posts.count}) "
-      .photograph-info
-        div
-          h1 撮影情報
-        div
-          = link_to "カメラ: #{@post.camera}", camera_search_posts_path(camera: @post.camera)
-        div
-          = "レンズ: #{@post.lens}"
-        div
-          = "シャッタースピード: #{@post.exposure_time}秒"
-        div
-          = "絞り: f/#{@post.f_number}"
-        div
-          = "ISO感度: #{@post.iso_speed_ratings}"
-        div
-          = "露出補正値: #{@post.exposure_bias_value.round(1)}EV"
-        div
-          = "焦点距離: #{@post.focal_length}mm"
-        div
-          = "撮影日時: #{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
-        .location-map-area
+/ h1 投稿詳細
+.post
+  .post__user
+    = link_to image_tag(@user.image.url, class: 'profile-image'), user_path(@user.id)
+    = @user.name
+  .post__image
+    = image_tag(@post.photo.url, class: 'post-main-image')
+  .post__aside
+    .post__aside__title
+      p タイトル: #{@post.title}
+    .post__aside__description
+      p 投稿者コメント: #{@post.description}
+      - if @post.user_id == current_user.id
+        = link_to '編集', edit_post_path(@post.id)
+    .post__aside__tags
+      p タグ
+      - @post_tags.each do |tag|
+        = link_to tag.tag_name, tag_search_posts_path(tag_id: tag.id)
+        = "(#{tag.posts.count}) "
+    .post__aside__photograph-info
+      div
+        h1 撮影情報
+      div
+        = link_to "カメラ: #{@post.camera}", camera_search_posts_path(camera: @post.camera)
+      div
+        = "レンズ: #{@post.lens}"
+      div
+        = "シャッタースピード: #{@post.exposure_time}秒"
+      div
+        = "絞り: f/#{@post.f_number}"
+      div
+        = "ISO感度: #{@post.iso_speed_ratings}"
+      div
+        = "露出補正値: #{@post.exposure_bias_value.round(1)}EV"
+      div
+        = "焦点距離: #{@post.focal_length}mm"
+      div
+        = "撮影日時: #{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
+      .location-map-area
         - if @post.latitude.present?
           - if !@post.hide_location_info?
             p 撮影地: #{@post.address}
@@ -65,7 +64,7 @@ h1 投稿詳細
             p 撮影地: ---
         - else
           p 撮影地: ---
-  .contributor-other-posts-area
+  .post__other-posts
     h2 = "#{@user.name}さんの他の投稿"
     .contributor-other-posts
       - @posts.each do |post|

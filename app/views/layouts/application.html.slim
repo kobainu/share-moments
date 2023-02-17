@@ -6,17 +6,17 @@ html
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'reset', media: 'all', 'data-turbolinks-track': 'reload'
+    / = stylesheet_link_tag 'reset', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet"
   body
-    = render partial: 'layouts/header'
-    p.notice = notice
-    p.alert = alert
-    .main-wrapper
+    .grid
+      = render partial: 'layouts/header'
+      / .notifications
+      /   - flash.each do |key, value|
+      /     = content_tag(:div, value, class: key)
       - if user_signed_in?
-        .sidebar-wrapper
-          .sidebar = render partial: 'layouts/sidebar'
-      .main-contents = yield
-    = render partial: 'layouts/footer'
+        = render partial: 'layouts/sidebar'
+      main.main = yield
+      = render partial: 'layouts/footer'
