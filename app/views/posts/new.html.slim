@@ -1,27 +1,23 @@
-h1 投稿画面
-= form_with model: @post do |f|
-  = f.label :投稿写真
-  br
-  = f.file_field :photo
-  br
-  = f.label :タイトル
-  br
-  = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
-  br
-  = f.label :説明
-  br
-  = f.text_area :description, value: @post.description, placeholder:"説明を入力"
-  br
-  = "半角スペースで区切ることで複数のタグを付けることができます。"
-  = "例：「桜 犬 春」"
-  .tag_form
-    = f.text_field :tag_name
-  br
-  - if @post.latitude.present?
+.post-new
+  = form_with(model: @post, local: true) do |f|
+    = render 'shared/error_messages', model: f.object
+    div
+      = f.label :'(必須)投稿写真'
+      = f.file_field :photo
+    div
+      = f.label :'(必須)タイトル'
+      = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
+    div
+      = f.label :'(任意)説明'
+      = f.text_area :description, value: @post.description, placeholder:"説明を入力"
+    div
+      = f.label :'(任意)タグ'
+      = f.text_field :tag_name
+      br
+      = "※半角スペースで区切ることで複数のタグを付けることができます。(例：「桜 犬 春」)"
+      br
     div
       = f.check_box :hide_location_info
       = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
-  - else
-    div 選択された写真には位置情報がありません。
-  br
-  = f.submit '投稿'
+    br
+    = f.submit '投稿'

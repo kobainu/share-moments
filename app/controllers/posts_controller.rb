@@ -55,7 +55,7 @@ class PostsController < ApplicationController
       redirect_to posts_path
     else
       flash.now[:notice] = "投稿に失敗しました"
-      render :new_post_path
+      render :new
     end
   end
 

@@ -1,7 +1,7 @@
 .post {
   display: grid;
   grid-template:
-    "user aside" auto
+    "user aside" 70px
     "img aside" auto
     "other aside" auto
     "comment aside" auto
