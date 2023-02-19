@@ -1,57 +1,47 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it '名前、メール、パスワードがある場合、有効である' do
-    user = User.new(
-      name: 'test_user',
-      email: 'test@example.com',
-      password: 'password'
-    )
-    expect(user).to be_valid
+  let(:user_a){ build(:user) }
+  let(:user_b){ build(:user) }
+  it 'nameとemail、passwordとpassword_confirmationが存在すれば登録できること' do
+    expect(user_a).to be_valid
   end
 
-  it '名前がない場合、無効である' do
-    user = User.new(
-      name: nil,
-      email: 'test@example.com',
-      password: 'password'
-    )
-    user.valid?
-    expect(user.errors[:name]).to include("が入力されていません。")
+  it 'nameが未入力では登録できないこと' do
+    user_a.name = ""
+    user_a.valid?
+    expect(user_a.errors[:name]).to include("が入力されていません。")
   end
 
-  it 'メールアドレスがない場合、無効である' do
-    user = User.new(
-      name: 'test_user',
-      email: nil,
-      password: 'password'
-    )
-    user.valid?
-    expect(user.errors[:email]).to include("が入力されていません。")
+  it 'emailが未入力では登録できないこと' do
+    user_a.email = ""
+    user_a.valid?
+    expect(user_a.errors[:email]).to include("が入力されていません。")
   end
 
-  it '重複したメールアドレスの場合、無効である' do
-    User.create(
-      name: 'test_user',
-      email: 'test@example.com',
-      password: 'password'
-    )
-    other_user = User.new(
-      name: 'other_user',
-      email: 'test@example.com',
-      password: 'password'
-    )
-    other_user.valid?
-    expect(other_user.errors[:email]).to include("は既に使用されています。")
+  it '重複したemailが存在する場合登録できないこと' do
+    user_a.save
+    user_b.valid?
+    expect(user_b.errors[:email]).to include("は既に使用されています。")
   end
 
-  it 'パスワードがない場合、無効である' do
-    user = User.new(
-      name: 'test_user',
-      email: 'test@example.com',
-      password: nil
-    )
-    user.valid?
-    expect(user.errors[:password]).to include("が入力されていません。")
+  it 'passwordが未入力では登録できないこと' do
+    user_a.password = ""
+    user_a.valid?
+    expect(user_a.errors[:password]).to include("が入力されていません。")
   end
+
+  it 'passwordが5文字以下では登録できないこと' do
+    user_a.password = "12345"
+    user_a.password_confirmation = "12345"
+    user_a.valid?
+    expect(user_a.errors[:password]).to include("は6文字以上に設定して下さい。")
+  end
+
+  it 'passwordとpassword_confirmationが一致しなければ登録できないこと' do
+    user_a.password_confirmation = ""
+    user_a.valid?
+    expect(user_a.errors[:password_confirmation]).to include("とパスワードの入力が一致しません")
+  end
+
 end
