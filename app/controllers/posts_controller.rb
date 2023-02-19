@@ -84,10 +84,10 @@ class PostsController < ApplicationController
       # 新たにタグとの関連を登録
       @post.save_tag(tag_list)
       flash[:notice] = "投稿内容を更新しました"
-      redirect_to posts_path
+      redirect_to post_path(@post.id)
     else
       flash.now[:notice] = "更新に失敗しました"
-      render edit_post_path(@post.id)
+      render :edit
     end
   end
 
