@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_post, only: %i[show edit update destroy]
   def index
     @posts = Post.all
     @tag_list = Tag.all
@@ -61,7 +62,6 @@ class PostsController < ApplicationController
 
   def show
     require 'exifr/jpeg'
-    @post = Post.find(params[:id])
     @posts = Post.where(user_id: @post.user_id).where.not(id: params[:id])
     @user = User.find(@post.user_id)
     @comment = Comment.new
@@ -70,12 +70,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
     @tag_list = @post.tags.pluck(:tag_name).join(' ')
   end
 
   def update
-    @post = Post.find(params[:id])
     tag_list = params[:post][:tag_name].split(nil)
     if @post.update(post_params)
       # 更新時に一度タグとの関連を削除
@@ -94,7 +92,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     flash[:notice] = "投稿内容を削除しました"
     redirect_to posts_path
@@ -104,5 +101,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :photo, :description, :hide_location_info)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 end
