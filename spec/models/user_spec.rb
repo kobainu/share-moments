@@ -14,6 +14,12 @@ RSpec.describe User, type: :model do
     expect(user_a.errors[:name]).to include("が入力されていません。")
   end
 
+  it 'nameが11文字以上では登録できないこと' do
+    user_a.name = "u1234567890"
+    user_a.valid?
+    expect(user_a.errors[:name]).to include("は10文字以内で入力してください")
+  end
+
   it 'emailが未入力では登録できないこと' do
     user_a.email = ""
     user_a.valid?
