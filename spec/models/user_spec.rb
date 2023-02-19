@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'nameが11文字以上では登録できないこと' do
-    user_a.name = "u1234567890"
+    user_a.name = "n" * 11
     user_a.valid?
     expect(user_a.errors[:name]).to include("は10文字以内で入力してください")
   end
@@ -39,8 +39,8 @@ RSpec.describe User, type: :model do
   end
 
   it 'passwordが5文字以下では登録できないこと' do
-    user_a.password = "12345"
-    user_a.password_confirmation = "12345"
+    user_a.password = "p" * 5
+    user_a.password_confirmation = "p" * 5
     user_a.valid?
     expect(user_a.errors[:password]).to include("は6文字以上に設定して下さい。")
   end
@@ -49,5 +49,11 @@ RSpec.describe User, type: :model do
     user_a.password_confirmation = ""
     user_a.valid?
     expect(user_a.errors[:password_confirmation]).to include("とパスワードの入力が一致しません")
+  end
+
+  it 'introduction(自己紹介文)は151文字以上では設定できないこと' do
+    user_a.introduction = "i" * 151
+    user_a.valid?
+    expect(user_a.errors[:introduction]).to include("は150文字以内で入力してください")
   end
 end

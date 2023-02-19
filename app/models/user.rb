@@ -22,6 +22,7 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates :name, presence: true, length: { maximum: 10 }
+  validates :introduction, length: { maximum: 150 }
 
   def favorite_find(post_id)
     favorites.exists?(post_id: post_id)
