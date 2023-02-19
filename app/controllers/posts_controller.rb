@@ -61,9 +61,9 @@ class PostsController < ApplicationController
   end
 
   def show
-    require 'exifr/jpeg'
+    # require 'exifr/jpeg'
     @posts = Post.where(user_id: @post.user_id).where.not(id: params[:id])
-    @user = User.find(@post.user_id)
+    @post_user = User.find(@post.user_id)
     @comment = Comment.new
     @comments = @post.comments.reverse_order
     @post_tags = @post.tags
