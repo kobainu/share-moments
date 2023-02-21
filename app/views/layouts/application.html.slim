@@ -9,6 +9,7 @@ html
     / = stylesheet_link_tag 'reset', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"
     link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet"
   body
     .ly_grid

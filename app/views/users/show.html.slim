@@ -1,9 +1,9 @@
 h1 ユーザー詳細
 div
   - if @user.image?
-    = image_tag(@user.image.url, class: 'profile-image')
+    = image_tag(@user.image.url, class: 'el_profileImg')
   - else
-    = image_tag('user/default_user_icon.png', class: 'profile-image')
+    = image_tag('user/default_user_icon.png', class: 'el_profileImg')
   br
   = "ニックネーム: #{@user.name}"
   br

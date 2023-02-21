@@ -1,11 +1,5 @@
 section.bl_posts
-  / h1 投稿一覧
-  / .tagList
-  / h3 タグリスト
-  / - @tag_list.each do |list|
-  /   span
-  /     = link_to list.tag_name, tag_search_posts_path(tag_id: list.id)
-  /     = "(#{list.posts.count})"
+  h1 投稿一覧
   .bl_posts_container
     - @posts.reverse_each do |post|
       article.bl_posts_card

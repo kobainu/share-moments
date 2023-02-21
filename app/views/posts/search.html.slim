@@ -1,10 +1,13 @@
 h1 検索結果: #{@posts.count}件
 - if @posts.exists?
-  div.main-container
+  .bl_posts_container
     - @posts.reverse_each do |post|
-      div.post-container
-        = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
-        div
+      article.bl_posts_card
+        .bl_post_img
+          = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
+        .bl_post_tag
+          div
+            = post.user.name
           div
             = "コメント数: #{post.comments.count}"
           div id="post_#{post.id}"

@@ -1,9 +1,9 @@
 h1 プロフィール編集
 = form_with model: @user do |f|
   - if @user.image?
-    = image_tag(@user.image.url, class: 'profile-image')
+    = image_tag(@user.image.url, class: 'el_profileImg')
   - else
-    = image_tag('user/default_user_icon.png', class: 'profile-image')
+    = image_tag('user/default_user_icon.png', class: 'el_profileImg')
   br
   = f.label :プロフィール画像
   br
