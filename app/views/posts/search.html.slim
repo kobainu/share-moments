@@ -3,7 +3,7 @@ h1 検索結果: #{@posts.count}件
   div.main-container
     - @posts.reverse_each do |post|
       div.post-container
-        = link_to image_tag(post.photo.url, class: 'post-image'), post_path(post.id)
+        = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
         div
           div
             = "コメント数: #{post.comments.count}"

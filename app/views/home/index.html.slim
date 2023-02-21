@@ -1,9 +1,9 @@
 .l-home
   .l-home__about
     h1 あなたの刹那を共有しよう。
-  .l-home__form
-    ul
-      - if !user_signed_in?
-        li = link_to 'ログイン', new_user_session_path
-        li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post
-        li = link_to 'アカウント登録', new_user_registration_path
+  / .l-home__form
+  /   ul
+  /     - if !user_signed_in?
+  /       li = link_to 'ログイン', new_user_session_path
+  /       li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post
+  /       li = link_to 'アカウント登録', new_user_registration_path

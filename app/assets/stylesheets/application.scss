@@ -1,18 +1,8 @@
-@import 'foundation/reset';
-@import 'foundation/base';
-@import 'layout/l-header';
-@import 'layout/l-footer';
-@import 'layout/l-sidebar';
-@import 'layout/l-main';
-@import 'object/component/profile';
-
-.l-home {
-  display: flex;
-  &__about {
-    width: 100%;
-  }
-  &__form {
-    width: 100%;
-    margin-right: 240px;
-  }
-}
+@import 'reset';
+@import 'base';
+@import 'layout';
+@import 'block';
+@import 'element';
+@import 'helper';
+@import 'unique';
+@import 'program';

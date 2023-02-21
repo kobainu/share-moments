@@ -1,6 +1,6 @@
 h1 ユーザー詳細
 div
-  - if current_user.image?
+  - if @user.image?
     = image_tag(@user.image.url, class: 'profile-image')
   - else
     = image_tag('user/default_user_icon.png', class: 'profile-image')

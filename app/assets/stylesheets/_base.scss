@@ -1,0 +1,19 @@
+// reset.cssやnormalize.cssによる素地作りの他、サイト全体にまつわるスタイルを要素セレクタに直接指定します。 またPRECSSでは、特定のスコープ内における限定的なベーススタイルの適用も許容します。 例えば「ヘッダー内のリンクは全て白色だが、フッター内は青色に統一したい」という場合に、限定的なベーススタイルを使用します。ただし詳細度を高める行為であるため、十分注意して使用してください。
+
+* {
+  font-family: "M PLUS Rounded 1c";
+}
+
+body {
+  min-width: 100vh;
+  min-height: 100vh;
+  display: grid;
+}
+
+// 開発用
+div,
+.ly_header,
+.ly_sidebar,
+.ly_footer {
+  border: solid 1px gray;
+}

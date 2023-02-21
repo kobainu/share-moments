@@ -1,13 +1,13 @@
-header.l-header
-  .l-header__logo
+header.ly_header
+  .ly_header_logo
     - if user_signed_in?
       = link_to 'Share-moments', posts_path
     - else
       = link_to 'Share-moments', root_path
-  .l-header__search-area
-    = form_with url: search_posts_path, method: :get, local: true do |f|
-      = f.text_field :title
-      = f.submit :タイトル検索
-  .l-header__logout-container
-    - if user_signed_in?
-      .l-header__logout-container__logout-btn = link_to 'ログアウト', destroy_user_session_path, method: :delete
+  - if user_signed_in?
+    .ly_header_searchArea
+      = form_with url: search_posts_path, method: :get, local: true do |f|
+        = f.text_field :title
+        = f.submit :タイトル検索
+    .ly_header_logoutContainer
+      .ly_header_logoutBtn = link_to 'ログアウト', destroy_user_session_path, method: :delete

@@ -11,12 +11,8 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet"
   body
-    .grid
+    .ly_grid
       = render partial: 'layouts/header'
-      / .notifications
-      /   - flash.each do |key, value|
-      /     = content_tag(:div, value, class: key)
-      - if user_signed_in?
-        = render partial: 'layouts/sidebar'
-      main.main = yield
+      = render partial: 'layouts/sidebar'
+      main.ly_main = yield
       = render partial: 'layouts/footer'

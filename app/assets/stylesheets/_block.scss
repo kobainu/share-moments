@@ -1,0 +1,32 @@
+// ブロックモジュールは、そのモジュール特有の幾つかの子要素を持ち、また後述するエレメントモジュールや他のブロックモジュールを含むこともできます。一つの塊として持ち運び可能な要素群を形成し、BEMで例えるならば「複数のElementを持つBlock」と言い換えることができます。 それら複数の子要素やエレメントモジュールを1つの塊としてまとめ、サイト内のどこでも使用できるようにすることがブロックモジュールの基本的な考え方です。webサイトの中核を担うもので、多くのモジュールはこのブロックモジュールに該当します。 以下はブロックモジュールの例です。ブロックモジュールにはレイアウトに関わらないスタイルのみの適用を基本とします。 レイアウトに関わるスタイル、即ち width（100%は例外） や position: absolute / fixed / sticky、 top / right / bottom / left 、 margin 、 float 等は、コンテキストまたはラッパーモジュールからスタイルを適用します。
+
+.bl_posts_container {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bl_posts_card {
+  width: 21%;
+  margin: 3% 2%;
+  height: 240px;
+}
+
+.bl_post_img {
+  width: 100%;
+  height: 100%;
+}
+
+.bl_post_tag {
+  display: flex;
+  padding-top: 5px;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
