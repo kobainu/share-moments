@@ -3,7 +3,7 @@
 .ly_grid {
   display: grid;
   grid-template:
-    "head head" 50px
+    "head head" auto
     "side main" 1fr
     "foot foot" 100px
     / 240px 1fr;
@@ -11,6 +11,17 @@
 
 .ly_header {
   grid-area: head;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.ly_header_inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 0 auto;
 }
 
 .ly_sidebar {
@@ -27,25 +38,12 @@
   position: sticky;
 }
 
-.ly_header {
+
+.ly_logoutContainer {
   display: flex;
-  justify-content: space-between;
-  align-items: end;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  &_logo {
-    font-size: 32px;
-  }
-  &_logoutContainer {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin-right: 20px;
-  }
-  &_logoutBtn {
-    padding: 10px;
-  }
+  align-items: center;
+  height: 100%;
+  margin-right: 20px;
 }
 
 .ly_sidebar {
