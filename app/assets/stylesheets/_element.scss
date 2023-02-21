@@ -1,5 +1,25 @@
 // ボタンやラベル、見出し等の最小単位のモジュールで、どこにでも埋め込むことが可能なモジュールです。 命名は極力汎用的なものを推奨します。これはどのようなコンテンツが入っても、名前と内容が乖離しないための措置です。 「極力汎用的な命名を」というのはBEMとは真逆の方向を向いている思想ですが、現実として、例えば全ての色に意味を持たせた命名は困難です。
 
+.el_btn {
+  display: inline-block;
+  width: auto;
+  padding: 10px 10px;
+  background-color: #e25c00;
+  border: 2px solid transparent;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+  color: #fff;
+  font-size: 1.125rem;
+  text-align: center;
+  text-decoration: none;
+  transition: .25s;
+  &:focus,
+  &:hover {
+    background-color: #fff;
+    border-color: currentColor;
+    color: #e25c00;
+  }
+}
+
 .el_header_logo {
   font-size: 32px;
 }
