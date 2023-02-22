@@ -20,6 +20,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def address_search
+    @address = params[:address]
+    @filtered_address_posts = Post.where('address LIKE ?', "%#{@address}%")
+  end
+
   def tag_search
     @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id]) # クリックしたタグ

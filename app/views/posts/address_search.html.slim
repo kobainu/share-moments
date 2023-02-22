@@ -1,0 +1,16 @@
+h1 = "「#{@address}」で撮影された投稿: #{@filtered_address_posts.count}件"
+- if @filtered_address_posts.exists?
+  .bl_posts_container
+    - @filtered_address_posts.reverse_each do |post|
+      article.bl_posts_card
+        .bl_post_img
+          = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
+        .bl_post_tag
+          div
+            = post.user.name
+          div
+            = "コメント数: #{post.comments.count}"
+          div id="post_#{post.id}"
+            = render 'post', post: post
+- else
+  p 検索結果はありませんでした

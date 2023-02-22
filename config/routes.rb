@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     collection do
       get 'search'
       get 'tag_search', as: 'tag_search'
+      get 'address_search', as: 'address_search'
       get 'camera_search', as: 'camera_search'
       get 'following', as: 'following'
     end
