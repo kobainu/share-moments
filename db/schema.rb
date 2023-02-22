@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_17_074733) do
+ActiveRecord::Schema.define(version: 2023_02_22_085355) do
 
   create_table "comments", charset: "utf8mb3", force: :cascade do |t|
     t.text "comment"
@@ -48,6 +48,20 @@ ActiveRecord::Schema.define(version: 2023_02_17_074733) do
     t.integer "focal_length"
     t.string "shooting_date_time"
     t.boolean "hide_location_info"
+  end
+
+  create_table "prefectures", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "region_id", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["region_id"], name: "index_prefectures_on_region_id"
+  end
+
+  create_table "regions", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "relationships", charset: "utf8mb3", force: :cascade do |t|
@@ -91,6 +105,7 @@ ActiveRecord::Schema.define(version: 2023_02_17_074733) do
 
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "prefectures", "regions"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "tag_maps", "posts"
