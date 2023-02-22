@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   def address_search
     @address = params[:address]
-    @filtered_address_posts = Post.where('address LIKE ?', "%#{@address}%")
+    @filtered_address_posts = Post.where('address LIKE ?', "%#{@address}%").where(hide_location_info: false)
   end
 
   def tag_search

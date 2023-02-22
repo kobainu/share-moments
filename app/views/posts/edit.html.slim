@@ -19,6 +19,8 @@ h1 投稿編集
     div
       = f.check_box :hide_location_info
       = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
+      br
+      p ※ 撮影地域別の検索にも含まれなくなります。
   - else
     div 選択された写真には位置情報がありません。
   br
