@@ -33,7 +33,7 @@ class PostsController < ApplicationController
 
   def camera_search
     @camera = params[:camera]
-    @posts = Post.where(camera: @camera)
+    @filtered_camera_posts = Post.where(camera: @camera)
   end
 
   def new
