@@ -2,6 +2,8 @@
 
 * {
   font-family: "M PLUS Rounded 1c";
+  background-color: #f7f7f7;
+  font-size: 1.2rem;
 }
 
 body {
@@ -10,10 +12,24 @@ body {
   display: grid;
 }
 
+a {
+  color: #000;
+}
+
+input {
+  &[type="text"],
+  &[type="email"],
+  &[type="password"] {
+    width: 400px;
+    height: 40px;
+  }
+}
+
 // 開発用
 div,
 .ly_header,
 .ly_sidebar,
+.ly_main,
 .ly_footer {
   border: solid 1px gray;
 }

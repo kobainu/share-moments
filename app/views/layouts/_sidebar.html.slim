@@ -1,4 +1,4 @@
-aside.ly_sidebar
+aside.ly_sidebar.navigation
   - if user_signed_in?
     .bl_profile.ly_flex
       div
@@ -10,25 +10,41 @@ aside.ly_sidebar
         = current_user.name
     nav
       ul.bl_globalNav.ly_flex__col
-        .bl_globalNav_item
-          li = link_to '投稿一覧', posts_path
-        .bl_globalNav_item
-          li = link_to 'フォローユーザーの投稿一覧', following_posts_path
-        .bl_globalNav_item
-          li = link_to '投稿する', new_post_path
-        .bl_globalNav_item
-          li 検索
-        .bl_globalNav_item
-          li 地域別
-        .bl_globalNav_item
-          li カメラ別
-        .bl_globalNav_item
-          li タグ
+        li.bl_globalNav_item
+          span.el_icon
+            i.bi.bi-book
+          = link_to '投稿一覧', posts_path
+        li.bl_globalNav_item
+          span.el_icon
+            i.bi.bi-star
+          = link_to 'お気に入り一覧', following_posts_path
+        li.bl_globalNav_item
+          span.el_icon
+            i.bi.bi-pencil-square
+          = link_to '投稿する', new_post_path
+        li.bl_globalNav_item
+          span.el_icon
+            i.bi.bi-search
+          a href="#"検索
+        li.bl_globalNav_item
+          span.el_icon
+            i.bi.bi-geo-alt
+          a href="#"地域別に探す
+        li.bl_globalNav_item
+          span.el_icon
+            i.bi.bi-camera
+          a href="#"カメラ別に探す
+        li.bl_globalNav_item
+          span.el_icon
+            i.bi.bi-tags
+          a href="#"タグで探す
         - if !(current_user.email == 'guest@example.com')
-          .bl_globalNav_item
-            li = link_to 'アカウント編集', edit_user_registration_path
-          .bl_globalNav_item
-            li = link_to 'プロフィール編集', profile_users_path
+          li.bl_globalNav_item
+            span.el_icon ◎
+            = link_to 'アカウント編集', edit_user_registration_path
+          li.bl_globalNav_item
+            span.el_icon ◎
+            = link_to 'プロフィール編集', profile_users_path
   - else
     nav
       ul.ly_sidebar__nav
@@ -38,17 +54,3 @@ aside.ly_sidebar
           li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post
         .bl_globalNav_item
           li = link_to 'アカウント登録', new_user_registration_path
-  / nav.testNav
-  /   ul.tagList
-  /   - Tag.all.each do |list|
-  /     li.tag_item
-  /       = link_to list.tag_name, tag_search_posts_path(tag_id: list.id)
-  /       = "(#{list.posts.count})"
-  / javascript:
-  /   const btn = document.querySelector(".btn-menu");
-  /   const nav = document.querySelector(".testNav");
-  /   btn.addEventListener("click", () => {
-  /     nav.classList.toggle("open-menu");
-  /     btn.innerHTML = btn.innerHTML === 'メニュー' ? '閉じる' : 'メニュー'
-  /   });
-

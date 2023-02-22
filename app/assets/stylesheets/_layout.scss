@@ -1,12 +1,12 @@
 // ヘッダー、ボディエリア、メインエリア、サイドエリア、フッター等の大きなレイアウトを形成する要素に使用します。 原則としてこのグループには、レイアウトに関わるスタイリング（gridやflex、width、margin、padding、floatなど）しか行いません。あくまでコンテンツが入る「枠」を定義するだけで、コンテンツは後述するモジュールグループで作成します。 ただし「ヘッダーの背景色は黒」など「枠」と「あしらい」の粒度が一致している場合は、必要に応じてレイアウト以外のスタイリングを行うことも許容します。
 
-.ly_grid {
-  display: grid;
-  grid-template:
-    "head head" auto
-    "side main" 1fr
-    "foot foot" 100px
-    / auto 3fr;
+.ly_wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.ly_cont {
+  display: flex;
 }
 
 .ly_flex {
@@ -18,7 +18,7 @@
 }
 
 .ly_header {
-  grid-area: head;
+  height: auto;
   padding: 10px 20px;
   position: sticky;
   top: 0;
@@ -33,24 +33,29 @@
 }
 
 .ly_sidebar {
-  grid-area: side;
-  max-width: 240px;
-  padding: 10px;
+  flex: 1 1 30%;
+  max-width: 260px;
+  height: 100vh;
+  position: sticky;
+  top: 70px;
   @media screen and (max-width: 768px) {
     display: none;
   }
 }
 
+.navigation {
+  overflow: hidden;
+}
+
 .ly_main {
-  grid-area: main;
+  flex: 1 1 70%;
   padding: 20px 50px;
 }
 
 .ly_footer {
-  grid-area: foot;
   position: sticky;
+  height: 200px;
 }
-
 
 .ly_logoutContainer {
   display: flex;

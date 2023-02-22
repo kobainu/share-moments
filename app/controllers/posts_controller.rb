@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   def search
     if params[:title].present?
       @posts = Post.where('title LIKE ?', "%#{params[:title]}%")
-      @posts = Post.where(['title LIKE(?) OR camera LIKE(?)', "%#{params[:title]}%", "%#{params[:camera]}%"])
+      # @posts = Post.where(['title LIKE(?) OR camera LIKE(?)', "%#{params[:title]}%", "%#{params[:camera]}%"])
     else
       @posts = Post.none
     end
@@ -53,7 +53,7 @@ class PostsController < ApplicationController
     if @post.save
       @post.save_tag(tag_list)
       flash[:notice] = "新しく投稿しました"
-      redirect_to posts_path
+      redirect_to post_path(@post.id)
     else
       flash.now[:notice] = "投稿に失敗しました"
       render :new

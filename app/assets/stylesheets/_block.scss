@@ -1,10 +1,33 @@
 // ブロックモジュールは、そのモジュール特有の幾つかの子要素を持ち、また後述するエレメントモジュールや他のブロックモジュールを含むこともできます。一つの塊として持ち運び可能な要素群を形成し、BEMで例えるならば「複数のElementを持つBlock」と言い換えることができます。 それら複数の子要素やエレメントモジュールを1つの塊としてまとめ、サイト内のどこでも使用できるようにすることがブロックモジュールの基本的な考え方です。webサイトの中核を担うもので、多くのモジュールはこのブロックモジュールに該当します。 以下はブロックモジュールの例です。ブロックモジュールにはレイアウトに関わらないスタイルのみの適用を基本とします。 レイアウトに関わるスタイル、即ち width（100%は例外） や position: absolute / fixed / sticky、 top / right / bottom / left 、 margin 、 float 等は、コンテキストまたはラッパーモジュールからスタイルを適用します。
 
+.bl_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  margin: 10px;
+  & h2 {
+    font-size: 1.5rem;
+  }
+  & .bl_formLabel {
+    margin-top: 20px;
+    text-align: center;
+  }
+  & .bl_formInput {
+    text-align: center;
+    margin-top: 5px;
+  }
+}
+
 .bl_globalNav {
   position: sticky;
   top: 60px;
   &_item {
     padding: 20px;
+    &:focus,
+    &:hover {
+      background-color: #d4d4d489;
+    }
   }
 }
 

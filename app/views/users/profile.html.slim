@@ -1,20 +1,21 @@
-h1 プロフィール編集
-= form_with model: @user do |f|
-  - if @user.image?
-    = image_tag(@user.image.url, class: 'el_profileImg')
-  - else
-    = image_tag('user/default_user_icon.png', class: 'el_profileImg')
-  br
-  = f.label :プロフィール画像
-  br
-  = f.file_field :image
-  br
-  = f.label :ニックネーム
-  br
-  = f.text_field :name, value: @user.name, placeholder:"名前を入力"
-  br
-  = f.label :自己紹介
-  br
-  = f.text_area :introduction, value: @user.introduction, placeholder:"自己紹介を入力"
-  br
-  = f.submit '更新'
+.bl_form
+  h1 プロフィール編集
+  = form_with model: @user do |f|
+    - if @user.image?
+      = image_tag(@user.image.url, class: 'el_profileImg')
+    - else
+      = image_tag('user/default_user_icon.png', class: 'el_profileImg')
+    .bl_formLabel
+      = f.label :プロフィール画像
+    .bl_formInput
+      = f.file_field :image
+    .bl_formLabel
+      = f.label :ニックネーム
+    .bl_formInput
+      = f.text_field :name, value: @user.name, placeholder:"名前を入力"
+    .bl_formLabel
+      = f.label :自己紹介
+    .bl_formInput
+      = f.text_area :introduction, value: @user.introduction, placeholder:"自己紹介を入力"
+      br
+      = f.submit '更新'

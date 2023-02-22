@@ -1,23 +1,27 @@
-.post-new
+.bl_form
   = form_with(model: @post, local: true) do |f|
     = render 'shared/error_messages', model: f.object
-    div
+    .bl_formLabel
       = f.label :'(必須)投稿写真'
+    .bl_formInput
       = f.file_field :photo
-    div
+    .bl_formLabel
       = f.label :'(必須)タイトル'
+    .bl_formInput
       = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
-    div
+    .bl_formLabel
       = f.label :'(任意)説明'
+    .bl_formInput
       = f.text_area :description, value: @post.description, placeholder:"説明を入力"
-    div
+    .bl_formLabel
       = f.label :'(任意)タグ'
+    .bl_formInput
       = f.text_field :tag_name
       br
       = "※半角スペースで区切ることで複数のタグを付けることができます。(例：「桜 犬 春」)"
       br
-    div
+    .bl_formLabel
       = f.check_box :hide_location_info
       = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
-    br
+    .bl_formLabel
     = f.submit '投稿'
