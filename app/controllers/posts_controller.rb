@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    if (params[:keyword] != "")
+    if params[:keyword] != ""
       @keyword = params[:keyword]
       @posts = Post.where(['address LIKE(?) OR camera LIKE(?)', "%#{@keyword}%", "%#{@keyword}%"])
     else
