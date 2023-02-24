@@ -1,16 +1,19 @@
-h1 = "「#{@keyword}」を含む投稿一覧: #{@posts.count}件"
-- if @posts.exists?
-  .bl_posts_container
-    - @posts.reverse_each do |post|
-      article.bl_posts_card
-        .bl_post_img
-          = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
-        .bl_post_tag
-          div
-            = post.user.name
-          div
-            = "コメント数: #{post.comments.count}"
-          div id="post_#{post.id}"
-            = render 'post', post: post
-- else
-  p 検索結果はありませんでした
+section.bl_postsIndex
+  .pageTitle
+    h2 = "「#{@keyword}」を含む投稿一覧: #{@posts.count}件"
+  .bl_postsIndex_container
+    - if @posts.exists?
+      - @posts.reverse_each do |post|
+        article.bl_card
+          .bl_postImg
+            = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
+          .bl_postInfo
+            span = "投稿者: #{post.user.name}"
+            div
+              span.un_favorite id="post_#{post.id}"
+                = render 'post', post: post
+              span
+                i.bi.bi-chat-right-text
+                |  #{post.comments.count}
+    - else
+      p 検索結果はありませんでした

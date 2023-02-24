@@ -1,5 +1,7 @@
 - if user_signed_in? && current_user != post.user
   - if current_user.favorite_find(post.id)
-    = link_to '★', destroy_favorite_path(post.id), method: :delete, remote: true
+    = link_to destroy_favorite_path(post.id), method: :delete, remote: true
+      i.bi.bi-star-fill
   - else
-    = link_to '☆', create_favorite_path(post.id), method: :post, remote: true
+    = link_to create_favorite_path(post.id), method: :post, remote: true do
+      i.bi.bi-star
