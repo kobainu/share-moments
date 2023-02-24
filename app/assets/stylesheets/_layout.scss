@@ -38,23 +38,22 @@
   height: 100vh;
   position: sticky;
   top: 70px;
+  z-index: 3;
   @media screen and (max-width: 768px) {
     display: none;
   }
 }
 
-.navigation {
-  overflow: hidden;
-}
-
 .ly_main {
   flex: 1 1 70%;
-  padding: 20px 50px;
+  // position: relative;
+  // padding: 20px 50px;
 }
 
 .ly_footer {
   position: sticky;
   height: 200px;
+  z-index: 3;
 }
 
 .ly_logoutContainer {
@@ -163,8 +162,6 @@
 .comments-area {
   padding: 10px;
 }
-
-
 
 #location-map {
   width: 100%;

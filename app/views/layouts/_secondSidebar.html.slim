@@ -1,0 +1,11 @@
+#navArea
+  nav
+    .bl_searchForm
+      = form_with url: address_search_posts_path, method: :get, local: true do |f|
+        .bl_searchForm_input
+          = f.text_field :address, placeholder:"都道府県や市町村で検索"
+        div
+          = f.submit :検索
+    ul
+      - @prefectures.each do |prefecture|
+        li = link_to prefecture.name, address_search_posts_path(address: prefecture.name)

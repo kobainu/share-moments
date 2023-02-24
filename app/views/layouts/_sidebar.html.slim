@@ -1,4 +1,4 @@
-aside.ly_sidebar.navigation
+aside.ly_sidebar
   - if user_signed_in?
     .bl_profile.ly_flex
       div
@@ -8,6 +8,10 @@ aside.ly_sidebar.navigation
           = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
       div
         = current_user.name
+    .toggleBtn
+      span
+      span
+      span
     nav
       ul.bl_globalNav.ly_flex__col
         li.bl_globalNav_item
@@ -26,10 +30,11 @@ aside.ly_sidebar.navigation
           span.el_icon
             i.bi.bi-search
           a href="#"検索
-        li.bl_globalNav_item
-          span.el_icon
-            i.bi.bi-geo-alt
-          a href="#"地域別に探す
+        #toggleBtn
+          li.bl_globalNav_item
+            span.el_icon
+              i.bi.bi-geo-alt
+            a href="#"地域別に探す
         li.bl_globalNav_item
           span.el_icon
             i.bi.bi-camera
@@ -37,7 +42,7 @@ aside.ly_sidebar.navigation
         li.bl_globalNav_item
           span.el_icon
             i.bi.bi-tags
-          a href="#"タグで探す
+          a href="#" タグで探す
         - if !(current_user.email == 'guest@example.com')
           li.bl_globalNav_item
             span.el_icon ◎

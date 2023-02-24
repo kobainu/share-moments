@@ -23,6 +23,7 @@
   position: sticky;
   top: 60px;
   &_item {
+    border-bottom: 1px solid #cdcdcd;
     padding: 20px;
     &:focus,
     &:hover {
@@ -66,4 +67,11 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.bl_searchForm {
+  padding: 10px;
+  & input {
+    width: 100%;
+  }
 }
