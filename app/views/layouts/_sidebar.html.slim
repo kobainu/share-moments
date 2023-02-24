@@ -8,10 +8,6 @@ aside.ly_sidebar
           = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
       div
         = current_user.name
-    .toggleBtn
-      span
-      span
-      span
     nav
       ul.bl_globalNav.ly_flex__col
         li.bl_globalNav_item
@@ -28,13 +24,9 @@ aside.ly_sidebar
           = link_to '投稿する', new_post_path
         li.bl_globalNav_item
           span.el_icon
-            i.bi.bi-search
-          a href="#"検索
-        #toggleBtn
-          li.bl_globalNav_item
-            span.el_icon
-              i.bi.bi-geo-alt
-            a href="#"地域別に探す
+            i.bi.bi-geo-alt
+          a href="#"地域別に探す
+          = render partial: 'layouts/address_searchBar'
         li.bl_globalNav_item
           span.el_icon
             i.bi.bi-camera
@@ -43,6 +35,7 @@ aside.ly_sidebar
           span.el_icon
             i.bi.bi-tags
           a href="#" タグで探す
+          = render partial: 'layouts/tag_searchBar'
         - if !(current_user.email == 'guest@example.com')
           li.bl_globalNav_item
             span.el_icon ◎
@@ -50,6 +43,9 @@ aside.ly_sidebar
           li.bl_globalNav_item
             span.el_icon ◎
             = link_to 'プロフィール編集', profile_users_path
+          li.bl_globalNav_item
+            span.el_icon ◎
+            = link_to 'ログアウト', destroy_user_session_path, method: :delete
   - else
     nav
       ul.ly_sidebar__nav

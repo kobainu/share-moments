@@ -1,67 +1,25 @@
 // PRECSSではJavaScript等のプログラムで要素にタッチする際、または状態を管理する際、専用のクラスを付加しモジュールのクラスとは分離することを推奨します。 接頭辞：js_（JavaScriptの略） JavaScriptにて要素を取得するためのクラスです。 接頭辞：is_（英語のbe動詞のisから） 要素の状態を管理するためのクラスです。必ず適用されなければならないスタイルであるため、 !important の使用も推奨します。 状態の命名は is_active とシンプルに記述することが可能ですが、他の箇所にも影響を及ぼさないよう必ず複数クラスでスタイルを適用する必要があります。
 
-
-
-#navArea {
+.bl_searchBar {
+  display: none;
   width: 300px;
-  height: 100%;
+  height: 100vh;
   position: absolute;
-  top: 70px;
-  left: -500px;
-  z-index: 2;
-  background-color: #fff;
-  transition: all .5s;
+  top: -100px;
+  left: 260px;
+  background-color: #f7f7f7;
   overflow-y: scroll;
   padding: 20px;
   & li {
     padding: 20px;
-  }
-  &.open {
-    left: 250px;
+    &:hover {
+      background-color: #d4d4d489;
+    }
   }
 }
 
-.toggleBtn {
-  // display: block;
-  // position: fixed;
-  // top: 100px;
-  // right: 30px;
-  // width: 30px;
-  // height: 30px;
-  cursor: pointer;
-  // & span {
-  //   position: absolute;
-  //   display: block;
-  //   left: 0;
-  //   width: 30px;
-  //   height: 2px;
-  //   background-color: #000;
-  //   transition: all .5s;
-  //   border-radius: 4px;
-  //   &:nth-child(1) {
-  //     top: 4px;
-  //   }
-  //   &:nth-child(2) {
-  //     top: 13px;
-  //   }
-  //   &:nth-child(3) {
-  //     bottom: 4px;
-  //   }
-  // }
-}
-
-#mask {
-  display: none;
-  &.blackOut {
-    transition: all 1s;
+.bl_globalNav_item {
+  &:hover .bl_searchBar {
     display: block;
-    background-color: #000;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    opacity: .8;
-    cursor: pointer;
   }
 }

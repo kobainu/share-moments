@@ -1,4 +1,4 @@
-#navArea
+.bl_searchBar
   nav
     .bl_searchForm
       = form_with url: address_search_posts_path, method: :get, local: true do |f|
@@ -9,3 +9,4 @@
     ul
       - @prefectures.each do |prefecture|
         li = link_to prefecture.name, address_search_posts_path(address: prefecture.name)
+

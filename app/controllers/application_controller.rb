@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :get_prefectures
+  before_action :get_tags
   protect_from_forgery with: :exception
 
   # ログイン後の遷移先
@@ -8,8 +9,16 @@ class ApplicationController < ActionController::Base
     posts_path
   end
 
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+
   def get_prefectures
     @prefectures = Prefecture.all
+  end
+
+  def get_tags
+    @tag_list = Tag.all
   end
 
   protected

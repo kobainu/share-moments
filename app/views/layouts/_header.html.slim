@@ -11,4 +11,5 @@ header.ly_header
           = f.text_field :title
           = f.submit :タイトル検索
       .ly_header_logoutContainer
-        .el_header_logoutBtn.el_btn = link_to 'ログアウト', destroy_user_session_path, method: :delete
+        .el_header_logoutBtn.el_btn
+          = link_to 'ログアウト', destroy_user_session_path, method: :delete

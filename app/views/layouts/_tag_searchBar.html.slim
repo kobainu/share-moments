@@ -1,0 +1,14 @@
+.bl_searchBar
+  nav
+    / .bl_searchForm
+    /   = form_with url: address_search_posts_path, method: :get, local: true do |f|
+    /     .bl_searchForm_input
+    /       = f.text_field :address, placeholder:"タグで検索"
+    /     div
+    /       = f.submit :検索
+    ul
+      - @tag_list.each do |tag|
+        - if tag.posts.count != 0
+          li
+            = link_to tag_search_posts_path(tag_id: tag.id) do
+              = "#{tag.tag_name}(#{tag.posts.count}) "
