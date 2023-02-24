@@ -1,28 +1,61 @@
-h1 投稿編集
-= image_tag(@post.photo.url, class: 'el_post_img')
-= form_with model: @post do |f|
-  br
-  = f.label :title, 'タイトル'
-  br
-  = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
-  br
-  = f.label :description, '投稿紹介'
-  br
-  = f.text_area :description, value: @post.description, placeholder:"説明を入力"
-  br
-  = "半角スペースで区切ることで複数のタグを付けることができます。"
-  = "例：「桜 犬 春」"
-  .tag_form
-    = f.text_field :tag_name, value: @tag_list
-  br
-  - if @post.latitude.present?
-    div
-      = f.check_box :hide_location_info
-      = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
-      br
-      p ※ 撮影地域別の検索にも含まれなくなります。
-  - else
-    div 選択された写真には位置情報がありません。
-  br
-  = f.submit '更新'
-= link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn", data: {confirm: "本当に削除しますか？"}
+.bl_form
+  h1 投稿編集
+  = image_tag(@post.photo.url, class: 'el_post_img')
+  = form_with model: @post do |f|
+    .bl_formLabel
+      = f.label :title, 'タイトル'
+    .bl_formInput
+      = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
+    .bl_formLabel
+      = f.label :description, '投稿紹介'
+    .bl_formInput
+      = f.text_area :description, value: @post.description, placeholder:"説明を入力"
+    .bl_formLabel
+      = "タグ"
+    .bl_formInput
+      = f.text_field :tag_name, value: @tag_list, placeholder:"(例) 桜_犬_春"
+    .bl_formLabel
+      = f.label :camera, '撮影カメラ (※設定しておくとカメラ名での検索の対象になります)'
+    .bl_formInput
+      = f.text_field :camera, value: @post.camera, placeholder:"(例) Canon Eos M5"
+    .bl_formLabel
+      = f.label :lens, '撮影レンズ'
+    .bl_formInput
+      = f.text_field :lens, value: @post.lens, placeholder:"(例) Canon EF50mm F1.8 STM"
+    .bl_formLabel
+      = f.label :exposure_time, 'シャッタースピード'
+    .bl_formInput
+      = f.text_field :exposure_time, value: @post.exposure_time, placeholder:"(例) 1/100秒"
+    .bl_formLabel
+      = f.label :f_number, '絞り'
+    .bl_formInput
+      = f.number_field :f_number, step: "0.1", value: @post.f_number, placeholder:"(例) 3.0"
+    .bl_formLabel
+      = f.label :iso_speed_ratings, 'ISO感度'
+    .bl_formInput
+      = f.number_field :iso_speed_ratings, value: @post.iso_speed_ratings, placeholder:"(例) 100"
+    .bl_formLabel
+      = f.label :exposure_bias_value, '露光補正値'
+    .bl_formInput
+      = f.number_field :exposure_bias_value, step: "0.1", value: @post.exposure_bias_value, placeholder:"(例) 1.0"
+    .bl_formLabel
+      = f.label :focal_length, '焦点距離'
+    .bl_formInput
+      = f.number_field :focal_length, value: @post.focal_length, placeholder:"(例) 50mm"
+    .bl_formLabel
+      = f.label :address, '撮影地住所 (※都道府県などを設定しておくと撮影地での検索の対象になります)'
+    .bl_formInput
+      = f.text_field :address, value: @post.address, placeholder:"(例) 東京都 墨田区"
+    br
+    - if @post.address.present?
+      .bl_formInput
+        = f.check_box :hide_location_info, class: 'checkBox'
+      .bl_formLabel
+        = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
+        br
+        | (※ 撮影地検索の対象にも含まれなくなります。)
+    - else
+      div 選択された写真には位置情報がありません。
+    br
+    = f.submit '更新'
+  = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn", data: {confirm: "本当に削除しますか？"}

@@ -20,8 +20,9 @@
       br
       = "※半角スペースで区切ることで複数のタグを付けることができます。(例：「桜 犬 春」)"
       br
+    .bl_formInput
+      = f.check_box :hide_location_info, class: 'checkBox'
     .bl_formLabel
-      = f.check_box :hide_location_info
       = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
     .bl_formLabel
     = f.submit '投稿'

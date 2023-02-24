@@ -9,6 +9,10 @@
   & h2 {
     font-size: 1.5rem;
   }
+  & .el_post_img {
+    width: 200px;
+    height: 200px;
+  }
   & .bl_formLabel {
     margin-top: 20px;
     text-align: center;
@@ -16,6 +20,14 @@
   & .bl_formInput {
     text-align: center;
     margin-top: 5px;
+  }
+  & input,
+  & textarea {
+    width: 400px;
+    border-radius: 5px;
+  }
+  & .checkBox {
+    width: 20px;
   }
 }
 

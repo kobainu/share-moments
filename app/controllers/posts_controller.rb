@@ -105,7 +105,8 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :photo, :description, :hide_location_info)
+    params.require(:post)
+      .permit(:title, :photo, :description, :camera, :lens, :exposure_time, :f_number, :iso_speed_ratings, :exposure_bias_value,  :focal_length, :address, :hide_location_info)
   end
 
   def set_post

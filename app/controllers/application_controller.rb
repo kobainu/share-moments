@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_tags
-    @tag_list = Tag.all
+    @tags = Tag.all
   end
 
   protected

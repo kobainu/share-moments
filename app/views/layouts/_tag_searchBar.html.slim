@@ -2,7 +2,7 @@
   h3 タグで探す
   nav
     ul
-      - @tag_list.each do |tag|
+      - @tags.each do |tag|
         - if tag.posts.count != 0
           li
             = link_to tag_search_posts_path(tag_id: tag.id) do
