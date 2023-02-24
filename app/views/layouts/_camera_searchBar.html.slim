@@ -1,0 +1,9 @@
+.bl_searchBar
+  h3 カメラ名で探す
+  nav
+    .bl_searchForm
+      = form_with url: camera_search_posts_path, method: :get, local: true do |f|
+        .bl_searchForm_input
+          = f.text_field :camera, placeholder:"カメラ名で検索"
+        div
+          = f.submit :検索

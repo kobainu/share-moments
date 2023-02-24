@@ -1,13 +1,19 @@
-h1 「#{@camera}」で撮影された投稿一覧 (検索結果: #{@filtered_camera_posts.count}件)
-- if @filtered_camera_posts.exists?
-  div.main-container
-    - @filtered_camera_posts.reverse_each do |post|
-      div.post-container
-        = link_to image_tag(post.photo.url, class: 'post-image'), post_path(post.id)
-        div
-          div
-            = "コメント数: #{post.comments.count}"
-          div id="post_#{post.id}"
-            = render 'post', post: post
-- else
-  p 検索結果はありませんでした
+section.bl_posts
+  h1 「#{@camera}」で撮影された投稿一覧 (検索結果: #{@filtered_camera_posts.count}件)
+  .bl_posts_container
+    - if @filtered_camera_posts.exists?
+      article.bl_posts_card
+        - @filtered_camera_posts.reverse_each do |post|
+          .bl_post_img
+            = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
+          .bl_post_tag
+            div
+              = post.user.name
+            div
+              span
+                i.bi.bi-chat-right-text
+              = post.comments.count
+            div id="post_#{post.id}"
+              = render 'post', post: post
+    - else
+      p 検索結果はありませんでした

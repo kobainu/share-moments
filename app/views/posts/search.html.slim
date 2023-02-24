@@ -1,4 +1,4 @@
-h1 検索結果: #{@posts.count}件
+h1 = "「#{@keyword}」を含む投稿一覧: #{@posts.count}件"
 - if @posts.exists?
   .bl_posts_container
     - @posts.reverse_each do |post|

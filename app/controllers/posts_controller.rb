@@ -12,9 +12,9 @@ class PostsController < ApplicationController
   end
 
   def search
-    if params[:title].present?
-      @posts = Post.where('title LIKE ?', "%#{params[:title]}%")
-      # @posts = Post.where(['title LIKE(?) OR camera LIKE(?)', "%#{params[:title]}%", "%#{params[:camera]}%"])
+    if params[:keyword].present?
+      @keyword = params[:keyword]
+      @posts = Post.where(['address LIKE(?) OR camera LIKE(?)', "%#{@keyword}%", "%#{@keyword}%"])
     else
       @posts = Post.none
     end
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
 
   def camera_search
     @camera = params[:camera]
-    @filtered_camera_posts = Post.where(camera: @camera)
+    @filtered_camera_posts = Post.where('camera LIKE ?', "%#{params[:camera]}%")
   end
 
   def new

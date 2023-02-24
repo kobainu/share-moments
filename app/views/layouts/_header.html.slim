@@ -8,8 +8,8 @@ header.ly_header
     - if user_signed_in?
       .ly_header_searchArea
         = form_with url: search_posts_path, method: :get, local: true do |f|
-          = f.text_field :title
-          = f.submit :タイトル検索
+          = f.text_field :keyword, placeholder:"フリーワードで検索"
+          = f.submit :検索
       .ly_header_logoutContainer
         .el_header_logoutBtn.el_btn
           = link_to 'ログアウト', destroy_user_session_path, method: :delete

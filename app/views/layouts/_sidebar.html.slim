@@ -25,12 +25,13 @@ aside.ly_sidebar
         li.bl_globalNav_item
           span.el_icon
             i.bi.bi-geo-alt
-          a href="#"地域別に探す
+          a href="#"撮影地で探す
           = render partial: 'layouts/address_searchBar'
         li.bl_globalNav_item
           span.el_icon
             i.bi.bi-camera
-          a href="#"カメラ別に探す
+          a href="#"カメラ名で探す
+          = render partial: 'layouts/camera_searchBar'
         li.bl_globalNav_item
           span.el_icon
             i.bi.bi-tags
