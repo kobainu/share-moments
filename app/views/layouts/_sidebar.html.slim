@@ -1,13 +1,12 @@
 aside.ly_sidebar
   - if user_signed_in?
     .bl_profile.ly_flex
-      div
+      .bl_userInfo
         - if current_user.image?
           = link_to image_tag(current_user.image.url, class: 'el_profileImg'), user_path(current_user.id)
         - else
           = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
-      div
-        = current_user.name
+        p = current_user.name
     nav
       ul.bl_globalNav.ly_flex__col
         li.bl_globalNav_item

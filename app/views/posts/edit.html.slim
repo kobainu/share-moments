@@ -1,6 +1,6 @@
 .bl_form
   h1 投稿編集
-  = image_tag(@post.photo.url, class: 'el_post_img')
+  = image_tag(@post.photo.url, class: 'el_postImg')
   = form_with model: @post do |f|
     .bl_formLabel
       = f.label :title, 'タイトル'

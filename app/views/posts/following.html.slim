@@ -6,7 +6,7 @@ section.bl_postsIndex
         - @posts.reverse_each do |post|
           article.bl_card
             .bl_postImg
-              = link_to image_tag(post.photo.url, class: 'el_post_img'), post_path(post.id)
+              = link_to image_tag(post.photo.url, class: 'el_postImg'), post_path(post.id)
             .bl_postInfo
               span = "投稿者: #{post.user.name}"
               div

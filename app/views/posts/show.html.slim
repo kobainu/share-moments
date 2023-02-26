@@ -1,86 +1,105 @@
-.post
-  .post__user
-    - if @post.user.image?
-      = link_to image_tag(@post_user.image.url, class: 'el_profileImg'), user_path(@post_user.id)
-    - else
-      = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
-    = @post_user.name
-  .post__image
-    = image_tag(@post.photo.url, class: 'post-main-image')
-  .post__aside
-    .post__aside__title
-      p タイトル: #{@post.title}
-    .post__aside__description
-      p 投稿者コメント: #{@post.description}
-      - if @post.user_id == current_user.id
+.bl_postDetail
+  .bl_postDetail_head
+    .bl_postDetail_title
+      h2 #{@post.title}
+    - if @post.user_id == current_user.id
+      .el_btn
         = link_to '編集', edit_post_path(@post.id)
-    .post__aside__tags
-      p タグ
-      - @post_tags.each do |tag|
-        = link_to tag.tag_name, tag_search_posts_path(tag_id: tag.id)
-        = "(#{tag.posts.count}) "
-    .post__aside__photograph-info
-      div
-        h1 撮影情報
-      div
+  .bl_postDetail_cont
+    .bl_postDetail_main
+      .bl_postDetail_primaryImg
+        = image_tag(@post.photo.url, class: 'el_postImg')
+      .bl_postDetail_userInfo
+        .bl_userInfo
+          - if @post.user.image?
+            = link_to image_tag(@post_user.image.url, class: 'el_profileImg'), user_path(@post_user.id)
+          - else
+            = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
+          p = @post_user.name
+        .bl_followBtn
+          - if current_user != @post.user
+            - if current_user.following?(@post.user)
+              = link_to 'フォローを外す', user_relationships_path(@post.user.id), method: :delete, class: "btn-sm btn-danger"
+            - else
+              = link_to 'フォローする', user_relationships_path(@post.user.id), method: :POST, class:"btn-sm btn-success"
+      - if @post.description?
+        .bl_postDetail_description
+          = @post.description
+      .bl_postDetail_secondaryImgContainer
+        p = "#{@post_user.name}さんの他の投稿"
+        .bl_postDetail_secondaryImg
+          - @posts.each do |post|
+            = link_to image_tag(post.photo.url, class: 'el_postImg'), post_path(post.id)
+      .bl_postDetail_commentContainer
+        p コメント
+        .bl_postDetail_commentForm
+          = form_with(model:[@post, @comment], local: true) do |f|
+            = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
+            = f.submit "送信する", class: "bl_btn"
+          .bl_commentCount
+            p = "コメント件数: #{@comments.count}"
+          .bl_postDetail_commentContents
+            - @comments.each do |comment|
+              .bl_comment
+                .bl_postDetail_commentUser
+                  .bl_userInfo_font__s
+                    - if comment.user.image?
+                      = link_to image_tag(comment.user.image.url, class: 'el_profileImg'), user_path(comment.user.id)
+                    - else
+                      = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
+                    p = comment.user.name
+                  .bl_btn.el_btn
+                    - if comment.user == current_user
+                      = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}
+                .bl_postDetail_commentContent 
+                  = comment.comment
+    .post__aside.bl_postDetail_aside
+      .post__aside__tags
+        p タグ
+        - @post_tags.each do |tag|
+          = link_to tag.tag_name, tag_search_posts_path(tag_id: tag.id)
+          = "(#{tag.posts.count}) "
+      .post__aside__photograph-info
         div
-          p カメラ:
+          h1 撮影情報
         div
-          = @post.camera ? (link_to @post.camera, camera_search_posts_path(camera: @post.camera)) : '---'
-      div
-        div
-          p レンズ:
-        div
-          = @post.lens ? @post.lens : '---'
-      div
-        div
-          p シャッタースピード:
-        div
-          = @post.exposure_time != "" ? "#{@post.exposure_time}秒" : '---'
-      div
-        div
-          p 絞り:
-        div
-          = @post.f_number != 0 ? "f/#{@post.f_number}" : '---'
-      div
-        div
-          p ISO感度:
-        div
-          = @post.iso_speed_ratings != 0 ? "#{@post.iso_speed_ratings}" : '---'
-      div
-        div
-          p 露出補正値:
-        div
-          = @post.exposure_bias_value != "" ? "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV" : '---'
-      div
-        div
-          p 焦点距離:
-        div
-          = @post.focal_length != 0 ? "#{@post.focal_length}mm" : '---'
-      div
-        div
-          p 撮影日時:
-        div
-          = @post.shooting_date_time ? "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}" : '---'
-      = render partial: 'map'
-  .post__other-posts
-    h2 = "#{@post_user.name}さんの他の投稿"
-    .contributor-other-posts
-      - @posts.each do |post|
-        = link_to image_tag(post.photo.url, class: 'other-post'), post_path(post.id)
-  .comments-container
-    p コメント
-    .comment-form
-      = form_with(model:[@post, @comment], local: true) do |f|
-        = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
-        = f.submit "送信する"
-    div
-      = "コメント件数: #{@comments.count}"
-      .comments-area
-        - @comments.each do |comment|
           div
-            = comment.user.name
+            p カメラ:
           div
-            = comment.comment
-            - if comment.user == current_user
-              = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}
+            = @post.camera ? (link_to @post.camera, camera_search_posts_path(camera: @post.camera)) : '---'
+        div
+          div
+            p レンズ:
+          div
+            = @post.lens ? @post.lens : '---'
+        div
+          div
+            p シャッタースピード:
+          div
+            = @post.exposure_time != "" ? "#{@post.exposure_time}秒" : '---'
+        div
+          div
+            p 絞り:
+          div
+            = @post.f_number != 0 ? "f/#{@post.f_number}" : '---'
+        div
+          div
+            p ISO感度:
+          div
+            = @post.iso_speed_ratings != 0 ? "#{@post.iso_speed_ratings}" : '---'
+        div
+          div
+            p 露出補正値:
+          div
+            = @post.exposure_bias_value != "" ? "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV" : '---'
+        div
+          div
+            p 焦点距離:
+          div
+            = @post.focal_length != 0 ? "#{@post.focal_length}mm" : '---'
+        div
+          div
+            p 撮影日時:
+          div
+            = @post.shooting_date_time ? "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}" : '---'
+        = render partial: 'map'

@@ -1,5 +1,21 @@
 // ブロックモジュールは、そのモジュール特有の幾つかの子要素を持ち、また後述するエレメントモジュールや他のブロックモジュールを含むこともできます。一つの塊として持ち運び可能な要素群を形成し、BEMで例えるならば「複数のElementを持つBlock」と言い換えることができます。 それら複数の子要素やエレメントモジュールを1つの塊としてまとめ、サイト内のどこでも使用できるようにすることがブロックモジュールの基本的な考え方です。webサイトの中核を担うもので、多くのモジュールはこのブロックモジュールに該当します。 以下はブロックモジュールの例です。ブロックモジュールにはレイアウトに関わらないスタイルのみの適用を基本とします。 レイアウトに関わるスタイル、即ち width（100%は例外） や position: absolute / fixed / sticky、 top / right / bottom / left 、 margin 、 float 等は、コンテキストまたはラッパーモジュールからスタイルを適用します。
 
+.bl_userInfo {
+  display: flex;
+  align-items: center;
+  & p {
+    font-size: 1.5rem;
+    margin-left: 15px;
+  }
+  &_font__s {
+    @extend .bl_userInfo;
+    & p {
+      font-size: 1.2rem;
+      margin-left: 15px;
+    }
+  }
+}
+
 .bl_form {
   display: flex;
   flex-direction: column;
@@ -9,7 +25,7 @@
   & h2 {
     font-size: 1.5rem;
   }
-  & .el_post_img {
+  & .el_postmg {
     width: 200px;
     height: 200px;
   }
@@ -47,7 +63,7 @@
 .bl_profile {
   flex-direction: column;
   align-items: center;
-  padding: 10px 10px;
+  padding: 30px 0 10px;
 }
 
 .bl_postsIndex {
@@ -98,5 +114,84 @@
   padding: 10px;
   & input {
     width: 100%;
+  }
+}
+
+.bl_postDetail {
+  &_head {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & .bl_postDetail_title h2 {
+      font-size: 1.7rem;
+    }
+  }
+  & .bl_postDetail_cont {
+    width: 100%;
+    display: flex;
+    & .bl_postDetail_main {
+      // flex: 1 1 100%;
+      width: 60%;
+      & .bl_postDetail_userInfo {
+        width: 100%;
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        & .bl_followBtn {
+          margin-left: 20px;
+        }
+      }
+      & .bl_postDetail_description {
+        padding-bottom: 20px;
+        word-wrap: break-word;
+      }
+      & .bl_postDetail_secondaryImgContainer {
+        padding: 20px 0;
+        & p {
+          margin-bottom: 5px;
+        }
+      }
+      & .bl_postDetail_secondaryImg {
+        display: flex;
+        flex-wrap: wrap;
+        & img {
+          width: 60px;
+          height: 60px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
+      }
+      & .bl_postDetail_commentContainer {
+        padding: 20px 0;
+        & .bl_commentCount {
+          padding-bottom: 20px;
+          & p {
+            float: right;
+          }
+        }
+        & .bl_comment {
+          padding: 20px 0;
+          & .bl_postDetail_commentUser {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          & .bl_postDetail_commentContent {
+            padding-left: 10px;
+            word-wrap: break-word;
+          }
+        }
+      }
+      & textarea {
+        width: 100%;
+      }
+    }
+    & .bl_postDetail_aside {
+      // flex: 1 1 500px;
+      width: 40%;
+      min-width: 150px;
+      padding-left: 50px;
+    }
   }
 }
