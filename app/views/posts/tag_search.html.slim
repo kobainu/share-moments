@@ -1,5 +1,5 @@
 section.bl_postsIndex
-  .pageTitle
+  .bl_pageTitle
     h2 = "「#{@tag.tag_name}」のタグがついた投稿一覧 (#{@posts.count}件)"
   .bl_postsIndex_container
     - @posts.reverse_each do |post|

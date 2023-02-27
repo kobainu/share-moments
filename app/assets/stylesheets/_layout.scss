@@ -7,6 +7,7 @@
 
 .ly_cont {
   display: flex;
+  width: 100vw;
 }
 
 .ly_flex {
@@ -33,7 +34,6 @@
 }
 
 .ly_sidebar {
-  // flex: 1 1 30%;
   width: 20%;
   min-width: 200px;
   height: 100vh;
@@ -46,8 +46,8 @@
 }
 
 .ly_main {
-  // flex: 1 1 70%;
   width: 80%;
+  flex-grow: 1;
   padding: 0 5%;
 }
 

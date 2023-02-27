@@ -67,7 +67,7 @@
 }
 
 .bl_postsIndex {
-  & .pageTitle {
+  & .bl_pageTitle {
     padding: 30px;
     & h2 {
       font-size: 1.5rem;
@@ -133,6 +133,13 @@
     & .bl_postDetail_main {
       // flex: 1 1 100%;
       width: 60%;
+      & .bl_postDetail_tagInfo {
+        display: flex;
+        flex-wrap: wrap;
+        & .bl_postDetail_tag {
+          margin-right: 15px;
+        }
+      }
       & .bl_postDetail_userInfo {
         width: 100%;
         padding: 20px 0;
@@ -192,6 +199,29 @@
       width: 40%;
       min-width: 150px;
       padding-left: 50px;
+      & .bl_postDetail_exifList {
+        margin-top: -15px;
+        & .bl_postDetail_exifItem {
+          padding-top: 15px;
+          border-bottom: 1px solid #cdcdcd;
+          & .bl_postDetail_exifItemTitle {
+            background-color: #a58e62;
+            color: #fff;
+            & p {
+              margin-left: 10px;
+            }
+          }
+          & .bl_postDetail_exifItemContent {
+            padding-top: 5px;
+            & p {
+              margin-left: 10px;
+              & > a > span {
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

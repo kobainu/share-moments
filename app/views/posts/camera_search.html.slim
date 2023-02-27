@@ -1,8 +1,8 @@
 section.bl_postsIndex
-  .pageTitle
+  .bl_pageTitle
     h2 = "「#{@camera}」で撮影された投稿一覧 (検索結果: #{@filtered_camera_posts.count}件)"
-  .bl_postsIndex_container
-    - if @filtered_camera_posts.exists?
+  - if @filtered_camera_posts.exists?
+    .bl_postsIndex_container
       - @filtered_camera_posts.reverse_each do |post|
         article.bl_card
           .bl_postImg
@@ -15,5 +15,5 @@ section.bl_postsIndex
               span
                 i.bi.bi-chat-right-text
                 |  #{post.comments.count}
-    - else
-      p 検索結果はありませんでした
+  - else
+    p 検索結果はありませんでした

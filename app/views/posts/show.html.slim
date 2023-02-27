@@ -9,6 +9,14 @@
     .bl_postDetail_main
       .bl_postDetail_primaryImg
         = image_tag(@post.photo.url, class: 'el_postImg')
+      .bl_postDetail_tagInfo
+        - @post_tags.each do |tag|
+          .bl_postDetail_tag
+            = link_to tag_search_posts_path(tag_id: tag.id) do
+              span
+                i.bi.bi-tag
+              span
+                = tag.tag_name
       .bl_postDetail_userInfo
         .bl_userInfo
           - if @post.user.image?
@@ -35,7 +43,7 @@
         .bl_postDetail_commentForm
           = form_with(model:[@post, @comment], local: true) do |f|
             = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
-            = f.submit "送信する", class: "bl_btn"
+            = f.submit "送信する"
           .bl_commentCount
             p = "コメント件数: #{@comments.count}"
           .bl_postDetail_commentContents
@@ -48,58 +56,57 @@
                     - else
                       = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
                     p = comment.user.name
-                  .bl_btn.el_btn
-                    - if comment.user == current_user
+                  - if comment.user == current_user
+                    .bl_btn.el_btn
                       = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}
                 .bl_postDetail_commentContent 
                   = comment.comment
-    .post__aside.bl_postDetail_aside
-      .post__aside__tags
-        p タグ
-        - @post_tags.each do |tag|
-          = link_to tag.tag_name, tag_search_posts_path(tag_id: tag.id)
-          = "(#{tag.posts.count}) "
-      .post__aside__photograph-info
-        div
-          h1 撮影情報
-        div
-          div
-            p カメラ:
-          div
-            = @post.camera ? (link_to @post.camera, camera_search_posts_path(camera: @post.camera)) : '---'
-        div
-          div
+    .bl_postDetail_aside
+      .bl_postDetail_exifList
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
+            p カメラ: (クリックでカメラ検索へ)
+          .bl_postDetail_exifItemContent
+            - if @post.camera?
+              p = link_to camera_search_posts_path(camera: @post.camera) do
+                  = @post.camera
+                  span
+                    i.bi.bi-box-arrow-up-right
+            - else
+              p ---
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
             p レンズ:
-          div
-            = @post.lens ? @post.lens : '---'
-        div
-          div
+          .bl_postDetail_exifItemContent
+            p = @post.lens ? @post.lens : '---'
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
             p シャッタースピード:
-          div
-            = @post.exposure_time != "" ? "#{@post.exposure_time}秒" : '---'
-        div
-          div
+          .bl_postDetail_exifItemContent
+            p = @post.exposure_time != "" ? "#{@post.exposure_time}秒" : '---'
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
             p 絞り:
-          div
-            = @post.f_number != 0 ? "f/#{@post.f_number}" : '---'
-        div
-          div
+          .bl_postDetail_exifItemContent
+            p = @post.f_number != 0 ? "f/#{@post.f_number}" : '---'
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
             p ISO感度:
-          div
-            = @post.iso_speed_ratings != 0 ? "#{@post.iso_speed_ratings}" : '---'
-        div
-          div
+          .bl_postDetail_exifItemContent
+            p = @post.iso_speed_ratings != 0 ? "#{@post.iso_speed_ratings}" : '---'
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
             p 露出補正値:
-          div
-            = @post.exposure_bias_value != "" ? "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV" : '---'
-        div
-          div
+          .bl_postDetail_exifItemContent
+            p = @post.exposure_bias_value != "" ? "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV" : '---'
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
             p 焦点距離:
-          div
-            = @post.focal_length != 0 ? "#{@post.focal_length}mm" : '---'
-        div
-          div
+          .bl_postDetail_exifItemContent
+            p  = @post.focal_length != 0 ? "#{@post.focal_length}mm" : '---'
+        .bl_postDetail_exifItem
+          .bl_postDetail_exifItemTitle
             p 撮影日時:
-          div
-            = @post.shooting_date_time ? "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}" : '---'
+          .bl_postDetail_exifItemContent
+            p = @post.shooting_date_time ? "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}" : '---'
         = render partial: 'map'
