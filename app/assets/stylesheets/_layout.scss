@@ -10,16 +10,7 @@
   width: 100vw;
 }
 
-.ly_flex {
-  display: flex;
-  justify-content: space-between;
-  &__col {
-    flex-direction: column;
-  }
-}
-
 .ly_header {
-  height: 80px;
   padding: 20px 20px;
   position: sticky;
   top: 0;
@@ -55,13 +46,6 @@
   position: sticky;
   height: 200px;
   z-index: 3;
-}
-
-.ly_logoutContainer {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin-right: 20px;
 }
 
 .l-home {

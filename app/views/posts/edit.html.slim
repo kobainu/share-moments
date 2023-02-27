@@ -58,4 +58,4 @@
       div 選択された写真には位置情報がありません。
     br
     = f.submit '更新'
-  = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn", data: {confirm: "本当に削除しますか？"}
+  = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn__red", data: {confirm: "本当に削除しますか？"}

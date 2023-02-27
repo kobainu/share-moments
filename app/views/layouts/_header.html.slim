@@ -10,6 +10,9 @@ header.ly_header
         = form_with url: search_posts_path, method: :get, local: true do |f|
           = f.text_field :keyword, placeholder:"フリーワードで検索"
           = f.submit :検索
-      .ly_header_logoutContainer
-        .el_header_logoutBtn.el_btn
-          = link_to 'ログアウト', destroy_user_session_path, method: :delete
+        .el_header_postBtn
+      ul.bl_header_nav
+        li.bl_header_navItem
+          = link_to '投稿する', new_post_path, class: "el_btn__blue"
+        li.bl_header_navItem
+          = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "el_btn__red"

@@ -1,5 +1,12 @@
 // ブロックモジュールは、そのモジュール特有の幾つかの子要素を持ち、また後述するエレメントモジュールや他のブロックモジュールを含むこともできます。一つの塊として持ち運び可能な要素群を形成し、BEMで例えるならば「複数のElementを持つBlock」と言い換えることができます。 それら複数の子要素やエレメントモジュールを1つの塊としてまとめ、サイト内のどこでも使用できるようにすることがブロックモジュールの基本的な考え方です。webサイトの中核を担うもので、多くのモジュールはこのブロックモジュールに該当します。 以下はブロックモジュールの例です。ブロックモジュールにはレイアウトに関わらないスタイルのみの適用を基本とします。 レイアウトに関わるスタイル、即ち width（100%は例外） や position: absolute / fixed / sticky、 top / right / bottom / left 、 margin 、 float 等は、コンテキストまたはラッパーモジュールからスタイルを適用します。
 
+.bl_header_nav {
+  display: flex;
+  &Item {
+    padding-left: 10px;
+  }
+}
+
 .bl_userInfo {
   display: flex;
   align-items: center;
@@ -47,10 +54,13 @@
   }
 }
 
-.bl_globalNav {
+.bl_sideNav {
+  display: flex;
+  flex-direction: column;
   position: sticky;
   top: 60px;
   &_item {
+    display: flex;
     border-bottom: 1px solid #cdcdcd;
     padding: 20px;
     &:focus,
@@ -61,9 +71,34 @@
 }
 
 .bl_profile {
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px 0 10px;
+}
+
+.bl_searchBar {
+  display: none;
+  width: 280px;
+  height: 100vh;
+  position: absolute;
+  top: -95px;
+  left: 260px;
+  background-color: #f7f7f7;
+  overflow-y: scroll;
+  padding: 20px;
+  & li {
+    padding: 20px;
+    &:hover {
+      background-color: #d4d4d489;
+    }
+  }
+}
+
+.bl_sideNav_item {
+  &:hover .bl_searchBar {
+    display: block;
+  }
 }
 
 .bl_postsIndex {
@@ -195,7 +230,6 @@
       }
     }
     & .bl_postDetail_aside {
-      // flex: 1 1 500px;
       width: 40%;
       min-width: 150px;
       padding-left: 50px;

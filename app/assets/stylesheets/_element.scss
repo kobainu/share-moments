@@ -12,11 +12,35 @@
   text-align: center;
   text-decoration: none;
   transition: .25s;
+  border-radius: 30px;
   &:focus,
   &:hover {
     background-color: #f7f7f7;
     border-color: currentColor;
     color: #ab987c;
+  }
+  &__blue {
+    @extend .el_btn;
+    background-color: #4ab7ff;
+    &:focus,
+    &:hover {
+      background-color: #f7f7f7;
+      border-color: currentColor;
+      color: #4ab7ff;
+    }
+  }
+  &__red {
+    @extend .el_btn;
+    background-color: #f99797;
+    &:focus,
+    &:hover {
+      background-color: #f7f7f7;
+      border-color: currentColor;
+      color: #f99797;
+    }
+  }
+  &__s {
+    padding: 0 10px;
   }
 }
 
@@ -28,9 +52,9 @@
   font-size: 2.5rem;
 }
 
-.el_header_logoutBtn {
-  padding: 10px;
-}
+// .el_header_logoutBtn {
+//   padding: 10px;
+// }
 
 .el_postImg {
   width: 100%;

@@ -7,7 +7,9 @@
           = f.text_field :address, placeholder:"都道府県や市町村で検索"
         div
           = f.submit :検索
-    ul
+    ul.bl_sideNav
       - @prefectures.each do |prefecture|
-        li = link_to prefecture.name, address_search_posts_path(address: prefecture.name)
+        = link_to address_search_posts_path(address: prefecture.name) do 
+          li.bl_sideNav_item
+            = prefecture.name
 

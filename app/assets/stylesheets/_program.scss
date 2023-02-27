@@ -1,25 +1,2 @@
 // PRECSSではJavaScript等のプログラムで要素にタッチする際、または状態を管理する際、専用のクラスを付加しモジュールのクラスとは分離することを推奨します。 接頭辞：js_（JavaScriptの略） JavaScriptにて要素を取得するためのクラスです。 接頭辞：is_（英語のbe動詞のisから） 要素の状態を管理するためのクラスです。必ず適用されなければならないスタイルであるため、 !important の使用も推奨します。 状態の命名は is_active とシンプルに記述することが可能ですが、他の箇所にも影響を及ぼさないよう必ず複数クラスでスタイルを適用する必要があります。
 
-.bl_searchBar {
-  display: none;
-  width: 300px;
-  height: 100vh;
-  position: absolute;
-  top: -95px;
-  left: 260px;
-  background-color: #f7f7f7;
-  overflow-y: scroll;
-  padding: 20px;
-  & li {
-    padding: 20px;
-    &:hover {
-      background-color: #d4d4d489;
-    }
-  }
-}
-
-.bl_globalNav_item {
-  &:hover .bl_searchBar {
-    display: block;
-  }
-}
