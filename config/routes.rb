@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :comments, only:[:create, :destroy]
     collection do
       get 'search'
+      get 'favorite_index', as: 'favorite_index'
       get 'tag_search', as: 'tag_search'
       get 'address_search', as: 'address_search'
       get 'camera_search', as: 'camera_search'

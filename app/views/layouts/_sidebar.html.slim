@@ -18,12 +18,12 @@ aside.ly_sidebar
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-book
-            p 投稿一覧
-        = link_to posts_path do
+            p 全ての投稿
+        = link_to favorite_index_posts_path do
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-star
-            p お気に入り一覧
+            p お気に入りの投稿
         = link_to following_posts_path do
           li.bl_sideNav_item
             span.el_icon

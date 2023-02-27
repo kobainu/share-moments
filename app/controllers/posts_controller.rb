@@ -11,6 +11,10 @@ class PostsController < ApplicationController
     @posts = Post.where(user_id: [current_user.following_user.ids])
   end
 
+  def favorite_index
+    @favorite_posts = current_user.favorites
+  end
+
   def search
     if params[:keyword] != ""
       @keyword = params[:keyword]
