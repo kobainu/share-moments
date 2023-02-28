@@ -1,8 +1,8 @@
 .location-map-area
   - if @post.latitude.present?
     - if !@post.hide_location_info?
-      .bl_postDetail_exifItem
-        .bl_postDetail_exifItemTitle
+      .bl_list_item
+        .bl_list_item_title
           p 撮影地:
           #location-map
           / APIを読み込み
@@ -25,14 +25,14 @@
               });
             }
     - else
-      .bl_postDetail_exifItem
-        .bl_postDetail_exifItemTitle
+      .bl_list_item
+        .bl_list_item_title
           p 撮影地:
-        .bl_postDetail_exifItemContent
+        .bl_list_item_content
           p ---
   - else
-    .bl_postDetail_exifItem
-      .bl_postDetail_exifItemTitle
+    .bl_list_item
+      .bl_list_item_title
         p 撮影地:
-      .bl_postDetail_exifItemContent
+      .bl_list_item_content
         p ---

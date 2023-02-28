@@ -1,10 +1,10 @@
-.bl_postDetail
-  .bl_postDetail_head
-    .bl_postDetail_title
+section.bl_postDetail
+  .bl_pageHead
+    .bl_pageTitle
       h2 #{@post.title}
     - if @post.user_id == current_user.id
       .bl_btn
-        = link_to '編集', edit_post_path(@post.id), class: 'el_btn__blue el_btn__s'
+        = link_to '編集', edit_post_path(@post.id), class: 'el_btn__blue el_btn__sm'
   .bl_postDetail_cont
     .bl_postDetail_main
       .bl_postDetail_primaryImg
@@ -17,56 +17,68 @@
                 i.bi.bi-tag
               span
                 = tag.tag_name
-      .bl_postDetail_userInfo
-        .bl_userInfo
+      .bl_userInfoContainer
+        .bl_userInfo_font__lg
           - if @post.user.image?
-            = link_to image_tag(@post_user.image.url, class: 'el_profileImg'), user_path(@post_user.id)
+            = link_to image_tag(@post.user.image.url, class: 'el_profileImg__sm'), user_path(@post.user.id)
           - else
-            = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
-          p = @post_user.name
-        .bl_followBtn
+            = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm'), user_path(@post.user.id)
+          p = @post.user.name
+        div
           - if current_user != @post.user
-            - if current_user.following?(@post.user)
-              = link_to 'フォローを外す', user_relationships_path(@post.user.id), method: :delete, class: "btn-sm btn-danger"
-            - else
-              = link_to 'フォローする', user_relationships_path(@post.user.id), method: :POST, class:"btn-sm btn-success"
+            .bl_followBtn
+              - if current_user.following?(@post.user)
+                = link_to 'フォローを外す', user_relationships_path(@post.user.id), method: :delete, class: "el_btn__red el_btn__sm"
+              - else
+                = link_to 'フォローする', user_relationships_path(@post.user.id), method: :POST, class:"el_btn__blue el_btn__sm"
+          .bl_followInfo
+            = link_to follows_user_path(@post.user) do
+              .div
+                p = "フォロー:"
+                p = "#{@post.user.following_user.count}人"
+            = link_to followers_user_path(@post.user) do
+              .div
+                p = "フォロワー:"
+                p = "#{@post.user.follower_user.count}人"
       - if @post.description?
         .bl_postDetail_description
           = @post.description
-      .bl_postDetail_secondaryImgContainer
-        p = "#{@post_user.name}さんの他の投稿"
-        .bl_postDetail_secondaryImg
+      .bl_list_item.bl_postDetail_secondaryImgContainer
+        .bl_list_item_title
+          p = "#{@post_user.name}さんの他の投稿"
+        .bl_list_item_content.bl_postIndex__s
           - @posts.each do |post|
             = link_to image_tag(post.photo.url, class: 'el_postImg'), post_path(post.id)
-      .bl_postDetail_commentContainer
-        p コメント
-        .bl_postDetail_commentForm
+      .bl_list_item.bl_postDetail_commentContainer
+        .bl_list_item_title
+          p コメント
+        .bl_list_item_content.bl_postDetail_commentForm
           = form_with(model:[@post, @comment], local: true) do |f|
             = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
-            = f.submit "送信する"
+            = f.submit "送信する", class: 'el_btn__blue el_btn__sm'
           .bl_commentCount
             p = "コメント件数: #{@comments.count}"
           .bl_postDetail_commentContents
             - @comments.each do |comment|
               .bl_comment
                 .bl_postDetail_commentUser
-                  .bl_userInfo_font__s
+                  .bl_userInfo_font__sm
                     - if comment.user.image?
-                      = link_to image_tag(comment.user.image.url, class: 'el_profileImg'), user_path(comment.user.id)
+                      = link_to image_tag(comment.user.image.url, class: 'el_profileImg__sm'), user_path(comment.user.id)
                     - else
-                      = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg'), user_path(current_user.id)
+                      = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm'), user_path(current_user.id)
                     p = comment.user.name
                   - if comment.user == current_user
                     .bl_btn
-                      = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}, class: 'el_btn__red el_btn__s'
+                      = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}, class: 'el_btn__red el_btn__sm'
                 .bl_postDetail_commentContent 
                   = comment.comment
     .bl_postDetail_aside
       .bl_postDetail_exifList
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p カメラ: (クリックでカメラ検索へ)
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             - if @post.camera?
               p = link_to camera_search_posts_path(camera: @post.camera) do
                   = @post.camera
@@ -74,39 +86,39 @@
                     i.bi.bi-box-arrow-up-right
             - else
               p ---
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p レンズ:
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             p = @post.lens ? @post.lens : '---'
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p シャッタースピード:
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             p = @post.exposure_time != "" ? "#{@post.exposure_time}秒" : '---'
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p 絞り:
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             p = @post.f_number != 0 ? "f/#{@post.f_number}" : '---'
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p ISO感度:
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             p = @post.iso_speed_ratings != 0 ? "#{@post.iso_speed_ratings}" : '---'
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p 露出補正値:
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             p = @post.exposure_bias_value != "" ? "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV" : '---'
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p 焦点距離:
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             p  = @post.focal_length != 0 ? "#{@post.focal_length}mm" : '---'
-        .bl_postDetail_exifItem
-          .bl_postDetail_exifItemTitle
+        .bl_list_item
+          .bl_list_item_title
             p 撮影日時:
-          .bl_postDetail_exifItemContent
+          .bl_list_item_content
             p = @post.shooting_date_time ? "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}" : '---'
         = render partial: 'map'

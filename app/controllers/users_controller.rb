@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     if @user.update(user_params)
       flash[:notice] = "プロフィールを更新しました"
-      redirect_to profile_users_path
+      redirect_to user_path(@user.id)
     else
       flash.now[:notice] = "更新に失敗しました"
       render profile_users_path
@@ -24,13 +24,13 @@ class UsersController < ApplicationController
   end
 
   def follows
-    user = User.find(params[:id])
-    @users = user.following_user
+    @user = User.find(params[:id])
+    @users = @user.following_user
   end
 
   def followers
-    user = User.find(params[:id])
-    @users = user.follower_user
+    @user = User.find(params[:id])
+    @users = @user.follower_user
   end
 
   private

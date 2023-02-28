@@ -1,21 +1,27 @@
-.bl_form
-  h1 プロフィール編集
-  = form_with model: @user do |f|
-    - if @user.image?
-      = image_tag(@user.image.url, class: 'el_profileImg')
-    - else
-      = image_tag('user/default_user_icon.png', class: 'el_profileImg')
-    .bl_formLabel
-      = f.label :プロフィール画像
-    .bl_formInput
-      = f.file_field :image
-    .bl_formLabel
-      = f.label :ニックネーム
-    .bl_formInput
-      = f.text_field :name, value: @user.name, placeholder:"名前を入力"
-    .bl_formLabel
-      = f.label :自己紹介
-    .bl_formInput
-      = f.text_area :introduction, value: @user.introduction, placeholder:"自己紹介を入力"
-      br
-      = f.submit '更新'
+section.bl_editPage
+  .bl_pageHead
+    .bl_pageTitle
+      h2 プロフィール編集
+  .bl_form
+    = form_with model: @user do |f|
+      .bl_list_item_title
+        p = f.label :プロフィール画像
+      .bl_list_item_content
+        .bl_userInfo
+          .bl_img
+            - if @user.image?
+              = image_tag(@user.image.url, class: 'el_profileImg__lg')
+            - else
+              = image_tag('user/default_user_icon.png', class: 'el_profileImg__lg')
+          .bl_formInput__img
+            = f.file_field :image
+      .bl_list_item_title
+        p = f.label :ニックネーム
+      .bl_list_item_content
+        = f.text_field :name, value: @user.name, placeholder:"名前を入力"
+      .bl_list_item_title
+        p = f.label :自己紹介
+      .bl_list_item_content
+        = f.text_area :introduction, value: @user.introduction, placeholder:"自己紹介を入力"
+      .bl_btn
+        = f.submit '更新', class: 'el_btn__blue el_btn__sm'
