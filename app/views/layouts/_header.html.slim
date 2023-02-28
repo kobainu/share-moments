@@ -11,8 +11,6 @@ header.ly_header
           = f.text_field :keyword, placeholder:"フリーワードで検索"
           = f.submit :検索
         .el_header_postBtn
-      ul.bl_header_nav
-        li.bl_header_navItem
-          = link_to '投稿する', new_post_path, class: "el_btn__blue"
-        li.bl_header_navItem
-          = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "el_btn__red"
+      .bl_btn
+          = link_to '投稿する', new_post_path, class: "el_btn el_btn__blue"
+          = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "el_btn el_btn__red"

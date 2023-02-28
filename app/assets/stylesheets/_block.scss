@@ -101,12 +101,17 @@
   //   }
   // }
   & .checkBox {
-    width: 20px;
+    width: 25px;
+    height: 25px;
   }
 }
 
 .bl_btn {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  & .el_btn + .el_btn {
+    margin-left: 20px;
+  }
 }
 
 .bl_sideNav {
