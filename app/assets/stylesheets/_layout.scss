@@ -1,5 +1,3 @@
-// ヘッダー、ボディエリア、メインエリア、サイドエリア、フッター等の大きなレイアウトを形成する要素に使用します。 原則としてこのグループには、レイアウトに関わるスタイリング（gridやflex、width、margin、padding、floatなど）しか行いません。あくまでコンテンツが入る「枠」を定義するだけで、コンテンツは後述するモジュールグループで作成します。 ただし「ヘッダーの背景色は黒」など「枠」と「あしらい」の粒度が一致している場合は、必要に応じてレイアウト以外のスタイリングを行うことも許容します。
-
 .ly_wrapper {
   width: 100%;
   height: 100%;
@@ -7,7 +5,6 @@
 
 .ly_cont {
   display: flex;
-  width: 100vw;
 }
 
 .ly_header {
@@ -22,22 +19,59 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+  & .bl_searchForm {
+    @media screen and (max-width: 899px) {
+      display: none;
+    }
+  }
 }
 
 .ly_sidebar {
-  width: 15%;
-  min-width: 200px;
+  width: 17%;
+  min-width: 220px;
   height: 100vh;
   position: sticky;
   top: 100px;
   z-index: 3;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 899px) {
     display: none;
   }
 }
 
+.ly_sidebar_sm {
+  display: none;
+  width: 70px;
+  height: 100vh;
+  position: sticky;
+  top: 100px;
+  z-index: 3;
+  @media screen and (max-width: 899px) {
+    display: block;
+    & .bl_sideNav_item {
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: none;
+      .el_icon {
+        margin: 0;
+        font-size: 30px;
+      }
+      &:focus,
+      &:hover {
+        background-color: #d4d4d489;
+      }
+    }
+    & .bl_searchBar {
+      & .bl_sideNav_item {
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
 .ly_main {
-  width: 85%;
+  width: 83%;
   flex-grow: 1;
   padding: 0 5%;
 }
@@ -50,49 +84,11 @@
 
 .l-home {
   display: flex;
-
   &__about {
     width: 100%;
   }
-
   &__form {
     width: 100%;
     margin-right: 240px;
   }
-}
-
-.post-main-area {
-  display: flex;
-  padding: 20px;
-}
-
-.post-detail-info {
-  width: 100%;
-}
-
-.post-image-area {
-  padding: 10px;
-}
-
-.post-main-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.post-detail-info {
-  padding: 10px;
-}
-
-.contributor-other-posts {
-  padding: 10px;
-}
-
-.comments-container {
-  padding: 10px;
-}
-
-#location-map {
-  width: 100%;
-  height: 500px;
 }

@@ -27,7 +27,7 @@ section.bl_formPage
         p = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
       | ※撮影地検索の対象にも含まれなくなります。
       .bl_list_item_content
-        = f.check_box :hide_location_info, class: 'checkBox'
+        = f.check_box :hide_location_info, class: 'el_checkBox'
         span 非表示にする
       .bl_btn
         = f.submit '投稿する', class: "el_btn__blue"

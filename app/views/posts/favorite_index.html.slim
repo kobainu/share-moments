@@ -1,13 +1,13 @@
-section.bl_postsIndex
+section
   .bl_pageHead
     .bl_pageTitle
       h2 = "お気に入りの投稿: #{@favorite_posts.count}件"
   - if @favorite_posts.exists?
-    .bl_postsIndex_container
+    .bl_flexWrap
       - @favorite_posts.reverse_each do |favorite|
         article.bl_card
-          .bl_postImg
-            = link_to image_tag(favorite.post.photo.url, class: 'el_postImg'), post_path(favorite.post.id)
+          .bl_postImg__lg
+            = link_to image_tag(favorite.post.photo.url, class: 'el_photo'), post_path(favorite.post.id)
           .bl_postInfo
             span = "投稿者: #{favorite.post.user.name}"
             div
@@ -18,6 +18,3 @@ section.bl_postsIndex
                 |  #{favorite.post.comments.count}
   - else
     p お気に入りの投稿はありません。
-  / - if @user_favorites.exists?
-  /   - @user_favorites.reverse_each do |favorite|
-  /     = link_to image_tag(favorite.post.photo.url, class: 'el_postImg'), post_path(favorite.post.id)

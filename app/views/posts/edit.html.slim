@@ -7,7 +7,8 @@ section.bl_formPage
       .bl_list_item_title
         p 投稿写真
       .bl_list_item_content
-        = image_tag(@post.photo.url, class: 'el_postImg')
+        .bl_postImg__md
+          = image_tag(@post.photo.url, class: 'el_photo')
       .bl_list_item_title
         p = f.label :title, 'タイトル'
       .bl_list_item_content
@@ -60,7 +61,7 @@ section.bl_formPage
           p = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
         | ※撮影地検索の対象にも含まれなくなります。
         .bl_list_item_content
-          = f.check_box :hide_location_info, class: 'checkBox'
+          = f.check_box :hide_location_info, class: 'el_checkBox'
           span 非表示にする
       - else
         p ※選択された写真には位置情報がありません。

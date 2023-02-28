@@ -6,7 +6,7 @@ header.ly_header
       - else
         = link_to 'Share-moments', root_path
     - if user_signed_in?
-      = form_with url: search_posts_path, method: :get, class: 'bl_searchForm', local: true do |f|
+      = form_with url: search_posts_path, method: :get, class: 'bl_searchForm hp_flex', local: true do |f|
         = f.text_field :keyword, placeholder:"フリーワードで検索"
         = button_tag type: 'submit', class: 'el_btn__square el_btn__sm' do
           i.bi.bi-search

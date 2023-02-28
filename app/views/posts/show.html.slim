@@ -7,9 +7,9 @@ section.bl_postDetail
         = link_to '投稿を編集', edit_post_path(@post.id), class: 'el_btn el_btn__sm'
   .bl_postDetail_cont
     .bl_postDetail_main
-      .bl_postDetail_primaryImg
-        = image_tag(@post.photo.url, class: 'el_postImg')
-      .bl_postDetail_tagInfo
+      .bl_postImg__xl
+        = image_tag(@post.photo.url, class: 'el_photo')
+      .bl_flexWrap
         - @post_tags.each do |tag|
           .bl_postDetail_tag
             = link_to tag_search_posts_path(tag_id: tag.id) do
@@ -46,9 +46,10 @@ section.bl_postDetail
       .bl_list_item.bl_postDetail_secondaryImgContainer
         .bl_list_item_title
           p = "#{@post_user.name}さんの他の投稿"
-        .bl_list_item_content.bl_postIndex__s
-          - @posts.each do |post|
-            = link_to image_tag(post.photo.url, class: 'el_postImg'), post_path(post.id)
+        .bl_list_item_content.bl_flexWrap
+          - @posts.reverse_each do |post|
+            .bl_postImg__sm
+              = link_to image_tag(post.photo.url, class: 'el_photo'), post_path(post.id)
       .bl_list_item.bl_postDetail_commentContainer
         .bl_list_item_title
           p コメント
@@ -59,7 +60,7 @@ section.bl_postDetail
           .bl_commentCount
             p = "コメント件数: #{@comments.count}"
           .bl_postDetail_commentContents
-            - @comments.each do |comment|
+            - @comments.reverse_each do |comment|
               .bl_comment
                 .bl_postDetail_commentUser
                   .bl_userInfo_font__sm

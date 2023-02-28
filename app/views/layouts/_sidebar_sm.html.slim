@@ -1,4 +1,4 @@
-aside.ly_sidebar
+aside.ly_sidebar_sm
   - if user_signed_in?
     .bl_profile
       .bl_userInfo
@@ -6,63 +6,63 @@ aside.ly_sidebar
           = link_to image_tag(current_user.image.url, class: 'el_profileImg__sm'), user_path(current_user.id)
         - else
           = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm'), user_path(current_user.id)
-        p = current_user.name
+        / p = current_user.name
     nav
       ul.bl_sideNav.ly_flex__col
         = link_to new_post_path do
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-pencil-square
-            p 投稿する
+            / p 投稿する
         = link_to posts_path do
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-book
-            p 全ての投稿
+            / p 全ての投稿
         = link_to favorite_index_posts_path do
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-star
-            p お気に入りの投稿
+            / p お気に入りの投稿
         = link_to following_posts_path do
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-people
-            p
+            / p
               |
                 フォロー中の<br>
                 ユーザーの投稿
         li.bl_sideNav_item
           span.el_icon
             i.bi.bi-geo-alt
-          p 撮影地で探す
+          / p 撮影地で探す
           = render partial: 'layouts/address_searchBar'
         li.bl_sideNav_item
           span.el_icon
             i.bi.bi-tags
-          p タグで探す
+          / p タグで探す
           = render partial: 'layouts/tag_searchBar'
         li.bl_sideNav_item
           span.el_icon
             i.bi.bi-camera
-          p カメラ名で探す
+          / p カメラ名で探す
           = render partial: 'layouts/camera_searchBar'
         - if !(current_user.email == 'guest@example.com')
           = link_to profile_users_path do
             li.bl_sideNav_item
               span.el_icon
                 i.bi.bi-person-circle
-              p プロフィール編集
+              / p プロフィール編集
           = link_to edit_user_registration_path do
             li.bl_sideNav_item
               span.el_icon
                 i.bi.bi-envelope
-              p アカウント編集
+              / p アカウント編集
         = link_to destroy_user_session_path, method: :delete do
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-door-closed
-            p ログアウト
+            / p ログアウト
   - else
     nav
       ul.ly_sidebar__nav
@@ -72,4 +72,3 @@ aside.ly_sidebar
           li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post
         .bl_sideNav_item
           li = link_to 'アカウント登録', new_user_registration_path
-= render partial: 'layouts/sidebar_sm'
