@@ -1,6 +1,7 @@
 section.bl_postsIndex
-  .bl_pageTitle
-    h2 = "「#{@address}」で撮影された投稿: #{@filtered_address_posts.count}件"
+  .bl_pageHead
+    .bl_pageTitle
+      h2 = "「#{@address}」で撮影された投稿: #{@filtered_address_posts.count}件"
   - if @filtered_address_posts.exists?
     .bl_postsIndex_container
       - @filtered_address_posts.reverse_each do |post|

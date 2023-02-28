@@ -28,7 +28,10 @@ aside.ly_sidebar
           li.bl_sideNav_item
             span.el_icon
               i.bi.bi-people
-            p フォローしている人の投稿
+            p
+              |
+                フォロー中の<br>
+                ユーザーの投稿
         li.bl_sideNav_item
           span.el_icon
             i.bi.bi-geo-alt
@@ -36,14 +39,14 @@ aside.ly_sidebar
           = render partial: 'layouts/address_searchBar'
         li.bl_sideNav_item
           span.el_icon
-            i.bi.bi-camera
-          p カメラ名で探す
-          = render partial: 'layouts/camera_searchBar'
-        li.bl_sideNav_item
-          span.el_icon
             i.bi.bi-tags
           p タグで探す
           = render partial: 'layouts/tag_searchBar'
+        li.bl_sideNav_item
+          span.el_icon
+            i.bi.bi-camera
+          p カメラ名で探す
+          = render partial: 'layouts/camera_searchBar'
         - if !(current_user.email == 'guest@example.com')
           = link_to profile_users_path do
             li.bl_sideNav_item

@@ -1,5 +1,9 @@
 // ブロックモジュールは、そのモジュール特有の幾つかの子要素を持ち、また後述するエレメントモジュールや他のブロックモジュールを含むこともできます。一つの塊として持ち運び可能な要素群を形成し、BEMで例えるならば「複数のElementを持つBlock」と言い換えることができます。 それら複数の子要素やエレメントモジュールを1つの塊としてまとめ、サイト内のどこでも使用できるようにすることがブロックモジュールの基本的な考え方です。webサイトの中核を担うもので、多くのモジュールはこのブロックモジュールに該当します。 以下はブロックモジュールの例です。ブロックモジュールにはレイアウトに関わらないスタイルのみの適用を基本とします。 レイアウトに関わるスタイル、即ち width（100%は例外） や position: absolute / fixed / sticky、 top / right / bottom / left 、 margin 、 float 等は、コンテキストまたはラッパーモジュールからスタイルを適用します。
 
+.bl_searchForm {
+  display: flex;
+}
+
 .bl_header_nav {
   display: flex;
   &Item {
@@ -121,6 +125,7 @@
   top: 60px;
   &_item {
     display: flex;
+    align-items: center;
     border-bottom: 1px solid #cdcdcd;
     padding: 20px;
     font-size: 1.1rem;
@@ -143,16 +148,23 @@
   width: 280px;
   height: 100vh;
   position: absolute;
-  top: -80px;
+  top: 0;
   left: 100%;
-  background-color: #f7f7f7;
   overflow-y: scroll;
   padding: 20px;
+  & h3 {
+    margin: 10px 0;
+    margin-left: 20px;
+  }
   & .bl_sideNav_item {
     padding: 20px 30px;
     &:hover {
       background-color: #d4d4d489;
     }
+  }
+  & span:nth-child(1) {
+    margin-right: 5px;
+    font-size: 20px;
   }
 }
 
@@ -204,13 +216,6 @@
 .bl_post_tag {
   display: flex;
   padding-top: 5px;
-}
-
-.bl_searchForm {
-  padding: 10px;
-  & input {
-    width: 100%;
-  }
 }
 
 .bl_postDetail {
@@ -323,15 +328,12 @@
   }
 }
 
-.bl_editPage {
+.bl_formPage {
   display: flex;
   flex-direction: column;
   align-items: center;
   & .bl_page {
     text-align: center;
-  }
-  & .bl_userInfo {
-    padding-left: 5%;
   }
   & .bl_formInput__img {
     margin-left: 40px;

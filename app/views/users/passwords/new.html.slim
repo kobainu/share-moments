@@ -1,11 +1,14 @@
-h2
-  | パスワードをお忘れですか?
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = render "users/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .actions
-    = f.submit "Send me reset password instructions"
-= render "users/shared/links"
+section.bl_formPage
+  .bl_pageHead
+    .bl_pageTitle
+      h2 パスワード再設定のメールを送信
+  .bl_form
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = render "users/shared/error_messages", resource: resource
+      .bl_list_item_title
+        p = f.label :email
+      .bl_list_item_content
+        = f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"example@gmail.com"
+      .actions.bl_btn
+        = f.submit "送信する", class: 'el_btn__blue'
+    = render "users/shared/links"

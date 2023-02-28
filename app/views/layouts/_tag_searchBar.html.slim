@@ -1,9 +1,16 @@
 .bl_searchBar
-  h3 タグで探す
+  .bl_list_item_title
+    h3
+      span
+        i.bi.bi-tags
+      span タグで探す
   nav
     ul.bl_sideNav
       - @tags.each do |tag|
         - if tag.posts.count != 0
           = link_to tag_search_posts_path(tag_id: tag.id) do
             li.bl_sideNav_item
-              = "#{tag.tag_name}(#{tag.posts.count}) "
+              span
+                i.bi.bi-tag
+              span
+                = "#{tag.tag_name}(#{tag.posts.count}) "

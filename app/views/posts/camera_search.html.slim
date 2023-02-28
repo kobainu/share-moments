@@ -1,6 +1,7 @@
 section.bl_postsIndex
-  .bl_pageTitle
-    h2 = "「#{@camera}」で撮影された投稿一覧 (検索結果: #{@filtered_camera_posts.count}件)"
+  .bl_pageHead
+    .bl_pageTitle
+      h2 = "「#{@camera}」で撮影された投稿 (検索結果: #{@filtered_camera_posts.count}件)"
   - if @filtered_camera_posts.exists?
     .bl_postsIndex_container
       - @filtered_camera_posts.reverse_each do |post|

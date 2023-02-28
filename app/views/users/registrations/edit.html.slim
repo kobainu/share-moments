@@ -1,36 +1,30 @@
-.bl_form
-  h2 アカウント編集
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-    = render "users/shared/error_messages", resource: resource
-    .bl_formLabel
-      = f.label :email
-    .bl_formInput
-      = f.email_field :email, autofocus: true, autocomplete: "email"
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      div
-        | Currently waiting confirmation for:
-        = resource.unconfirmed_email
-    .bl_formLabel
-      = f.label :new_password
-      i
-        | (変更する場合は#{@minimum_password_length}文字以上で入力)
-    .bl_formInput
-      = f.password_field :password, autocomplete: "new-password"
-    .bl_formLabel
-      = f.label :password_confirmation
-      i
-        | (新しいパスワードを入力)
-    .bl_formInput
-      = f.password_field :password_confirmation, autocomplete: "new-password"
-    .bl_formLabel
-      = f.label :current_password
-    .bl_formInput
-      = f.password_field :current_password, autocomplete: "current-password"
-    .actions
-      = f.submit "更新"
-  h3
-    | Cancel my account
-  p
-    | Unhappy?
-    = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
-  = link_to "戻る", :back
+section.bl_formPage
+  .bl_pageHead
+    .bl_pageTitle
+      h2 アカウント編集
+  .bl_form
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = render "users/shared/error_messages", resource: resource
+      .bl_list_item_title
+        p = f.label :email
+      .bl_list_item_content
+        = f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"example@gmail.com"
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        div
+          | Currently waiting confirmation for:
+          = resource.unconfirmed_email
+      .bl_list_item_title
+        p = f.label :new_password
+      .bl_list_item_content
+        = f.password_field :password, autocomplete: "new-password", placeholder:"変更する場合は#{@minimum_password_length}文字以上で入力"
+      .bl_list_item_title
+        p = f.label :password_confirmation
+      .bl_list_item_content
+        = f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"新しいパスワードをもう一度入力"
+      .bl_list_item_title
+        p = f.label :current_password
+      .bl_list_item_content
+        = f.password_field :current_password, autocomplete: "current-password", placeholder:"変更前のパスワードを入力"
+      .actions.bl_btn
+        = f.submit "アカウント情報を更新", class: "el_btn el_btn__blue"
+        = button_to "アカウント情報を削除", registration_path(resource_name), data: { confirm: "削除するとも復元できません。本当に削除しますか？" }, method: :delete, style: "margin-left: 20px;", class: "el_btn el_btn__red"

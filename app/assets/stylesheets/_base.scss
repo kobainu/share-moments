@@ -2,6 +2,7 @@
 
 * {
   font-family: "M PLUS Rounded 1c";
+  font-family: "Hannotate SC";
   // background-color: #f7f7f7;
   font-size: 1.2rem;
   line-height: 1.5;
@@ -27,6 +28,9 @@ input,
 textarea {
   width: 100%;
   border-radius: 5px;
+  border: none;
+  border: none;
+  outline: none;
 }
 
 // input {
@@ -50,6 +54,8 @@ textarea {
 .ly_header,
 .ly_sidebar,
 .ly_main,
-.ly_footer {
+.ly_footer,
+.bl_searchBar {
   background-color: #f7f7f7;
+  background-color: #fcf0e4;
 }

@@ -4,7 +4,7 @@ section.bl_userDetail
       h2 ユーザー詳細
     - if @user.id == current_user.id
       .bl_btn
-        = link_to '編集', profile_users_path, class: 'el_btn__blue el_btn__sm'
+        = link_to 'プロフィールを編集', profile_users_path, class: 'el_btn el_btn__sm'
   .bl_userInfoContainer
     .bl_userInfo_font__lg
       - if @user.image?

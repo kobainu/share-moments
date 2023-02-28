@@ -1,7 +1,8 @@
 section.bl_postsIndex
-  - if @posts.exists?
+  .bl_pageHead
     .bl_pageTitle
-      h2 フォローしてるユーザーの投稿一覧
+      h2 = "フォロー中のユーザーの投稿: #{@posts.count}件"
+  - if @posts.exists?
     .bl_postsIndex_container
       - @posts.reverse_each do |post|
         article.bl_card
@@ -16,5 +17,4 @@ section.bl_postsIndex
                 i.bi.bi-chat-right-text
                 |  #{post.comments.count}
   - else
-    .bl_pageTitle
-      h2 まだ誰もフォローしていません。
+    h2 まだ誰もフォローしていません。

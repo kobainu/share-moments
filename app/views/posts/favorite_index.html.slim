@@ -1,6 +1,7 @@
 section.bl_postsIndex
-  .bl_pageTitle
-    h2 = "お気に入りの投稿: #{@favorite_posts.count}件"
+  .bl_pageHead
+    .bl_pageTitle
+      h2 = "お気に入りの投稿: #{@favorite_posts.count}件"
   - if @favorite_posts.exists?
     .bl_postsIndex_container
       - @favorite_posts.reverse_each do |favorite|

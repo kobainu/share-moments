@@ -25,11 +25,11 @@
 }
 
 .ly_sidebar {
-  width: 20%;
+  width: 15%;
   min-width: 200px;
   height: 100vh;
   position: sticky;
-  top: 80px;
+  top: 100px;
   z-index: 3;
   @media screen and (max-width: 768px) {
     display: none;
@@ -37,7 +37,7 @@
 }
 
 .ly_main {
-  width: 80%;
+  width: 85%;
   flex-grow: 1;
   padding: 0 5%;
 }
@@ -60,7 +60,6 @@
     margin-right: 240px;
   }
 }
-
 
 .post-main-area {
   display: flex;

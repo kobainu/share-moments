@@ -4,7 +4,7 @@ section.bl_postDetail
       h2 #{@post.title}
     - if @post.user_id == current_user.id
       .bl_btn
-        = link_to '投稿を編集', edit_post_path(@post.id), class: 'el_btn__blue el_btn__sm'
+        = link_to '投稿を編集', edit_post_path(@post.id), class: 'el_btn el_btn__sm'
   .bl_postDetail_cont
     .bl_postDetail_main
       .bl_postDetail_primaryImg
