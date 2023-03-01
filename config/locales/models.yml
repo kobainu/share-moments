@@ -8,3 +8,5 @@ ja:
         photo: 投稿する写真
         title: タイトル
         description: 投稿紹介
+      comment:
+        comment: コメント

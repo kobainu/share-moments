@@ -32,7 +32,9 @@ RSpec.describe User, type: :model do
   end
 
   it '重複したメールアドレスが存在する場合登録できないこと' do
+    user_a.email = 'test@example.com'
     user_a.save
+    user_b.email = 'test@example.com'
     user_b.valid?
     expect(user_b.errors[:email]).to include("は既に使用されています。")
   end
