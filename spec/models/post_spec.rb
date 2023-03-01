@@ -8,7 +8,7 @@ RSpec.describe Post, type: :model do
   it "タイトルと写真が入力されていれば投稿できること" do
     expect(post).to be_valid
   end
-  
+
   it "タイトルが未入力の場合投稿できないこと" do
     post.title = ''
     post.valid?
@@ -25,7 +25,7 @@ RSpec.describe Post, type: :model do
     post.valid?
     expect(post.errors.full_messages).to include("タイトルは20文字以内で入力してください")
   end
-  
+
   it "写真が選択されていなければ投稿できないこと" do
     post.photo = nil
     post.valid?
