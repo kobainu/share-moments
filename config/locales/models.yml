@@ -10,3 +10,5 @@ ja:
         description: 投稿紹介
       comment:
         comment: コメント
+      tag:
+        tag_name: タグ名
