@@ -55,8 +55,7 @@ section.bl_postDetail
           p コメント
         .bl_list_item_content.bl_postDetail_commentForm
           = form_with(model:[@post, @comment], local: true) do |f|
-            / = render 'shared/error_messages', model: @comment
-            = f.text_area :comment, :size=>"60x3",placeholder: "コメントする"
+            = f.text_area :comment, :size=>"60x3", placeholder: "コメントする(最大150文字まで)", required: true, maxlength: 150
             = f.submit "送信する", class: 'el_btn__blue el_btn__sm'
           .bl_commentCount
             p = "コメント件数: #{@comments.count}"
