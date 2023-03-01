@@ -1,7 +1,7 @@
 section
   .bl_pageHead
     .bl_pageTitle
-      h2 = "フォロー中のユーザーの投稿: #{@posts.count}件"
+      h2 = "フォロー中のユーザーの投稿 : #{@posts.count}件"
   - if @posts.exists?
     .bl_flexWrap
       - @posts.reverse_each do |post|

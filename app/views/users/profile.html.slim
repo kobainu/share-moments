@@ -4,9 +4,10 @@ section.bl_formPage
       h2 プロフィール編集
   .bl_form
     = form_with model: @user do |f|
+      = render 'shared/error_messages', model: f.object
       .bl_list_item_title
         p = f.label :プロフィール画像
-      .bl_list_item_content
+      .bl_list_item_content.test
         .bl_userInfo
           .bl_img
             - if @user.image?

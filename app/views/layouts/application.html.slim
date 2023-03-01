@@ -15,7 +15,9 @@ html
       .ly_cont
         - if user_signed_in?
           = render partial: 'layouts/sidebar'
-        main.ly_main
-          = yield
+        main.ly_main  
+          = render partial: 'layouts/flash'
+          .ly_main_inner
+            = yield
       = render partial: 'layouts/footer'
     = javascript_pack_tag 'application'

@@ -60,3 +60,26 @@ textarea {
   background-color: #f7f7f7;
   background-color: #fcf0e4;
 }
+
+.notifications {
+  color: #fff;
+  text-align: center;
+  & .notice {
+    background-color: #20b12fa8;
+    margin: 0;
+    padding: 10px;
+  }
+  & .alert {
+    background-color: #f99797;
+    margin: 0;
+    padding: 10px;
+  }
+}
+
+.alert,
+#error_explanation,
+#error_explanation + ul {
+  background-color: #f99797;
+  color: #fff;
+  text-align: center;
+}
