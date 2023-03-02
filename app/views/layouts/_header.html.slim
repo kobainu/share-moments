@@ -2,9 +2,9 @@ header.ly_header
   .ly_header_inner
     .el_header_logo
       - if user_signed_in?
-        = link_to 'Share-moments', posts_path
+        = link_to 'Share-Moments', posts_path
       - else
-        = link_to 'Share-moments', root_path
+        = link_to 'Share-Moments', root_path
     - if user_signed_in?
       = form_with url: search_posts_path, method: :get, class: 'bl_searchForm hp_flex', local: true do |f|
         = f.text_field :keyword, placeholder:"フリーワードで検索"
