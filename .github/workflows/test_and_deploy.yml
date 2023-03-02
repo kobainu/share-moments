@@ -44,9 +44,7 @@ jobs:
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
       - name: Install webpacker
-        run: |
-          rails webpacker:install
-          bundle exec rails webpacker:compile
+        run: bundle exec rails webpacker:compile
       - name: Run rspec
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
