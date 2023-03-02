@@ -17,10 +17,6 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
-      - name: Install webpacker
-        run: |
-          rails webpacker:install
-          bundle exec rails webpacker:compile
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set up Ruby
@@ -47,6 +43,10 @@ jobs:
           cp config/database.yml.ci config/database.yml
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
+      - name: Install webpacker
+        run: |
+          rails webpacker:install
+          bundle exec rails webpacker:compile
       - name: Run rspec
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
