@@ -4,7 +4,7 @@ RSpec.describe User, type: :system do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
 
-  describe 'User CRUD' do 
+  describe 'User CRUD' do
     describe 'ログイン前' do
       describe 'アカウント登録' do
         context 'フォームの入力値が正常' do
@@ -126,74 +126,75 @@ RSpec.describe User, type: :system do
 
     describe 'ログイン後' do
       before { login(user) }
-        describe 'アカウント編集' do
-          context 'フォームの入力値が正常' do
-            it 'アカウント情報の編集が成功すること' do
-              visit posts_path
-              click_link 'アカウント編集'
-              fill_in 'user[email]', with: 'test_edit@example.com'
-              fill_in 'user[password]', with: 'password_edit'
-              fill_in 'user[password_confirmation]', with: 'password_edit'
-              fill_in 'user[current_password]', with: 'password'
-              click_button 'アカウント情報を変更'
-              expect(current_path).to eq posts_path
-              expect(page).to have_content 'アカウント情報を変更しました。'
-            end
-          end
 
-          context 'メールアドレスが未記入' do
-            it 'アカウント情報の編集が失敗すること' do
-              visit posts_path
-              click_link 'アカウント編集'
-              fill_in 'user[email]', with: ''
-              fill_in 'user[password]', with: 'password_edit'
-              fill_in 'user[password_confirmation]', with: 'password_edit'
-              fill_in 'user[current_password]', with: 'password'
-              click_button 'アカウント情報を変更'
-              expect(page).to have_content 'メールアドレスが入力されていません。'
-            end
-          end
-
-          context '現在のパスワードが未記入' do
-            it 'アカウント情報の編集が失敗すること' do
-              visit posts_path
-              click_link 'アカウント編集'
-              fill_in 'user[email]', with: 'test_edit@example.com'
-              fill_in 'user[password]', with: 'password_edit'
-              fill_in 'user[password_confirmation]', with: 'password_edit'
-              fill_in 'user[current_password]', with: ''
-              click_button 'アカウント情報を変更'
-              expect(page).to have_content '現在のパスワードを入力してください'
-            end
+      describe 'アカウント編集' do
+        context 'フォームの入力値が正常' do
+          it 'アカウント情報の編集が成功すること' do
+            visit posts_path
+            click_link 'アカウント編集'
+            fill_in 'user[email]', with: 'test_edit@example.com'
+            fill_in 'user[password]', with: 'password_edit'
+            fill_in 'user[password_confirmation]', with: 'password_edit'
+            fill_in 'user[current_password]', with: 'password'
+            click_button 'アカウント情報を変更'
+            expect(current_path).to eq posts_path
+            expect(page).to have_content 'アカウント情報を変更しました。'
           end
         end
 
-        describe 'プロフィール編集' do
-          context 'フォームの入力値が正常' do
-            it 'プロフィール編集が成功すること' do
-              visit posts_path
-              click_link 'プロフィール編集'
-              attach_file 'user[image]', Rails.root.join('spec/fixture/image.jpg')
-              fill_in 'user[name]', with: 'test_edit'
-              fill_in 'user[introduction]', with: 'test_edit'
-              click_button 'プロフィールを更新'
-              expect(current_path).to eq user_path(user.id)
-              expect(page).to have_content 'プロフィールを更新しました'
-            end
-          end
-
-          context 'ニックネームが未記入' do
-            it 'プロフィール編集が失敗すること' do
-              visit posts_path
-              click_link 'プロフィール編集'
-              attach_file 'user[image]', Rails.root.join('spec/fixture/image.jpg')
-              fill_in 'user[name]', with: ''
-              fill_in 'user[introduction]', with: 'test_edit'
-              click_button 'プロフィールを更新'
-              expect(page).to have_content '名前が入力されていません。'
-            end
+        context 'メールアドレスが未記入' do
+          it 'アカウント情報の編集が失敗すること' do
+            visit posts_path
+            click_link 'アカウント編集'
+            fill_in 'user[email]', with: ''
+            fill_in 'user[password]', with: 'password_edit'
+            fill_in 'user[password_confirmation]', with: 'password_edit'
+            fill_in 'user[current_password]', with: 'password'
+            click_button 'アカウント情報を変更'
+            expect(page).to have_content 'メールアドレスが入力されていません。'
           end
         end
+
+        context '現在のパスワードが未記入' do
+          it 'アカウント情報の編集が失敗すること' do
+            visit posts_path
+            click_link 'アカウント編集'
+            fill_in 'user[email]', with: 'test_edit@example.com'
+            fill_in 'user[password]', with: 'password_edit'
+            fill_in 'user[password_confirmation]', with: 'password_edit'
+            fill_in 'user[current_password]', with: ''
+            click_button 'アカウント情報を変更'
+            expect(page).to have_content '現在のパスワードを入力してください'
+          end
+        end
+      end
+
+      describe 'プロフィール編集' do
+        context 'フォームの入力値が正常' do
+          it 'プロフィール編集が成功すること' do
+            visit posts_path
+            click_link 'プロフィール編集'
+            attach_file 'user[image]', Rails.root.join('spec/fixture/image.jpg')
+            fill_in 'user[name]', with: 'test_edit'
+            fill_in 'user[introduction]', with: 'test_edit'
+            click_button 'プロフィールを更新'
+            expect(current_path).to eq user_path(user.id)
+            expect(page).to have_content 'プロフィールを更新しました'
+          end
+        end
+
+        context 'ニックネームが未記入' do
+          it 'プロフィール編集が失敗すること' do
+            visit posts_path
+            click_link 'プロフィール編集'
+            attach_file 'user[image]', Rails.root.join('spec/fixture/image.jpg')
+            fill_in 'user[name]', with: ''
+            fill_in 'user[introduction]', with: 'test_edit'
+            click_button 'プロフィールを更新'
+            expect(page).to have_content '名前が入力されていません。'
+          end
+        end
+      end
     end
   end
 end
