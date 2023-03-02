@@ -1,9 +1,14 @@
-.l-home
-  .l-home__about
-    h1 あなたの刹那を共有しよう。
-  .l-home__form
-    ul
-      - if !user_signed_in?
-        li = link_to 'ログイン', new_user_session_path, class: 'el_btn__blue'
-        li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'el_btn__blue'
-        li = link_to 'アカウント登録', new_user_registration_path, class: 'el_btn__green'
+.ly-home
+  .bl-appAbout
+    h2 あなたの感動の瞬間を共有しよう。
+    p 
+      |
+        share-momentsは、<br>
+        「写真撮影が好き」「もっと撮影スポットを知りたい」「上手な写真の設定方法が知りたい」<br>
+        そんな作者の気持ちから生まれた写真共有サービスです。
+    .bl-homeForm
+      ul
+        - if !user_signed_in?
+          li = link_to 'アカウント登録', new_user_registration_path, class: 'el_btn__green'
+          li = link_to 'ログイン', new_user_session_path, class: 'el_btn__blue'
+          li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'el_btn__blue'

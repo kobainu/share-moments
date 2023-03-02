@@ -76,9 +76,9 @@
   // padding: 0 5%;
 }
 
-.ly_main_inner {
-  padding: 0 5%;
-}
+// .ly_main_inner {
+//   padding: 0 5%;
+// }
 
 .ly_footer {
   position: sticky;
@@ -86,13 +86,12 @@
   z-index: 3;
 }
 
-.l-home {
+.ly-home {
+  height: 100vh;
+  background-image: image-url("home_image3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
-  &__about {
-    width: 100%;
-  }
-  &__form {
-    width: 100%;
-    margin-right: 240px;
-  }
+  justify-content: center;
+  align-items: center;
 }
