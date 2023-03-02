@@ -17,10 +17,8 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
-      - run:
-          name: yarn Install
-          command: yarn install
-      - run: bundle exec bin/webpack
+      - name: Install webpacker
+        run: bin/rails webpacker:install && bin/rails assets:precompile
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set up Ruby
