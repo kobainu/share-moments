@@ -18,8 +18,8 @@ jobs:
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - run:
-        name: yarn Install
-        command: yarn install
+          name: yarn Install
+          command: yarn install
       - run: bundle exec bin/webpack
       - name: Checkout code
         uses: actions/checkout@v2
