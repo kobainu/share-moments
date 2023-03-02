@@ -15,6 +15,7 @@ body {
 
 section {
   padding: 0 5%;
+  margin-bottom: 100px;
 }
 
 .ly_cont {
@@ -43,23 +44,20 @@ textarea {
 //   }
 // }
 
-// 開発用
-// div,
-// .ly_header,
-// .ly_sidebar,
-// .ly_main,
-// .ly_footer {
-//   border: solid 1px gray;
-// }
-
 .ly_header,
 .ly_sidebar,
 .ly_sidebar_sm,
 .ly_main,
-.ly_footer,
 .bl_searchBar {
   background-color: #f7f7f7;
   background-color: #fcf0e4;
+}
+
+.ly_footer {
+  background-color: #ebe2d5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notifications {

@@ -9,9 +9,9 @@
 
 .ly_header {
   padding: 20px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 999;
+  // position: sticky;
+  // top: 0;
+  // z-index: 4;
 }
 
 .ly_header_inner {
@@ -19,6 +19,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+  padding: 0 20px;
   & .bl_searchForm {
     @media screen and (max-width: 899px) {
       display: none;
@@ -31,8 +32,9 @@
   min-width: 220px;
   height: 100vh;
   position: sticky;
-  top: 100px;
+  top: 0;
   z-index: 3;
+  padding-top: 20px;
   @media screen and (max-width: 899px) {
     display: none;
   }
@@ -82,16 +84,6 @@
 
 .ly_footer {
   position: sticky;
-  height: 200px;
+  height: 70px;
   z-index: 3;
-}
-
-.ly-home {
-  height: 100vh;
-  background-image: image-url("home_image3.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

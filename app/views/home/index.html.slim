@@ -1,14 +1,48 @@
-.ly-home
-  .bl-appAbout
+.bl_jumbotron
+  .bl_jumbotron_about
     h2 あなたの感動の瞬間を共有しよう。
     p 
       |
         Share-Momentsは、<br>
         「写真撮影が好き」「もっと撮影スポットを知りたい」「上手な写真の設定方法が知りたい」<br>
         そんな作者の気持ちから生まれた写真共有サービスです。
-    .bl-homeForm
+    .bl_jumbotron_form
       ul
         - if !user_signed_in?
           li = link_to 'アカウント登録', new_user_registration_path, class: 'el_btn__green'
           li = link_to 'ログイン', new_user_session_path, class: 'el_btn__blue'
           li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'el_btn__blue'
+.bl_appDescription
+  .bl_appDescription_inner
+    .bl_appDescription_img__1
+    .bl_appDescription_content
+      h3 撮影情報の共有
+      p 
+        |
+          写真を投稿すると、Exifデータ(撮影時の設定などの情報)が自動的に読み取られ公開されます。<br>
+          他のユーザーの投稿から設定情報などを参考にすることや、他のユーザーがあなたの投稿を参考にすることができます。<br>
+      span ※ Exifデータが無い場合は、手動で登録もできます。
+.bl_appDescription
+  .bl_appDescription_inner
+    .bl_appDescription_content
+      h3 撮影地の共有
+      p 
+        |
+          Exifデータの中の位置情報から<br>
+          撮影地の情報をGoogleMapで共有できます。<br>
+          あなたの知らない撮影スポットを見つけましょう。<br>
+      span
+            |
+              ※ もちろん非表示にすることもできます。<br>
+              (位置情報がない場合は表示できません)
+    .bl_appDescription_img__2
+.bl_appDescription
+  .bl_appDescription_inner
+    .bl_appDescription_img__3
+    .bl_appDescription_content
+      h3 コメント機能
+      p 
+        |
+          投稿には直接コメントすることもできます。<br>
+          もしお近くの方を見つけたら誘ってみるのもいいですね。<br>
+          新しい撮影仲間が増えるかもしれません。<br>
