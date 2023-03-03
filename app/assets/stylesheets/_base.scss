@@ -1,16 +1,12 @@
 // reset.cssやnormalize.cssによる素地作りの他、サイト全体にまつわるスタイルを要素セレクタに直接指定します。 またPRECSSでは、特定のスコープ内における限定的なベーススタイルの適用も許容します。 例えば「ヘッダー内のリンクは全て白色だが、フッター内は青色に統一したい」という場合に、限定的なベーススタイルを使用します。ただし詳細度を高める行為であるため、十分注意して使用してください。
 
 * {
-  font-family: "M PLUS Rounded 1c";
   font-family: "Hannotate SC";
-  // background-color: #f7f7f7;
-  font-size: 1.2rem;
   line-height: 1.5;
 }
 
-body {
-  min-width: 100vh;
-  min-height: 100vh;
+html {
+  font-size: 16px;
 }
 
 section {
@@ -83,3 +79,34 @@ textarea {
   color: #fff;
   text-align: center;
 }
+
+$pc: 1024px; // PC
+$tab: 768px; // タブレット
+$sp: 425px; // スマホ
+
+@mixin pc {
+  @media (max-width: ($pc)) {
+    @content;
+  }
+}
+
+@mixin tab {
+  @media (max-width: ($tab)) {
+    @content;
+  }
+}
+
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}
+
+@include pc {
+};
+
+@include tab {
+};
+
+@include sp {
+};

@@ -1,11 +1,18 @@
 .bl_jumbotron
   .bl_jumbotron_about
-    h2 あなたの感動の瞬間を共有しよう。
-    p 
+    h2 
+      span あなたの感動の瞬間を
+      span 共有しよう。
+    / p 
       |
         Share-Momentsは、<br>
         「写真撮影が好き」「もっと撮影スポットを知りたい」「上手な写真の設定方法が知りたい」<br>
         そんな作者の気持ちから生まれた写真共有サービスです。
+    p Share-Momentsは、
+    span「写真撮影が好き」
+    span「もっと撮影スポットを知りたい」
+    p「上手な写真の設定方法が知りたい」
+    p そんな作者の気持ちから生まれた写真共有サービスです。
     .bl_jumbotron_form
       ul
         - if !user_signed_in?
@@ -23,7 +30,8 @@
           他のユーザーの投稿から設定情報などを参考にすることや、他のユーザーがあなたの投稿を参考にすることができます。<br>
       span ※ Exifデータが無い場合は、手動で登録もできます。
 .bl_appDescription
-  .bl_appDescription_inner
+  .bl_appDescription_inner__2
+    .bl_appDescription_img__2
     .bl_appDescription_content
       h3 撮影地の共有
       p 
@@ -35,7 +43,6 @@
             |
               ※ もちろん非表示にすることもできます。<br>
               (位置情報がない場合は表示できません)
-    .bl_appDescription_img__2
 .bl_appDescription
   .bl_appDescription_inner
     .bl_appDescription_img__3

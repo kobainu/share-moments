@@ -1,57 +1,114 @@
+@import 'base';
+
 .bl_jumbotron {
-  height: 100vh;
   background-image: image-url("top_back.jpg");
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  padding: 60px 30px;
 }
 
 .bl_jumbotron_about {
+  width: 800px;
+  padding: 50px;
   text-align: center;
-  position: relative;
-  top: 25%;
-  width: 70%;
-  position: absolute;
-  padding: 1.5em 1.5em;
-  margin: 2em 0px;
   background: rgba(255, 255, 255, .7);
   border-radius: 40px;
+  @include tab {
+    padding: 50px 20px;
+  };
   & h2 {
-    font-size: 2rem;
     margin-bottom: 20px;
+    & span{
+      font-size: 2rem;
+      @include tab {
+        font-size: 1.5rem;
+      };
+      @media (max-width: 500px) {
+        display: block;
+      };
+    }
+  }
+  & p,
+    span {
+    font-size: 1.5rem;
+    @include tab {
+      font-size: 1.2rem;
+    };
+    @include sp {
+      font-size: 1.0rem;
+    };
+  }
+  & > span {
+    @include tab {
+      display: block
+    };
   }
 }
 
 .bl_jumbotron_form {
-  width: 60%;
-  margin: 40px auto;
+  margin: 40px auto 20px;
+  @media screen and (max-width: 767px) {
+    margin: 20px auto;
+  }
   & ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    @include tab {
+      flex-direction: column;
+      & li {
+        margin-top: 15px;
+      }
+    };
   }
 }
 
 .bl_appDescription {
-  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 100px 30px;
   &:nth-child(3) {
     background-color: #f7f7f7;
+    flex-direction: row-reverse;
   }
+  @include pc {
+    height: 100vh;
+    padding: 60px 30px;
+  };
   & .bl_appDescription_inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
-    height: 60%;
+    width: 100%;
+    max-width: 1200px;
+    height: 50vh;
+    &__2 {
+      @extend .bl_appDescription_inner;
+      flex-direction: row-reverse;
+    }
+    @include pc {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 700px;
+      height: 100%;
+    };
     & .bl_appDescription_img {
-      width: 45%;
+      width: 100%;
+      max-width: 50%;
       height: 100%;
       border-radius: 20px;
       background-size: cover;
+      background-position: center;
+      @include pc {
+        flex-direction: column;
+        max-width: 100%;
+      }
       &__1 {
         @extend .bl_appDescription_img;
         background-image: image-url("about_1.jpg");
@@ -66,11 +123,15 @@
       }
     }
     & .bl_appDescription_content {
-      width: 45%;
+      width: 100%;
+      max-width: 45%;
       text-align: center;
+      @include pc {
+        max-width: 100%;
+      };
       & h3 {
         font-size: 1.5rem;
-        padding-bottom: 20px;
+        padding: 40px 0 20px;
       }
       & p {
         font-size: 1.2rem;

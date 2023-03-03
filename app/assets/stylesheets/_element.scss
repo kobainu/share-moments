@@ -1,3 +1,5 @@
+@import 'base';
+
 .el_btn {
   display: inline-block;
   width: auto;
@@ -63,7 +65,15 @@
 }
 
 .el_header_logo {
-  font-size: 2.5rem;
+  h1 {
+    font-size: 3rem;
+    @include tab {
+      font-size: 2.5rem;
+    };
+    @include sp {
+      font-size: 2.0rem;
+    };
+  }
 }
 
 .el_photo {
