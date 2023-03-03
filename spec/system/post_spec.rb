@@ -7,7 +7,7 @@ RSpec.describe Post, type: :system do
   let(:post) { create(:post, user_id: user.id, photo: photo) }
 
   describe 'Post CRUD' do
-  before { login(user) }
+    before { login(user) }
 
     describe '投稿作成' do
       context 'フォームの入力値が正常' do
