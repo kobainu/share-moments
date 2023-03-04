@@ -1,4 +1,4 @@
-section.bl_postDetail
+section.ly_main_inner.bl_postDetail
   .bl_pageHead
     .bl_pageTitle
       h2 #{@post.title}
@@ -42,7 +42,7 @@ section.bl_postDetail
                 p = "#{@post.user.follower_user.count}人"
       - if @post.description?
         .bl_postDetail_description
-          = @post.description
+          p = @post.description
       .bl_postDetail_aside__col1
         = render partial: 'posts/exifInfo'
       = render partial: 'map'
