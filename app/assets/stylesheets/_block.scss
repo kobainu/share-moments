@@ -76,7 +76,7 @@
     background-color: #f7f7f7;
     flex-direction: row-reverse;
   }
-  @include pc {
+  @include pc_sm {
     height: 100vh;
     padding: 60px 30px;
   };
@@ -91,7 +91,7 @@
       @extend .bl_appDescription_inner;
       flex-direction: row-reverse;
     }
-    @include pc {
+    @include pc_sm {
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -105,7 +105,7 @@
       border-radius: 20px;
       background-size: cover;
       background-position: center;
-      @include pc {
+      @include pc_sm {
         flex-direction: column;
         max-width: 100%;
       }
@@ -126,7 +126,7 @@
       width: 100%;
       max-width: 45%;
       text-align: center;
-      @include pc {
+      @include pc_sm {
         max-width: 100%;
       };
       & h3 {
@@ -188,7 +188,7 @@
 }
 
 .bl_pageHead {
-  padding: 20px 0;
+  padding: 20px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -285,16 +285,26 @@
   }
 }
 
+.bl_followContainer {
+  @include tab {
+    display: flex;
+    flex-direction: column-reverse
+  };
+}
+
 .bl_followBtn {
   margin-left: 20px;
+  @include tab {
+    margin: 10px 0 0;
+  };
 }
 
 .bl_card {
   width: 31%;
   margin: 0 1% 5%;
-  @media screen and (max-width: 1199px) {
+  @include pc_md {
     width: 48%;
-  }
+  };
   @media screen and (max-width: 699px) {
     width: 100%;
   }
@@ -357,7 +367,13 @@
     width: 100%;
     display: flex;
     & .bl_postDetail_main {
-      width: 60%;
+      width: 100%;
+      max-width: calc(100% - $postAsideWidth);
+      padding-right: 3%;
+      @include pc_sm {
+        max-width: 100%;
+        padding-right: 0;
+      };
       & .bl_postDetail_tag {
         margin-top: 10px;
         margin-right: 15px;
@@ -395,11 +411,33 @@
       }
     }
     & .bl_postDetail_aside {
-      width: 40%;
-      min-width: 150px;
-      padding-left: 50px;
-      & .bl_postDetail_exifList {
-        margin-top: -15px;
+      & .bl_list_item_title:nth-child(1) {
+        display: flex;
+        align-items: end;
+        position: relative;
+        & span {
+          position: relative;
+          bottom: 2px;
+          margin-left: 10px;
+          font-size: .8rem;
+        }
+      }
+      &__col2 {
+        @extend .bl_postDetail_aside;
+        min-width: $postAsideWidth;
+        & .bl_postDetail_exifList {
+          margin-top: -15px;
+        }
+        @include pc_md {
+          display: none;
+        }
+      }
+      &__col1 {
+        @extend .bl_postDetail_aside;
+        display: none;
+        @include pc_md {
+          display: block;
+        }
       }
     }
   }

@@ -23,7 +23,6 @@ html
             li E
         main.ly_main  
           = render partial: 'layouts/flash'
-          .ly_main_inner
-            = yield
+          = yield
       = render partial: 'layouts/footer'
     = javascript_pack_tag 'application'

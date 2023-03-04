@@ -7,6 +7,7 @@
 
 .ly_cont {
   display: flex;
+  height: 100%;
 }
 
 .ly_header {
@@ -20,7 +21,7 @@
   margin: 0 auto;
   padding: 0 20px;
   & .bl_searchForm {
-    @include pc {
+    @include pc_sm {
       display: none;
     };
   }
@@ -38,8 +39,7 @@
 }
 
 .ly_sidebar {
-  width: 17%;
-  min-width: 220px;
+  min-width: $sidebarWidth;
   height: 100vh;
   position: sticky;
   top: 0;
@@ -83,14 +83,11 @@
 }
 
 .ly_main {
-  width: 83%;
+  width: 100%;
+  max-width: calc(100% - $sidebarWidth);
   flex-grow: 1;
-  // padding: 0 5%;
+  padding: 0 5%;
 }
-
-// .ly_main_inner {
-//   padding: 0 5%;
-// }
 
 .ly_footer {
   position: sticky;
