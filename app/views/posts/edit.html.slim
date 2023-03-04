@@ -68,5 +68,5 @@ section.bl_formPage
         p ※選択された写真には位置情報がありません。
       br
       .bl_btn
-        = f.submit '投稿を更新', class: 'el_btn el_btn__blue'
         = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn el_btn__red", data: {confirm: "本当に削除しますか？"}
+        = f.submit '投稿を更新', class: 'el_btn el_btn__blue'

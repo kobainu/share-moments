@@ -10,10 +10,7 @@
 }
 
 .ly_header {
-  padding: 10px 20px;
-  // @include sp {
-  //   height: 150px
-  // };
+  padding: 20px 20px;
 }
 
 .ly_header_inner {
@@ -23,9 +20,20 @@
   margin: 0 auto;
   padding: 0 20px;
   & .bl_searchForm {
-    @media screen and (max-width: 899px) {
+    @include pc {
+      display: none;
+    };
+  }
+  & .bl_btn .el_btn:nth-child(2) {
+    margin-left: 20px;
+  }
+  @include tab {
+  & .bl_btn {
       display: none;
     }
+  };
+  @include sp {
+    padding: 0;
   }
 }
 

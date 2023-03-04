@@ -155,10 +155,13 @@
 
 .bl_btn {
   display: flex;
-  justify-content: center;
-  & .el_btn+.el_btn {
-    margin-left: 20px;
-  }
+  justify-content: space-around;
+  @include sp {
+    flex-direction: column-reverse;
+    & .el_btn + .el_btn {
+      margin-bottom: 20px;
+    }
+  };
 }
 
 .bl_postImg {
@@ -171,8 +174,8 @@
   }
   &__md {
     @extend .bl_postImg;
-    width: 200px;
-    height: 200px
+    width: 300px;
+    height: 300px
   }
   &__lg {
     @extend .bl_postImg;
@@ -185,7 +188,7 @@
 }
 
 .bl_pageHead {
-  height: 70px;
+  padding: 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -193,7 +196,13 @@
 
 .bl_pageTitle {
   & h2 {
-    font-size: 1.7rem;
+    font-size: 2.0rem;
+    @include tab {
+      font-size: 1.7rem;
+    };
+    @include sp {
+      font-size: 1.5rem;
+    };
   }
 }
 
@@ -201,8 +210,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  & .bl_formInput__img {
-    margin-left: 40px;
+  & .bl_form {
+    width: 100%;
+    max-width: 550px;
+  }
+  & .bl_userInfo {
+    flex-direction: column;
+    & .bl_formInput__img {
+      margin-top: 10px;
+    }
+  }
+  & .bl_formInput__img input {
+    @include tab {
+      font-size: 1.0rem
+    };
   }
   & .bl_list_item_content {
     padding: 20px 0 40px;
@@ -400,6 +421,7 @@
   padding-top: 15px;
   border-bottom: 1px solid #cdcdcd;
   &_title {
+    font-size: 1.2rem;
     background-color: #a58e62;
     color: #fff;
     & p {
@@ -407,6 +429,7 @@
     }
   }
   &_content {
+    font-size: 1.2rem;
     padding: 5px 10px 0;
   }
 }
