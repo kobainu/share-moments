@@ -14,3 +14,83 @@
     height: 400px;
   };
 }
+
+#hamburgerMenuBtn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: fixed;
+  top: 24px;
+  right: 20px;
+  z-index: 4;
+  & span {
+    position: relative;
+    display: block;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #333;
+    transition: all 0.5s;
+    border-radius: 4px;
+    &:nth-child(1) {
+      top: 10px;
+    }
+    &:nth-child(2) {
+      top: 20px;
+    }
+    &:nth-child(3) {
+      top: 30px;
+    }
+  }
+  @include tab {
+    display: block;
+  };
+}
+
+#hamburgerMenuNav {
+  width: 250px;
+  height: 1000px;
+  background-color: #fff;
+  border: 2px solid black;
+  position: fixed;
+  right: -250px;
+  z-index: 4;
+  transition: all .3s;
+}
+
+#mask {
+  display: none;
+  transition: all .5s;
+}
+
+.open {
+  & #hamburgerMenuNav {
+    right: 0;
+    transition: all .3s;
+  }
+  & #mask {
+    display: block;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all .5s;
+    z-index: 3;
+    cursor: pointer;
+  }
+  & #hamburgerMenuBtn span {
+    background-color: #fff;
+    &:nth-child(1) {
+      transform: translateY(12px) rotate(-315deg);
+    }
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      transform: translateY(-12px) rotate(315deg);
+    }
+  }
+}

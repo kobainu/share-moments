@@ -7,7 +7,7 @@ section.ly_main_inner.bl_formPage
       = render 'shared/error_messages', model: f.object
       .bl_list_item_title
         p = f.label :プロフィール画像
-      .bl_list_item_content.test
+      .bl_list_item_content
         .bl_userInfo
           .bl_img
             - if @user.image?
