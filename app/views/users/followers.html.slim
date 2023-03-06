@@ -1,6 +1,7 @@
-section.ly_main_inner.bl_followerPage.hp_maxWidth__1000px.hp_centerColumn
-  .bl_pageTitle
-    h2 = "#{@user.name}さんのフォロワー"
+section.ly_main_inner.bl_followerPage.hp_maxWidth.hp_centerColumn
+  .bl_pageHead
+    .bl_pageTitle
+      h2 = "#{@user.name}さんのフォロワー"
   - if @users.exists?
     div
       - @users.each do |user|

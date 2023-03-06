@@ -113,7 +113,10 @@
 }
 
 .ly_main_inner {
-  padding: 20px 5% 0;
+  padding: 10px 5% 0;
+  @include sp {
+    padding: 0 5%;
+  }
 }
 
 .ly_footer {

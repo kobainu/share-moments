@@ -4,8 +4,14 @@
   display: flex;
 }
 
-.hp_maxWidth__1000px {
-  max-width: 1000px;
+.hp_maxWidth {
+  max-width: 700px;
+  @include tab {
+    max-width: 500px;
+  }
+  @include sp {
+    max-width: 300px;
+  }
 }
 
 .hp_centerColumn {
