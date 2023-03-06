@@ -4,7 +4,7 @@
     span
     span
   #hamburgerMenuNav
-    nav
+    / nav
       ul
         li Menu
         li Menu
@@ -13,4 +13,58 @@
         li Menu
         li Menu
         li Menu
+    nav
+      ul.bl_sideNav.ly_flex__col
+        = link_to new_post_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-pencil-square
+            p 投稿する
+        = link_to posts_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-book
+            p 全ての投稿
+        = link_to favorite_index_posts_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-star
+            p お気に入りの投稿
+        = link_to following_posts_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-people
+            p フォロー中のユーザーの投稿
+        li.bl_sideNav_item
+          span.el_icon
+            i.bi.bi-geo-alt
+          p 撮影地で探す
+          = render partial: 'layouts/address_searchBar'
+        li.bl_sideNav_item
+          span.el_icon
+            i.bi.bi-tags
+          p タグで探す
+          = render partial: 'layouts/tag_searchBar'
+        li.bl_sideNav_item
+          span.el_icon
+            i.bi.bi-camera
+          p カメラ名で探す
+          = render partial: 'layouts/camera_searchBar'
+        - if user_signed_in?
+          - if !(current_user.email == 'guest@example.com')
+            = link_to profile_users_path do
+              li.bl_sideNav_item
+                span.el_icon
+                  i.bi.bi-person-circle
+                p プロフィール編集
+            = link_to edit_user_registration_path do
+              li.bl_sideNav_item
+                span.el_icon
+                  i.bi.bi-person-badge
+                p アカウント編集
+          = link_to destroy_user_session_path, method: :delete do
+            li.bl_sideNav_item
+              span.el_icon
+                i.bi.bi-door-closed
+              p ログアウト
   #mask

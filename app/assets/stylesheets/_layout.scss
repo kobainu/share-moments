@@ -93,6 +93,7 @@
 .ly_main {
   width: 100%;
   max-width: calc(100% - $sidebarWidth);
+  min-height: 100vh;
   flex-grow: 1;
 }
 
@@ -106,6 +107,5 @@
   z-index: 2;
   @include sp {
     height: 40px;
-    margin-bottom: 70px;
   };
 }

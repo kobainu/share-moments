@@ -71,7 +71,7 @@
     @include tab {
       flex-direction: column;
       & li {
-        margin-top: 15px;
+        margin: 15px 0;
       }
     };
   }
@@ -201,8 +201,9 @@
     @extend .bl_btn;
     @include sp {
       flex-direction: column-reverse;
+      align-items: center;
       & .el_btn + .el_btn {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
       }
     };
   }
@@ -238,19 +239,18 @@
   align-items: center;
 }
 
-.bl_pageTitle {
-  & h2 {
-    font-size: 1.5rem;
-    @include pc_sm {
-      font-size: 1.4rem;
-    };
-    @include tab {
-      font-size: 1.2rem;
-    };
-    @include sp {
-      font-size: 1.0rem;
-    };
-  }
+.bl_pageTitle h2,
+.el_result p {
+  font-size: 1.6rem;
+  @include pc_sm {
+    font-size: 1.4rem;
+  };
+  @include tab {
+    font-size: 1.2rem;
+  };
+  @include sp {
+    font-size: 1.0rem;
+  };
 }
 
 .bl_formPage {

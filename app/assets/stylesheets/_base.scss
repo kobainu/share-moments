@@ -98,6 +98,11 @@ textarea {
   & .alert {
     background-color: #f99797;
   }
+  & p {
+    @include sp {
+      font-size: .8rem;
+    }
+  }
 }
 
 .alert,

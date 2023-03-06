@@ -21,7 +21,8 @@ section.ly_main_inner.bl_formPage
         p = f.label :password_confirmation
       .bl_list_item_content
         = f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"パスワードをもう一度入力"
-      .actions.bl_btn
+      .actions.bl_btn__reverse
         = link_to 'ログイン画面へ', new_user_session_path, class: 'el_btn__blue'
         = f.submit "アカウントを登録", class: 'el_btn__green'
-      = render "users/shared/links"
+      .hp_mt__10px
+        = render "users/shared/links"

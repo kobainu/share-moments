@@ -16,7 +16,8 @@ section.ly_main_inner.bl_formPage
         .bl_list_item_content
           = f.check_box :remember_me, class: 'el_checkBox'
           = f.label :remember_me
-      .actions.bl_btn
+      .actions.bl_btn__reverse
         = link_to "アカウント登録画面へ", new_registration_path(resource_name), class: 'el_btn__green'
         = f.submit "ログイン", class: 'el_btn__blue'
-      = render "users/shared/links"
+      .hp_mt__10px
+        = render "users/shared/links"
