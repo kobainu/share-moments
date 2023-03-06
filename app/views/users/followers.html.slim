@@ -5,7 +5,7 @@ section.ly_main_inner.bl_followerPage
     div
       - @users.each do |user|
         .bl_userInfoContainer
-          .bl_userInfo_font__lg
+          .bl_userInfo
             - if user.image?
               = link_to image_tag(user.image.url, class: 'el_profileImg__lg'), user_path(user.id)
             - else

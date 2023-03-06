@@ -57,11 +57,17 @@
     @extend .el_btn;
     border-radius: 3px;
   }
+  @include sp {
+    font-size: .9rem;
+  };
 }
 
 .el_icon {
   font-size: 1.5rem;
   margin-right: 10px;
+  @include sp {
+    font-size: .9rem;
+  }
 }
 
 .el_header_logo {
@@ -71,7 +77,7 @@
       font-size: 2.5rem;
     };
     @include sp {
-      font-size: 2.3rem;
+      font-size: 1.5rem;
     };
   }
 }

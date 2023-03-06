@@ -18,7 +18,7 @@ section.ly_main_inner.bl_postDetail
               span
                 = tag.tag_name
       .bl_userInfoContainer
-        .bl_userInfo_font__lg
+        .bl_userInfo
           - if @post.user.image?
             = link_to image_tag(@post.user.image.url, class: 'el_profileImg__sm'), user_path(@post.user.id)
           - else
@@ -59,7 +59,7 @@ section.ly_main_inner.bl_postDetail
             - @comments.reverse_each do |comment|
               .bl_comment
                 .bl_postDetail_commentUser
-                  .bl_userInfo_font__sm
+                  .bl_userInfo
                     - if comment.user.image?
                       = link_to image_tag(comment.user.image.url, class: 'el_profileImg__sm'), user_path(comment.user.id)
                     - else

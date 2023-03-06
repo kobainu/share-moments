@@ -12,6 +12,14 @@
 
 .ly_header {
   padding: 20px 20px;
+  @include sp {
+    position: sticky;
+    top: 0px;
+    width: 100%;
+    padding: 10px 20px;
+    z-index: 3;
+    
+  }
 }
 
 .ly_header_inner {
@@ -43,7 +51,7 @@
   height: 100vh;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   padding-top: 20px;
   @include tab {
     display: none;
@@ -96,4 +104,7 @@
   position: sticky;
   height: 70px;
   z-index: 2;
+  @include sp {
+    margin-bottom: 70px;
+  };
 }

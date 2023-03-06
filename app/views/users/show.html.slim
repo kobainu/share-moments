@@ -6,7 +6,7 @@ section.ly_main_inner.bl_userDetail
       .bl_btn
         = link_to 'プロフィールを編集', profile_users_path, class: 'el_btn el_btn__sm'
   .bl_userInfoContainer
-    .bl_userInfo_font__lg
+    .bl_userInfo
       - if @user.image?
         = image_tag(@user.image.url, class: 'el_profileImg__lg')
       - else

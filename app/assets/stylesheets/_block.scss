@@ -138,7 +138,7 @@
         line-height: 1.8;
       }
       & span {
-        font-size: 1rem;
+        font-size: 1.0rem;
       }
     }
   }
@@ -201,7 +201,7 @@
       font-size: 1.7rem;
     };
     @include sp {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     };
   }
 }
@@ -249,22 +249,7 @@
   justify-content: center;
   padding-top: 10px;
   & p {
-    font-size: 1.5rem;
     margin-left: 15px;
-  }
-  &_font__sm {
-    @extend .bl_userInfo;
-    & p {
-      font-size: 1.2rem;
-      margin-left: 15px;
-    }
-  }
-  &_font__lg {
-    @extend .bl_userInfo;
-    & p {
-      font-size: 1.8rem;
-      margin-left: 20px;
-    }
   }
 }
 
@@ -379,7 +364,6 @@
         margin-right: 15px;
       }
       & .bl_postDetail_description {
-        font-size: 16px;
         padding-bottom: 20px;
         word-wrap: break-word;
       }
@@ -405,7 +389,6 @@
             align-items: center;
           }
           & .bl_postDetail_commentContent {
-            font-size: 16px;
             padding-left: 10px;
             word-wrap: break-word;
           }
