@@ -39,7 +39,13 @@ html {
 }
 
 p,
-span {
+span,
+input,
+textarea {
+  font-size: 1.2rem;
+  @include tab() {
+    font-size: 1.0rem;
+  }
   @include sp {
     font-size: .9rem;
   }
@@ -55,7 +61,6 @@ a {
 
 input,
 textarea {
-  font-size: 1.2rem;
   width: 100%;
   border-radius: 5px;
   border: none;
@@ -85,13 +90,9 @@ textarea {
   text-align: center;
   & .notice {
     background-color: #20b12fa8;
-    margin: 0;
-    padding: 10px;
   }
   & .alert {
     background-color: #f99797;
-    margin: 0;
-    padding: 10px;
   }
 }
 

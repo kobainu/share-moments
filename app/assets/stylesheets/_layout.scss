@@ -25,7 +25,6 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 0 20px;
   & .bl_searchForm {
     @include pc_sm {
       display: none;
@@ -54,6 +53,9 @@
   @include pc_sm {
     display: none;
   };
+  & p {
+    font-size: 1.1rem;
+  }
 }
 
 .ly_sidebar_sm {
@@ -103,6 +105,7 @@
   height: 70px;
   z-index: 2;
   @include sp {
+    height: 40px;
     margin-bottom: 70px;
   };
 }

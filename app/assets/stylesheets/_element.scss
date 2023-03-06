@@ -49,20 +49,25 @@
       color: #38b359;
     }
   }
-  &__sm {
-    @extend .el_btn;
-    padding: 0 10px;
-  }
   &__square {
     @extend .el_btn;
     border-radius: 3px;
   }
-  @include tab {
+  @include pc_sm{
     padding: 5px 10px;
   };
+  @include tab {
+    padding: 5px 10px;
+    font-size: 1.0rem;
+  };
   @include sp {
+    padding: 0 10px;
     font-size: .9rem;
   };
+  &__sm {
+    @extend .el_btn;
+    padding: 0 10px;
+  }
 }
 
 .el_icon {
@@ -76,6 +81,9 @@
 .el_header_logo {
   h1 {
     font-size: 2.5rem;
+    @include pc_sm {
+      font-size: 2.3rem;
+    };
     @include tab {
       font-size: 2.0rem;
     };
@@ -109,6 +117,10 @@
     @extend .el_profileImg;
     width: 100px;
     height: 100px;
+    @include sp {
+      width: 50px;
+      height: 50px;
+    }
   }
 }
 

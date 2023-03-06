@@ -197,12 +197,15 @@
 .bl_btn {
   display: flex;
   justify-content: space-around;
-  @include sp {
-    flex-direction: column-reverse;
-    & .el_btn + .el_btn {
-      margin-bottom: 20px;
-    }
-  };
+  &__reverse {
+    @extend .bl_btn;
+    @include sp {
+      flex-direction: column-reverse;
+      & .el_btn + .el_btn {
+        margin-bottom: 20px;
+      }
+    };
+  }
 }
 
 .bl_postImg {
@@ -237,15 +240,15 @@
 
 .bl_pageTitle {
   & h2 {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     @include pc_sm {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     };
     @include tab {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     };
     @include sp {
-      font-size: 1.1rem;
+      font-size: 1.0rem;
     };
   }
 }
@@ -264,15 +267,11 @@
       margin-top: 10px;
     }
   }
-  & .bl_formInput__img input {
-    @include tab {
-      font-size: 1.0rem
-    };
-  }
   & .bl_list_item_content {
     padding: 20px 0 40px;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 }
 
@@ -281,6 +280,7 @@
   padding: 20px 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   & div {
     display: flex;
     align-items: center;
@@ -293,8 +293,19 @@
   justify-content: center;
   padding-top: 10px;
   & p {
+    font-size: 1.2rem;
     margin-left: 15px;
+    @include sp {
+      font-size: .9rem;
+    }
   }
+}
+
+.bl_followContainer {
+  @include tab {
+    display: flex;
+    flex-direction: column-reverse
+  };
 }
 
 .bl_followInfo {
@@ -314,12 +325,6 @@
   }
 }
 
-.bl_followContainer {
-  @include tab {
-    display: flex;
-    flex-direction: column-reverse
-  };
-}
 
 .bl_followBtn {
   margin-left: 20px;
@@ -340,12 +345,12 @@
   & .bl_postInfo {
     display: flex;
     justify-content: space-between;
-    font-size: 1.2rem;
     padding: 15px;
     @include tab {
-        padding: 15px 15px 25px;
+      padding: 15px 15px 25px;
     }
     & span {
+      font-size: 1.2rem;
       @include sp {
         font-size: 1.0rem;
       };
@@ -387,6 +392,9 @@
   & h3 {
     margin: 10px 0;
     margin-left: 20px;
+  }
+  & span {
+    font-size: 1.1rem;
   }
   & .bl_sideNav_item {
     padding: 15px 30px;
@@ -487,7 +495,6 @@
 }
 
 .bl_userDetail {
-  padding: 0 40px;
   & .bl_list_item {
     min-height: 100px;
   }
@@ -497,7 +504,6 @@
   padding-top: 15px;
   border-bottom: 1px solid #cdcdcd;
   &_title {
-    font-size: 1.2rem;
     background-color: #a58e62;
     color: #fff;
     & p {
@@ -505,16 +511,20 @@
     }
   }
   &_content {
-    font-size: 1.2rem;
     padding: 5px 10px 0;
+    @include sp {
+      padding: 5px 0 0;
+    }
   }
 }
 
 .bl_followerPage {
-  padding: 0 40px;;
   .bl_userInfoContainer {
     padding: 30px 0 0;
     border-bottom: 1px solid #cdcdcd;
+    @include tab {
+      padding: 20px 0 10px;
+    };
   }
 }
 
