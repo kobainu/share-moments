@@ -11,14 +11,12 @@
 }
 
 .ly_header {
-  padding: 20px 20px;
+  width: 100%;
+  padding: 10px 20px;
   @include sp {
     position: sticky;
     top: 0px;
-    width: 100%;
-    padding: 10px 20px;
     z-index: 3;
-    
   }
 }
 

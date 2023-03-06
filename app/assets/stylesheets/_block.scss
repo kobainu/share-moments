@@ -10,6 +10,10 @@
   align-items: center;
   min-height: 100vh;
   padding: 60px 30px;
+  @include sp {
+    padding: 30px 15px;
+    min-height: 0;
+  };
 }
 
 .bl_jumbotron_about {
@@ -19,25 +23,31 @@
   background: rgba(255, 255, 255, .7);
   border-radius: 40px;
   @include tab {
+    width: 550px;
     padding: 50px 20px;
+  };
+  @include sp {
+    padding: 30px 9px;
   };
   & h2 {
     margin-bottom: 20px;
     & span{
       font-size: 2rem;
       @include tab {
+        display: block;
         font-size: 1.5rem;
       };
-      @media (max-width: 500px) {
+      @include sp {
         display: block;
+        font-size: 1.2rem;
       };
     }
   }
   & p,
     span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     @include tab {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     };
     @include sp {
       font-size: 1.0rem;
@@ -72,13 +82,16 @@
   justify-content: center;
   align-items: center;
   padding: 100px 30px;
-  &:nth-child(3) {
+  &:nth-child(4) {
     background-color: #f7f7f7;
     flex-direction: row-reverse;
   }
   @include pc_sm {
     height: 100vh;
     padding: 60px 30px;
+  };
+  @include sp {
+    padding: 40px 15px;
   };
   & .bl_appDescription_inner {
     display: flex;
@@ -126,9 +139,6 @@
       width: 100%;
       max-width: 45%;
       text-align: center;
-      @include pc_sm {
-        max-width: 100%;
-      };
       & h3 {
         font-size: 1.5rem;
         padding: 40px 0 20px;
@@ -140,6 +150,37 @@
       & span {
         font-size: 1.0rem;
       }
+      @include pc_sm {
+        max-width: 100%;
+      };
+      @include tab {
+        max-width: 100%;
+        & h3 {
+          font-size: 1.2rem;
+          padding: 40px 0 20px;
+        }
+        & p {
+          font-size: 1.0rem;
+          line-height: 1.8;
+        }
+        & span {
+          font-size: .9rem;
+        }
+      };
+      @include sp {
+        max-width: 100%;
+        & h3 {
+          font-size: 1.0rem;
+          padding: 40px 0 20px;
+        }
+        & p {
+          font-size: .9rem;
+          line-height: 1.8;
+        }
+        & span {
+          font-size: .8rem;
+        }
+      };
     }
   }
 }
