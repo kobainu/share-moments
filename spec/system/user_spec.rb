@@ -121,6 +121,15 @@ RSpec.describe User, type: :system do
             expect(page).to have_content 'メールアドレスまたはパスワードが違います。'
           end
         end
+
+        context 'ゲストログイン' do
+          it 'ゲストログインが成功すること' do
+            visit root_path
+            click_link 'ゲストログイン'
+            expect(current_path).to eq posts_path
+            expect(page).to have_content 'ゲストユーザーとしてログインしました'
+          end
+        end
       end
     end
 
