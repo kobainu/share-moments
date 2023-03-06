@@ -239,8 +239,7 @@
   align-items: center;
 }
 
-.bl_pageTitle h2,
-.el_result p {
+.bl_pageTitle h2 {
   font-size: 1.6rem;
   @include pc_sm {
     font-size: 1.4rem;
@@ -294,8 +293,8 @@
   padding-top: 10px;
   & p {
     font-size: 1.2rem;
-    margin-left: 15px;
-    @include sp {
+    margin-left: 10px;
+    @include tab {
       font-size: .9rem;
     }
   }
@@ -496,12 +495,13 @@
       & .bl_list_item_title:nth-child(1) {
         display: flex;
         align-items: end;
-        position: relative;
-        & span {
+        & .el_refelence {
           position: relative;
           bottom: 2px;
           margin-left: 10px;
-          font-size: .8rem;
+          @include tab {
+            bottom: 1px;
+          }
         }
       }
       &__col2 {

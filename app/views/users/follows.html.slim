@@ -1,5 +1,5 @@
 section.ly_main_inner.bl_followerPage.hp_maxWidth.hp_centerColumn
-  ..bl_pageHead
+  .bl_pageHead
     .bl_pageTitle
       h2 = "#{@user.name}さんがフォローしているユーザー"
   - if @users.exists?
@@ -29,4 +29,5 @@ section.ly_main_inner.bl_followerPage.hp_maxWidth.hp_centerColumn
                   p = "フォロワー:"
                   p = "#{user.follower_user.count}人"
   - else
-    p 誰もフォローしていません。
+    .el_result
+      p まだ誰もフォローしていません。

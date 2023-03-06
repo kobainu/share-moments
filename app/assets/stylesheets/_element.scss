@@ -133,12 +133,26 @@
   height: 25px;
 }
 
-.el_result {
+.el_result p {
   padding: 0 5%;
+  font-size: 1.4rem;
+  @include pc_sm {
+    font-size: 1.2rem;
+  };
+  @include tab {
+    font-size: 1.0rem;
+  };
+  @include sp {
+    font-size: .8rem;
+  };
 }
 
 .el_refelence {
-  @include sp {
+  font-size: .9rem;
+  @include tab {
     font-size: .8rem;
+  }
+  @include sp {
+    font-size: .7rem;
   }
 }
