@@ -20,12 +20,12 @@ section.ly_main_inner.bl_formPage
         = f.text_area :description, value: @post.description, placeholder:"説明を入力"
       .bl_list_item_title
         p = f.label :'(任意)タグ'
-      p ※半角スペースで区切ることで複数のタグを付けることができます。
+      p.el_refelence ※ 半角スペースで区切ることで複数のタグを付けることができます。
       .bl_list_item_content
         = f.text_field :tag_name, placeholder:"(例) 桜 犬 春"
       .bl_list_item_title
         p = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
-      p ※撮影地検索の対象にも含まれなくなります。
+      p.el_refelence ※ 撮影地検索の対象にも含まれなくなります。
       .bl_list_item_content
         = f.check_box :hide_location_info, class: 'el_checkBox'
         span 非表示にする

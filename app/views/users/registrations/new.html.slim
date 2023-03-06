@@ -6,19 +6,19 @@ section.ly_main_inner.bl_formPage
     = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       = render "users/shared/error_messages", resource: resource
       .bl_list_item_title
-        p = f.label :name, 'ニックネーム'
+        p = f.label :name, '(必須) ニックネーム'
       .bl_list_item_content
         = f.text_field :name, autofocus: true
       .bl_list_item_title
-        p = f.label :email
+        p = f.label :email, '(必須) メールアドレス'
       .bl_list_item_content
         = f.email_field :email, autocomplete: "email", placeholder:"example@gmail.com"
       .bl_list_item_title
-        p = f.label :password
+        p = f.label :password, '(必須) パスワード'
       .bl_list_item_content
         = f.password_field :password, autocomplete: "new-password", placeholder:"#{@minimum_password_length}文字以上で入力"
       .bl_list_item_title
-        p = f.label :password_confirmation
+        p = f.label :password_confirmation, '(必須) 確認用パスワード'
       .bl_list_item_content
         = f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"パスワードをもう一度入力"
       .actions.bl_btn__reverse

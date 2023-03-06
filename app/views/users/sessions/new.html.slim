@@ -5,11 +5,11 @@ section.ly_main_inner.bl_formPage
   .bl_form
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .bl_list_item_title
-        = f.label :email
+        p = f.label :email
       .bl_list_item_content
         = f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"example@gmail.com"
       .bl_list_item_title
-        = f.label :password
+        p = f.label :password
       .bl_list_item_content
         = f.password_field :password, autocomplete: "current-password", placeholder:"パスワード"
       - if devise_mapping.rememberable?

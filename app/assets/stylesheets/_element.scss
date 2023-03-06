@@ -136,3 +136,9 @@
 .el_result {
   padding: 0 5%;
 }
+
+.el_refelence {
+  @include sp {
+    font-size: .8rem;
+  }
+}

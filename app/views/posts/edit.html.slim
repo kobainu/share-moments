@@ -24,7 +24,7 @@ section.ly_main_inner.bl_formPage
         = f.text_field :tag_name, value: @tag_list, placeholder:"(例) 桜_犬_春"
       .bl_list_item_title
         p = f.label :camera, '撮影カメラ'
-      | ※設定しておくとカメラ名での検索の対象になります。
+      p.el_refelence ※ 設定しておくとカメラ名での検索の対象になります。
       .bl_list_item_content
         = f.text_field :camera, value: @post.camera, placeholder:"(例) Canon Eos M5"
       .bl_list_item_title
@@ -53,20 +53,20 @@ section.ly_main_inner.bl_formPage
         = f.number_field :focal_length, value: @post.focal_length, placeholder:"(例) 50mm"
       .bl_list_item_title
         p = f.label :address, '撮影地住所'
-      | ※都道府県などを設定しておくと撮影地検索の対象になります。
+      p.el_refelence ※ 都道府県などを設定しておくと撮影地検索の対象になります。
       .bl_list_item_content
         = f.text_field :address, value: @post.address, placeholder:"(例) 東京都 墨田区"
       br
       - if @post.address.present?
         .bl_list_item_title
           p = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
-        | ※撮影地検索の対象にも含まれなくなります。
+        p.el_refelence ※ 撮影地検索の対象にも含まれなくなります。
         .bl_list_item_content
           = f.check_box :hide_location_info, class: 'el_checkBox'
           span 非表示にする
       - else
-        p ※選択された写真には位置情報がありません。
+        p.el_refelence ※ 選択された写真には位置情報がありません。
       br
-      .bl_btn
+      .bl_btn__reverse
         = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn el_btn__red", data: {confirm: "本当に削除しますか？"}
         = f.submit '投稿を更新', class: 'el_btn el_btn__blue'

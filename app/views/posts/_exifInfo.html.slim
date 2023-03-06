@@ -2,7 +2,7 @@
   .bl_list_item
     .bl_list_item_title
       p カメラ:
-      span ※ クリックでカメラ検索へ
+      p.el_refelence ※ クリックでカメラ検索へ
     .bl_list_item_content
       - if @post.camera?
         p = link_to camera_search_posts_path(camera: @post.camera) do

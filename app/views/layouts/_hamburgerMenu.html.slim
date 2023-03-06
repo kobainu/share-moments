@@ -4,17 +4,13 @@
     span
     span
   #hamburgerMenuNav
-    / nav
-      ul
-        li Menu
-        li Menu
-        li Menu
-        li Menu
-        li Menu
-        li Menu
-        li Menu
     nav
       ul.bl_sideNav.ly_flex__col
+        / = link_to user_path(current_user.id) do
+        /   li.bl_sideNav_item
+        /     span.el_icon
+        /       i.bi.bi-pencil-square
+        /     p マイページ
         = link_to new_post_path do
           li.bl_sideNav_item
             span.el_icon

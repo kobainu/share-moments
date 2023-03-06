@@ -17,6 +17,7 @@
     position: sticky;
     top: 0px;
     z-index: 3;
+    padding: 5px 15px;
   }
 }
 
@@ -24,7 +25,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
   & .bl_searchForm {
     @include pc_sm {
       display: none;
@@ -33,12 +33,27 @@
   & .bl_btn .el_btn:nth-child(2) {
     margin-left: 20px;
   }
+  & .bl_userInfo {
+    display: none;
+    margin-right: 50px;
+    & .el_profileImg__sm {
+      @include sp {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    @include tab {
+      display: block;
+    }
+  }
   @include tab {
-  & .bl_btn {
+    height: 65px;
+    & .bl_btn {
       display: none;
     }
   };
   @include sp {
+    height: 55px;
     padding: 0;
   }
 }
