@@ -12,7 +12,7 @@ section.ly_main_inner.bl_userDetail.hp_maxWidth.hp_centerColumn
       - else
         = image_tag('user/default_user_icon.png', class: 'el_profileImg__lg')
       p = @user.name
-    div
+    .bl_followContainer
       - if current_user != @user
         .bl_followBtn
           - if current_user.following?(@user)
