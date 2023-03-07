@@ -6,11 +6,11 @@
   #hamburgerMenuNav
     nav
       ul.bl_sideNav.ly_flex__col
-        / = link_to user_path(current_user.id) do
-        /   li.bl_sideNav_item
-        /     span.el_icon
-        /       i.bi.bi-pencil-square
-        /     p マイページ
+        .bl_list_item_title
+          h3
+            span
+              i.bi.bi-menu-app
+            span メニュー
         = link_to new_post_path do
           li.bl_sideNav_item
             span.el_icon
@@ -31,21 +31,18 @@
             span.el_icon
               i.bi.bi-people
             p フォロー中のユーザーの投稿
-        li.bl_sideNav_item
+        li.bl_sideNav_item#addressSearchBtn
           span.el_icon
             i.bi.bi-geo-alt
           p 撮影地で探す
-          = render partial: 'layouts/address_searchBar'
-        li.bl_sideNav_item
+        li.bl_sideNav_item#tagSearchBtn
           span.el_icon
             i.bi.bi-tags
           p タグで探す
-          = render partial: 'layouts/tag_searchBar'
-        li.bl_sideNav_item
+        li.bl_sideNav_item#cameraSearchBtn
           span.el_icon
             i.bi.bi-camera
           p カメラ名で探す
-          = render partial: 'layouts/camera_searchBar'
         - if user_signed_in?
           - if !(current_user.email == 'guest@example.com')
             = link_to profile_users_path do
@@ -63,4 +60,57 @@
               span.el_icon
                 i.bi.bi-door-closed
               p ログアウト
+    .bl_searchBarArea
+      .bl_addressSearchBar
+        .bl_list_item_title
+          h3
+            span
+              i.bi.bi-geo-alt
+            span 撮影地で探す
+          .returnBtn
+            span 戻る >>
+        nav
+          = form_with url: address_search_posts_path, method: :get, class: 'bl_searchForm hp_flex', local: true do |f|
+            = f.text_field :address, placeholder:"地名で検索"
+            = button_tag type: 'submit', class: 'el_btn__square el_btn__sm' do
+              i.bi.bi-search
+          ul.bl_sideNav
+            - @prefectures.each do |prefecture|
+              = link_to address_search_posts_path(address: prefecture.name) do 
+                li.bl_sideNav_item
+                  span
+                    i.bi.bi-geo-alt
+                  span
+                    = prefecture.name
+      .bl_cameraSearchBar
+        .bl_list_item_title
+          h3 
+            span
+              i.bi.bi-camera
+            span カメラ名で探す
+          .returnBtn
+            span 戻る >>
+        nav
+          = form_with url: camera_search_posts_path, method: :get, class: 'bl_searchForm hp_flex', local: true do |f|
+            = f.text_field :camera, placeholder:"カメラ名で検索"
+            = button_tag type: 'submit', class: 'el_btn__square el_btn__sm' do
+              i.bi.bi-search
+      .bl_tagSearchBar
+        .bl_list_item_title
+          h3
+            span
+              i.bi.bi-tags
+            span タグで探す
+          .returnBtn
+            span 戻る >>
+        nav
+          ul.bl_sideNav
+            - @tags.each do |tag|
+              - if tag.posts.count != 0
+                = link_to tag_search_posts_path(tag_id: tag.id) do
+                  li.bl_sideNav_item
+                    span
+                      i.bi.bi-tag
+                    span
+                      = "#{tag.tag_name}(#{tag.posts.count}) "
   #mask
