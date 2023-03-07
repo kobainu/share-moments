@@ -4,22 +4,22 @@ RSpec.describe User, type: :model do
   let(:user_a) { build(:user) }
   let(:user_b) { build(:user) }
 
-  it '名前とメールアドレス、パスワードと確認パスワードが存在すれば登録できること' do
+  it 'ニックネームとメールアドレス、パスワードと確認パスワードが存在すれば登録できること' do
     expect(user_a).to be_valid
   end
 
-  it '名前が未入力では登録できないこと' do
+  it 'ニックネームが未入力では登録できないこと' do
     user_a.name = ""
     user_a.valid?
     expect(user_a.errors[:name]).to include("が入力されていません。")
   end
 
-  it '名前が10文字以内であれば登録できること' do
+  it 'ニックネームが10文字以内であれば登録できること' do
     user_a.name = "n" * 10
     expect(user_a).to be_valid
   end
 
-  it '名前が11文字以上では登録できないこと' do
+  it 'ニックネームが11文字以上では登録できないこと' do
     user_a.name = "n" * 11
     user_a.valid?
     expect(user_a.errors[:name]).to include("は10文字以内で入力してください")
