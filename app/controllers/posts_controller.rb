@@ -61,10 +61,10 @@ class PostsController < ApplicationController
     tag_list = params[:post][:tag_name].split(nil)
     if @post.save
       @post.save_tag(tag_list)
-      flash[:notice] = "新しく投稿しました"
+      flash[:notice] = "投稿が完了しました。"
       redirect_to posts_path
     else
-      flash.now[:alert] = "投稿に失敗しました"
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
     end
   end
@@ -91,17 +91,17 @@ class PostsController < ApplicationController
       end
       # 新たにタグとの関連を登録
       @post.save_tag(tag_list)
-      flash[:notice] = "投稿内容を更新しました"
+      flash[:notice] = "投稿内容を更新しました。"
       redirect_to post_path(@post.id)
     else
-      flash.now[:alert] = "更新に失敗しました"
+      flash.now[:alert] = "投稿内容の更新に失敗しました。"
       render :edit
     end
   end
 
   def destroy
     @post.destroy
-    flash[:notice] = "投稿内容を削除しました"
+    flash[:notice] = "投稿内容を削除しました。"
     redirect_to posts_path
   end
 
