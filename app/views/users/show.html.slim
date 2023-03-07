@@ -2,7 +2,7 @@ section.ly_main_inner.bl_userDetail.hp_maxWidth.hp_centerColumn
   .bl_pageHead
     .bl_pageTitle
       h2 ユーザー詳細
-    - if !(current_user.email == 'guest@example.com')
+    - if regular_user?
       - if @user.id == current_user.id
         .bl_btn
           = link_to 'プロフィールを編集', profile_users_path, class: 'el_btn el_btn__sm'

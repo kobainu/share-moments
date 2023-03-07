@@ -44,7 +44,7 @@
             i.bi.bi-camera
           p カメラ名で探す
         - if user_signed_in?
-          - if !(current_user.email == 'guest@example.com')
+          - if regular_user?
             = link_to profile_users_path do
               li.bl_sideNav_item
                 span.el_icon

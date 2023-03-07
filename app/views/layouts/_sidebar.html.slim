@@ -47,7 +47,7 @@ aside.ly_sidebar
             i.bi.bi-camera
           p カメラ名で探す
           = render partial: 'layouts/camera_searchBar'
-        - if !(current_user.email == 'guest@example.com')
+        - if regular_user?
           = link_to profile_users_path do
             li.bl_sideNav_item
               span.el_icon

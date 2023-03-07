@@ -47,7 +47,7 @@ aside.ly_sidebar_sm
           span.el_icon
             i.bi.bi-camera
           = render partial: 'layouts/camera_searchBar'
-        - if !(current_user.email == 'guest@example.com')
+        - if regular_user?
           = link_to profile_users_path do
             li.bl_sideNav_item
               span.el_icon

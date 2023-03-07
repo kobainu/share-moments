@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :get_prefectures
   before_action :get_tags
   protect_from_forgery with: :exception
+  helper_method :regular_user?
 
   # ログイン後の遷移先
   def after_sign_in_path_for(resource)
@@ -19,6 +20,10 @@ class ApplicationController < ActionController::Base
 
   def get_tags
     @tags = Tag.all
+  end
+
+  def regular_user?
+    !(current_user.email == 'guest@example.com')
   end
 
   protected
