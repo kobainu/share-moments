@@ -53,6 +53,8 @@ section.ly_main_inner.bl_formPage
         = f.number_field :focal_length, value: @post.focal_length, placeholder:"(例) 50mm"
       .bl_list_item_title
         p = f.label :address, '撮影地住所'
+      - if !@post.address.present?
+        p.el_refelence ※ 選択された写真には位置情報がありません。
       p.el_refelence ※ 都道府県などを設定しておくと撮影地検索の対象になります。
       .bl_list_item_content
         = f.text_field :address, value: @post.address, placeholder:"(例) 東京都 墨田区"
@@ -63,8 +65,6 @@ section.ly_main_inner.bl_formPage
         .bl_list_item_content
           = f.check_box :hide_location_info, class: 'el_checkBox'
           span 非表示にする
-      - else
-        p.el_refelence ※ 選択された写真には位置情報がありません。
       .bl_btn__reverse
         = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn el_btn__red", data: {confirm: "削除すると復元できません。\nよろしいですか？"}
         = f.submit '投稿を更新', class: 'el_btn el_btn__blue'
