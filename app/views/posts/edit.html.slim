@@ -56,7 +56,6 @@ section.ly_main_inner.bl_formPage
       p.el_refelence ※ 都道府県などを設定しておくと撮影地検索の対象になります。
       .bl_list_item_content
         = f.text_field :address, value: @post.address, placeholder:"(例) 東京都 墨田区"
-      br
       - if @post.address.present?
         .bl_list_item_title
           p = f.label :撮影地情報を非表示にする場合はチェックを入れて下さい。
@@ -67,5 +66,5 @@ section.ly_main_inner.bl_formPage
       - else
         p.el_refelence ※ 選択された写真には位置情報がありません。
       .bl_btn__reverse
-        = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn el_btn__red", data: {confirm: "本当に削除しますか？"}
+        = link_to '投稿を削除', post_path(@post.id), method: :delete, class: "el_btn el_btn__red", data: {confirm: "削除すると復元できません。\nよろしいですか？"}
         = f.submit '投稿を更新', class: 'el_btn el_btn__blue'

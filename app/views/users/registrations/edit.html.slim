@@ -26,5 +26,5 @@ section.ly_main_inner.bl_formPage
       .bl_list_item_content
         = f.password_field :current_password, autocomplete: "current-password", placeholder:"変更前のパスワードを入力"
       .actions.bl_btn__reverse
-        = link_to "アカウント情報を削除", registration_path(resource_name), data: { confirm: "削除するとも復元できません。本当に削除しますか？" }, method: :delete, class: "el_btn el_btn__red"
+        = link_to "アカウント情報を削除", registration_path(resource_name), data: { confirm: "アカウントを削除すると投稿も全て削除され復元できません。\n本当に削除しますか？" }, method: :delete, class: "el_btn el_btn__red"
         = f.submit "アカウント情報を変更", class: "el_btn el_btn__blue"

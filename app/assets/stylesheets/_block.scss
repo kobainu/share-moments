@@ -122,6 +122,10 @@
         flex-direction: column;
         max-width: 100%;
       }
+      @include sp {
+        flex-direction: column;
+        max-height: 100%;
+      }
       &__1 {
         @extend .bl_appDescription_img;
         background-image: image-url("about_1.jpg");
