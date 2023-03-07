@@ -62,7 +62,7 @@ class PostsController < ApplicationController
     if @post.save
       @post.save_tag(tag_list)
       flash[:notice] = "新しく投稿しました"
-      redirect_to post_path(@post.id)
+      redirect_to posts_path
     else
       flash.now[:alert] = "投稿に失敗しました"
       render :new
