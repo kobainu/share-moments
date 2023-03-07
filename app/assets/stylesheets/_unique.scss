@@ -140,7 +140,7 @@
     padding: 20px 15px;
   }
   & .bl_searchForm {
-    margin: 0 10px 20px;
+    margin: 20px 10px;
   }
   & span {
     font-size: 1.0rem;
@@ -160,7 +160,6 @@
   & .bl_list_item_title {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
     padding: 10px;
     & span:nth-child(1) {
       margin-right: 5px;
