@@ -8,7 +8,7 @@ section.ly_main_inner.bl_formPage
       .bl_list_item_title
         p 投稿写真
       .bl_list_item_content
-        .bl_postImg__md
+        .bl_postImg.bl_postImg__md
           = image_tag(@post.photo.url, class: 'el_photo')
       .bl_list_item_title
         p = f.label :title, 'タイトル'

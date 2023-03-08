@@ -7,7 +7,7 @@ section.ly_main_inner.bl_postDetail
         = link_to '投稿を編集', edit_post_path(@post.id), class: 'el_btn el_btn__sm'
   .bl_postDetail_cont
     .bl_postDetail_main
-      .bl_postImg__xl
+      .bl_postImg.bl_postImg__xl
         = image_tag(@post.photo.url, class: 'el_photo')
       .bl_flexWrap
         - @post_tags.each do |tag|

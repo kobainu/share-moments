@@ -113,9 +113,9 @@
 }
 
 .ly_main_inner {
-  padding: 10px 5% 0;
-  @include sp {
-    padding: 0 5%;
+  padding: 10px 50px 0;
+  @include tab {
+    padding: 10px 10px;
   }
 }
 

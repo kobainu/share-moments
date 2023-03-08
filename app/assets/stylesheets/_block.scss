@@ -193,8 +193,19 @@
   display: flex;
   flex-wrap: wrap;
   & .bl_postImg__sm {
-    margin-right: 10px;
-    margin-bottom: 10px;
+    width: calc(100% / 5 - 2%);
+    padding-top: calc(100% / 5 - 2%);
+    margin: 1%;
+  }
+  & .bl_card {
+    width: calc(100% / 3 - 2%);
+    margin: 0 1% 5%;
+    @include pc_md {
+      width: calc(100% / 2 - 2%);
+    };
+    @media (max-width: 599px) {
+      width: 100%;
+    }
   }
 }
 
@@ -216,11 +227,6 @@
 .bl_postImg {
   position: relative;
   box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
-  &__sm {
-    @extend .bl_postImg;
-    width: 60px;
-    height: 60px
-  }
   &__md {
     @extend .bl_postImg;
     width: 300px;
@@ -337,14 +343,6 @@
 }
 
 .bl_card {
-  width: 31%;
-  margin: 0 1% 5%;
-  @include pc_md {
-    width: 48%;
-  };
-  @media (max-width: 599px) {
-    width: 100%;
-  }
   & .bl_postInfo {
     display: flex;
     justify-content: space-between;
@@ -511,6 +509,7 @@
       &__col2 {
         @extend .bl_postDetail_aside;
         min-width: $postAsideWidth;
+        max-width: $postAsideWidth;
         & .bl_postDetail_exifList {
           margin-top: -15px;
         }
@@ -547,7 +546,7 @@
     background-color: #a58e62;
     color: #fff;
     & p {
-      margin-left: 10px;
+      margin: 0 5px;
     }
   }
   &_content {

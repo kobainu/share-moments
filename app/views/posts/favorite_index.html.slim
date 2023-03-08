@@ -6,7 +6,7 @@ section.ly_main_inner
     .bl_flexWrap
       - @favorite_posts.reverse_each do |favorite|
         article.bl_card
-          .bl_postImg__lg
+          .bl_postImg.bl_postImg__lg
             = link_to image_tag(favorite.post.photo.url, class: 'el_photo'), post_path(favorite.post.id)
           .bl_postInfo
             span = "投稿者: #{favorite.post.user.name}"
