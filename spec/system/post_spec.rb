@@ -21,7 +21,7 @@ RSpec.describe Post, type: :system do
           fill_in 'post[description]', with: 'description'
           fill_in 'post[tag_name]', with: 'tag'
           click_button '投稿する'
-          expect(page).to have_content '新しく投稿しました'
+          expect(page).to have_content '投稿が完了しました。'
         end
       end
 
@@ -35,7 +35,7 @@ RSpec.describe Post, type: :system do
           fill_in 'post[description]', with: 'description'
           fill_in 'post[tag_name]', with: 'tag'
           click_button '投稿する'
-          expect(page).to have_content '投稿に失敗しました'
+          expect(page).to have_content '投稿に失敗しました。'
         end
       end
 
@@ -50,7 +50,7 @@ RSpec.describe Post, type: :system do
           fill_in 'post[description]', with: 'description'
           fill_in 'post[tag_name]', with: 'tag'
           click_button '投稿する'
-          expect(page).to have_content '投稿に失敗しました'
+          expect(page).to have_content '投稿に失敗しました。'
         end
       end
     end
@@ -64,7 +64,7 @@ RSpec.describe Post, type: :system do
           fill_in 'post[tag_name]', with: 'tag_edit'
           click_button '投稿を更新'
           expect(current_path).to eq post_path(post.id)
-          expect(page).to have_content '投稿内容を更新しました'
+          expect(page).to have_content '投稿内容を更新しました。'
         end
       end
 
@@ -75,7 +75,7 @@ RSpec.describe Post, type: :system do
           fill_in 'post[description]', with: 'description_edit'
           fill_in 'post[tag_name]', with: 'tag_edit'
           click_button '投稿を更新'
-          expect(page).to have_content '更新に失敗しました'
+          expect(page).to have_content '更新に失敗しました。'
         end
       end
     end
