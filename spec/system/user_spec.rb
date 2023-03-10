@@ -29,7 +29,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password]', with: 'password'
             fill_in 'user[password_confirmation]', with: 'password'
             click_button 'アカウントを登録'
-            expect(page).to have_content 'ニックネームが入力されていません。'
+            expect(page).to have_content 'ニックネームを入力して下さい。'
           end
         end
 
@@ -42,7 +42,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password]', with: 'password'
             fill_in 'user[password_confirmation]', with: 'password'
             click_button 'アカウントを登録'
-            expect(page).to have_content 'ニックネームは10文字以内で入力してください'
+            expect(page).to have_content 'ニックネームは10文字以内で入力して下さい。'
           end
         end
 
@@ -55,7 +55,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password]', with: 'password'
             fill_in 'user[password_confirmation]', with: 'password'
             click_button 'アカウントを登録'
-            expect(page).to have_content 'メールアドレスが入力されていません。'
+            expect(page).to have_content 'メールアドレスを入力して下さい。'
           end
         end
 
@@ -68,7 +68,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password]', with: 'password'
             fill_in 'user[password_confirmation]', with: 'password'
             click_button 'アカウントを登録'
-            expect(page).to have_content 'メールアドレスは既に使用されています。'
+            expect(page).to have_content 'メールアドレスが既に使用されています。'
           end
         end
 
@@ -81,7 +81,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password]', with: ''
             fill_in 'user[password_confirmation]', with: 'password'
             click_button 'アカウントを登録'
-            expect(page).to have_content 'パスワードが入力されていません。'
+            expect(page).to have_content 'パスワードを設定して下さい。'
           end
         end
 
@@ -94,7 +94,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password]', with: 'p' * 5
             fill_in 'user[password_confirmation]', with: 'p' * 5
             click_button 'アカウントを登録'
-            expect(page).to have_content 'パスワードは6文字以上に設定して下さい。'
+            expect(page).to have_content 'パスワードは6文字以上で設定して下さい。'
           end
         end
 
@@ -152,7 +152,7 @@ RSpec.describe User, type: :system do
             visit root_path
             click_link 'ゲストログイン'
             expect(current_path).to eq posts_path
-            expect(page).to have_content 'ゲストユーザーとしてログインしました'
+            expect(page).to have_content 'ゲストユーザーとしてログインしました。'
           end
         end
       end
@@ -189,7 +189,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password_confirmation]', with: 'password_edit'
             fill_in 'user[current_password]', with: user.password
             click_button 'アカウント情報を変更'
-            expect(page).to have_content 'メールアドレスが入力されていません。'
+            expect(page).to have_content 'メールアドレスを入力して下さい。'
           end
         end
 
@@ -234,7 +234,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[password_confirmation]', with: 'p' * 5
             fill_in 'user[current_password]', with: user.password
             click_button 'アカウント情報を変更'
-            expect(page).to have_content 'パスワードは6文字以上に設定して下さい。'
+            expect(page).to have_content 'パスワードは6文字以上で設定して下さい。'
           end
         end
 
@@ -266,7 +266,7 @@ RSpec.describe User, type: :system do
             fill_in 'user[introduction]', with: 'i' * 150
             click_button 'プロフィールを更新'
             expect(current_path).to eq user_path(user.id)
-            expect(page).to have_content 'プロフィールを更新しました'
+            expect(page).to have_content 'プロフィールを更新しました。'
           end
         end
 
@@ -279,7 +279,7 @@ RSpec.describe User, type: :system do
             attach_file 'user[image]', Rails.root.join('spec/fixture/image.jpg')
             fill_in 'user[name]', with: ''
             click_button 'プロフィールを更新'
-            expect(page).to have_content 'ニックネームが入力されていません。'
+            expect(page).to have_content 'ニックネームを入力して下さい。'
           end
         end
 
@@ -292,7 +292,7 @@ RSpec.describe User, type: :system do
             attach_file 'user[image]', Rails.root.join('spec/fixture/image.jpg')
             fill_in 'user[name]', with: 'n' * 11
             click_button 'プロフィールを更新'
-            expect(page).to have_content 'ニックネームは10文字以内で入力してください'
+            expect(page).to have_content 'ニックネームは10文字以内で入力して下さい。'
           end
         end
 
@@ -305,7 +305,7 @@ RSpec.describe User, type: :system do
             attach_file 'user[image]', Rails.root.join('spec/fixture/image.jpg')
             fill_in 'user[introduction]', with: 'i' * 151
             click_button 'プロフィールを更新'
-            expect(page).to have_content '自己紹介は150文字以内で入力してください'
+            expect(page).to have_content '自己紹介は150文字以内で入力して下さい。'
           end
         end
       end
