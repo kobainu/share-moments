@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      | Myapp
+      | Share-Moments.
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
@@ -15,12 +15,6 @@ html
       .ly_cont
         - if user_signed_in?
           = render partial: 'layouts/sidebar'
-          / ul.bl_toolBar
-          /   li A
-          /   li B
-          /   li C
-          /   li D
-          /   li E
         main.ly_main  
           = render partial: 'layouts/hamburgerMenu'
           = render partial: 'layouts/flash'
