@@ -13,11 +13,11 @@ section.ly_main_inner.bl_formPage
       .bl_list_item_title
         p = f.label :'(必須)タイトル'
       .bl_list_item_content
-        = f.text_field :title, value: @post.title, placeholder:"タイトルを入力"
+        = f.text_field :title, value: @post.title, placeholder:"タイトルを入力(20文字まで)"
       .bl_list_item_title
-        p = f.label :'(任意)説明'
+        p = f.label :'(任意)投稿紹介'
       .bl_list_item_content
-        = f.text_area :description, value: @post.description, placeholder:"説明を入力"
+        = f.text_area :description, value: @post.description, placeholder:"投稿紹介を入力(150文字まで)"
       .bl_list_item_title
         p = f.label :'(任意)タグ'
       p.el_refelence ※ 半角スペースで区切ることで複数のタグを付けることができます。

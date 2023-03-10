@@ -17,8 +17,8 @@ RSpec.describe Post, type: :system do
             click_link '投稿する'
           end
           attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
-          fill_in 'post[title]', with: 'title'
-          fill_in 'post[description]', with: 'description'
+          fill_in 'post[title]', with: 't' * 20
+          fill_in 'post[description]', with: 'd' * 150
           fill_in 'post[tag_name]', with: 'tag'
           click_button '投稿する'
           expect(page).to have_content '投稿が完了しました。'
@@ -31,11 +31,12 @@ RSpec.describe Post, type: :system do
           within ".ly_header" do
             click_link '投稿する'
           end
-          fill_in 'post[title]', with: 'title'
-          fill_in 'post[description]', with: 'description'
+          fill_in 'post[title]', with: 't' * 20
+          fill_in 'post[description]', with: 'd' * 150
           fill_in 'post[tag_name]', with: 'tag'
           click_button '投稿する'
           expect(page).to have_content '投稿に失敗しました。'
+          expect(page).to have_content '投稿する写真を選択して下さい。'
         end
       end
 
@@ -47,10 +48,43 @@ RSpec.describe Post, type: :system do
           end
           attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
           fill_in 'post[title]', with: ''
-          fill_in 'post[description]', with: 'description'
+          fill_in 'post[description]', with: 'd' * 150
           fill_in 'post[tag_name]', with: 'tag'
           click_button '投稿する'
           expect(page).to have_content '投稿に失敗しました。'
+          expect(page).to have_content 'タイトルを入力して下さい。'
+        end
+      end
+
+      context 'タイトルが21文字以上' do
+        it '投稿が失敗すること' do
+          visit posts_path
+          within ".ly_header" do
+            click_link '投稿する'
+          end
+          attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
+          fill_in 'post[title]', with: 't' * 21
+          fill_in 'post[description]', with: 'd' * 150
+          fill_in 'post[tag_name]', with: 'tag'
+          click_button '投稿する'
+          expect(page).to have_content '投稿に失敗しました。'
+          expect(page).to have_content 'タイトルは20文字以内で入力して下さい。'
+        end
+      end
+
+      context '投稿紹介が151文字以上' do
+        it '投稿が失敗すること' do
+          visit posts_path
+          within ".ly_header" do
+            click_link '投稿する'
+          end
+          attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
+          fill_in 'post[title]', with: 't' * 20
+          fill_in 'post[description]', with: 'd' * 151
+          fill_in 'post[tag_name]', with: 'tag'
+          click_button '投稿する'
+          expect(page).to have_content '投稿に失敗しました。'
+          expect(page).to have_content '投稿紹介は150文字以内で入力して下さい。'
         end
       end
     end
@@ -76,6 +110,31 @@ RSpec.describe Post, type: :system do
           fill_in 'post[tag_name]', with: 'tag_edit'
           click_button '投稿を更新'
           expect(page).to have_content '更新に失敗しました。'
+          expect(page).to have_content 'タイトルを入力して下さい。'
+        end
+      end
+
+      context 'タイトルが21文字以上' do
+        it '投稿の編集が失敗すること' do
+          visit edit_post_path(post.id)
+          fill_in 'post[title]', with: 't' * 21
+          fill_in 'post[description]', with: 'd' * 150
+          fill_in 'post[tag_name]', with: 'tag'
+          click_button '投稿を更新'
+          expect(page).to have_content '更新に失敗しました。'
+          expect(page).to have_content 'タイトルは20文字以内で入力して下さい。'
+        end
+      end
+
+      context '投稿紹介が151文字以上' do
+        it '投稿の編集が失敗すること' do
+          visit edit_post_path(post.id)
+          fill_in 'post[title]', with: 't' * 20
+          fill_in 'post[description]', with: 'd' * 151
+          fill_in 'post[tag_name]', with: 'tag'
+          click_button '投稿を更新'
+          expect(page).to have_content '更新に失敗しました。'
+          expect(page).to have_content '投稿紹介は150文字以内で入力して下さい。'
         end
       end
     end

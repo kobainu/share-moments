@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  validates :photo, presence: { message: 'を選択して下さい' }
+  validates :photo, presence: true
   validates :title, presence: true, length: { maximum: 20 }
   validates :description, length: { maximum: 150 }
 

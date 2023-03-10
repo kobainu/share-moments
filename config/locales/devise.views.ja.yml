@@ -19,6 +19,16 @@ ja:
               too_long: "は%{count}文字以下に設定して下さい。"
               invalid: "は有効でありません。"
               confirmation: "が内容とあっていません。"
+        post:
+          attributes:
+            photo:
+              blank: "を選択して下さい。"
+            title:
+              blank: "を入力して下さい。"
+              too_long: "は%{count}文字以内で入力して下さい。"
+            description:
+              blank: "が入力されていません。"
+              too_long: "は%{count}文字以内で入力して下さい。"
     attributes:
       user:
         current_password: "現在のパスワード"
