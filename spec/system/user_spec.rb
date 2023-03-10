@@ -311,4 +311,114 @@ RSpec.describe User, type: :system do
       end
     end
   end
+
+  describe 'view' do
+    describe '画面遷移' do
+      describe 'TOPページからの遷移' do
+        before  { visit root_path }
+
+        context 'アカウント登録ページへの遷移' do
+          it '「アカウント登録」をクリック' do
+            click_link 'アカウント登録'
+            expect(current_path).to eq new_user_registration_path
+            expect(page).to have_content 'アカウント登録'
+          end
+        end
+
+        context 'ログインページへの遷移' do
+          it '「ログイン」をクリック' do
+            click_link 'ログイン'
+            expect(current_path).to eq new_user_session_path
+            expect(page).to have_content 'ログイン'
+          end
+        end
+      end
+
+      describe 'アカウント登録ページからの遷移' do
+        before  { visit new_user_registration_path }
+
+        context 'ログインページへの遷移' do
+          it '「ログイン画面へ」をクリック' do
+            click_link 'ログイン画面へ'
+            expect(current_path).to eq new_user_session_path
+            expect(page).to have_content 'ログイン'
+          end
+        end
+      end
+
+      describe 'ログインページからの遷移' do
+        before  { visit new_user_session_path }
+
+        context 'アカウント登録画面への遷移' do
+          it '「アカウント登録画面へ」をクリック' do
+            click_link 'アカウント登録画面へ'
+            expect(current_path).to eq new_user_registration_path
+            expect(page).to have_content 'アカウント登録'
+          end
+        end
+
+        context 'パスワード再設定ページへの遷移' do
+          it '「パスワードをお忘れの場合はこちら」をクリック' do
+            click_link 'パスワードをお忘れの場合はこちら'
+            expect(current_path).to eq new_user_password_path
+            expect(page).to have_content 'パスワード再設定のメールを送信'
+          end
+        end
+      end
+
+      describe 'サイドバーメニューからの遷移' do
+        before do
+          login(user)
+          visit posts_path
+        end
+
+        context 'アカウント編集画面への遷移' do
+          it '「アカウント編集」をクリック' do
+            within ".ly_sidebar" do
+              click_link 'アカウント編集'
+            end
+            expect(current_path).to eq edit_user_registration_path
+            expect(page).to have_content 'アカウント編集'
+          end
+        end
+
+        context 'プロフィール編集画面への遷移' do
+          it '「プロフィール編集」をクリック' do
+            within ".ly_sidebar" do
+              click_link 'プロフィール編集'
+            end
+            expect(current_path).to eq profile_users_path
+            expect(page).to have_content 'プロフィール編集'
+          end
+        end
+
+        context 'ログアウト後にTOPページへの遷移' do
+          it '「ログアウト」をクリック' do
+            within ".ly_sidebar" do
+              click_link 'ログアウト'
+            end
+            expect(current_path).to eq root_path
+            expect(page).to have_content 'ログアウトしました。'
+          end
+        end
+      end
+
+      describe 'ヘッダーメニューからの遷移' do
+        before do
+          login(user)
+          visit posts_path
+        end
+
+        context 'ログアウト後にTOPページへの遷移' do
+          it '「ログアウト」をクリック' do
+            within ".ly_header" do
+              click_link 'ログアウト'
+            end
+            expect(current_path).to eq root_path
+            expect(page).to have_content 'ログアウトしました。'
+          end
+        end
+      end
+    end
+  end
 end
