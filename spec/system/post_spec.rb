@@ -139,4 +139,79 @@ RSpec.describe Post, type: :system do
       end
     end
   end
+
+  describe 'view' do
+    before { login(user) }
+
+    describe '投稿情報の表示' do
+      it '投稿一覧画面に投稿した写真と投稿者のユーザー名が表示されているいること' do
+        post.save
+        visit posts_path
+        within ".bl_card" do
+          expect(page).to have_selector('.el_photo, [src="#{post/photo/url}"]')
+          expect(page).to have_content post.user.name
+        end
+      end
+    end
+
+    describe '画面遷移' do
+      describe 'ヘッダーメニューからの遷移' do
+        before  { visit posts_path }
+
+        context '投稿作成ページへの遷移' do
+          it '「投稿する」をクリック' do
+            within '.ly_header' do
+              click_link '投稿する'
+            end
+            expect(current_path).to eq new_post_path
+            expect(page).to have_content '新規投稿'
+          end
+        end
+      end
+
+      describe 'サイドバーメニューからの遷移' do
+        before  { visit posts_path }
+
+        context '投稿作成ページへの遷移' do
+          it '「投稿する」をクリック' do
+            within '.ly_sidebar' do
+              click_link '投稿する'
+            end
+            expect(current_path).to eq new_post_path
+            expect(page).to have_content '新規投稿'
+          end
+        end
+
+        context '全ての投稿ページへの遷移' do
+          it '「全ての投稿」をクリック' do
+            within '.ly_sidebar' do
+              click_link '全ての投稿'
+            end
+            expect(current_path).to eq posts_path
+            expect(page).to have_content '全ての投稿'
+          end
+        end
+
+        context 'お気に入りの投稿ページへの遷移' do
+          it '「お気に入りの投稿」をクリック' do
+            within '.ly_sidebar' do
+              click_link 'お気に入りの投稿'
+            end
+            expect(current_path).to eq favorite_index_posts_path
+            expect(page).to have_content 'お気に入りの投稿'
+          end
+        end
+
+        context 'フォロー中のユーザーの投稿ページへの遷移' do
+          it '「フォロー中のユーザーの投稿」をクリック' do
+            within '.ly_sidebar' do
+              click_link 'フォロー中の'
+            end
+            expect(current_path).to eq following_posts_path
+            expect(page).to have_content 'フォロー中のユーザーの投稿'
+          end
+        end
+      end
+    end
+  end
 end
