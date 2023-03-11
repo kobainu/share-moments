@@ -20,6 +20,7 @@ section.ly_main_inner.bl_formPage
         = f.text_area :description, value: @post.description, placeholder:"投稿紹介を入力(150文字まで)"
       .bl_list_item_title
         p = "タグ"
+      p.el_refelence ※ 半角スペースで区切ることで複数のタグを付けることができます。
       .bl_list_item_content
         = f.text_field :tag_name, value: @tag_list, placeholder:"(例) 桜_犬_春"
       .bl_list_item_title
