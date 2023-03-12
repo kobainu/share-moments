@@ -8,7 +8,7 @@ section.ly_main_inner.bl_postDetail
   .bl_postDetail_cont
     .bl_postDetail_main
       .bl_postImg.bl_postImg__xl
-        = image_tag(@post.photo.url, class: 'el_photo')
+        = image_tag(@post.photo.url, class: 'el_photo', alt: '投稿写真')
       .bl_flexWrap
         - @post_tags.each do |tag|
           .bl_postDetail_tag
@@ -20,9 +20,9 @@ section.ly_main_inner.bl_postDetail
       .bl_userInfoContainer
         .bl_userInfo
           - if @post.user.image?
-            = link_to image_tag(@post.user.image.url, class: 'el_profileImg__sm'), user_path(@post.user.id)
+            = link_to image_tag(@post.user.image.url, class: 'el_profileImg__sm', alt: "#{@post.user.name}さんのプロフィール写真"), user_path(@post.user.id)
           - else
-            = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm'), user_path(@post.user.id)
+            = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm', alt: "#{@post.user.name}さんのプロフィール写真"), user_path(@post.user.id)
           p = @post.user.name
         .bl_followContainer
           - if current_user != @post.user
@@ -61,9 +61,9 @@ section.ly_main_inner.bl_postDetail
                 .bl_postDetail_commentUser
                   .bl_userInfo
                     - if comment.user.image?
-                      = link_to image_tag(comment.user.image.url, class: 'el_profileImg__sm'), user_path(comment.user.id)
+                      = link_to image_tag(comment.user.image.url, class: 'el_profileImg__sm', alt: "#{comment.user.name}さんのプロフィール写真"), user_path(comment.user.id)
                     - else
-                      = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm'), user_path(current_user.id)
+                      = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm', alt: "#{comment.user.name}さんのプロフィール写真"), user_path(current_user.id)
                     p = comment.user.name
                   - if comment.user == current_user
                     .bl_btn

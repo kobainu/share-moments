@@ -8,9 +8,9 @@ section.ly_main_inner.bl_followerPage.hp_maxWidth.hp_centerColumn
         .bl_userInfoContainer
           .bl_userInfo
             - if user.image?
-              = link_to image_tag(user.image.url, class: 'el_profileImg__lg'), user_path(user.id)
+              = link_to image_tag(user.image.url, class: 'el_profileImg__lg', alt: "#{user.name}さんのプロフィール写真"), user_path(user.id)
             - else
-              = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__lg'), user_path(user.id)
+              = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__lg', alt: "#{user.name}さんのプロフィール写真"), user_path(user.id)
             p = user.name
           .bl_followContainer
             - if current_user != user

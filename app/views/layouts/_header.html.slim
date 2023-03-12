@@ -17,6 +17,6 @@ header.ly_header
         = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "el_btn el_btn__red"
       .bl_userInfo
         - if current_user.image?
-          = link_to image_tag(current_user.image.url, class: 'el_profileImg__sm'), user_path(current_user.id)
+          = link_to image_tag(current_user.image.url, class: 'el_profileImg__sm', alt: "#{current_user.name}さんのプロフィール写真"), user_path(current_user.id)
         - else
-          = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm'), user_path(current_user.id)
+          = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm', alt: "#{current_user.name}さんのプロフィール写真"), user_path(current_user.id)

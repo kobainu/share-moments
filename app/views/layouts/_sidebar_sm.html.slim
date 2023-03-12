@@ -3,9 +3,9 @@ aside.ly_sidebar_sm
     .bl_profile
       .bl_userInfo
         - if current_user.image?
-          = link_to image_tag(current_user.image.url, class: 'el_profileImg__sm'), user_path(current_user.id)
+          = link_to image_tag(current_user.image.url, class: 'el_profileImg__sm', alt: "#{current_user.name}さんのプロフィール写真"), user_path(current_user.id)
         - else
-          = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm'), user_path(current_user.id)
+          = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm', alt: "#{current_user.name}さんのプロフィール写真"), user_path(current_user.id)
     nav
       ul.bl_sideNav.ly_flex__col
         = link_to new_post_path do

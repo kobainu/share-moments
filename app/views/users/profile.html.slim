@@ -11,9 +11,9 @@ section.ly_main_inner.bl_formPage
         .bl_userInfo
           .bl_img
             - if @user.image?
-              = image_tag(@user.image.url, class: 'el_profileImg__lg')
+              = image_tag(@user.image.url, class: 'el_profileImg__lg', alt: "#{@user.name}さんのプロフィール写真")
             - else
-              = image_tag('user/default_user_icon.png', class: 'el_profileImg__lg')
+              = image_tag('user/default_user_icon.png', class: 'el_profileImg__lg', alt: "#{@user.name}さんのプロフィール写真")
           .bl_formInput__img
             = f.label :image, class: 'el_btn el_imgInput'
               = f.file_field :image

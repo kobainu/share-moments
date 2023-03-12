@@ -52,4 +52,4 @@
         .bl_list_item_content.bl_flexWrap
           - @posts.reverse_each do |post|
             .bl_postImg.bl_postImg__sm
-              = link_to image_tag(post.photo.url, class: 'el_photo'), post_path(post.id)
+              = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@post_user.name}さんの他の投稿写真"), post_path(post.id)
