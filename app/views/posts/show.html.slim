@@ -8,7 +8,7 @@ section.ly_main_inner.bl_postDetail
   .bl_postDetail_cont
     .bl_postDetail_main
       .bl_postImg.bl_postImg__xl
-        = image_tag(@post.photo.url, class: 'el_photo', alt: '投稿写真')
+        = image_tag(@post.photo.url, class: 'el_photo', alt: "投稿写真: #{@post.id}")
       .bl_flexWrap
         - @post_tags.each do |tag|
           .bl_postDetail_tag

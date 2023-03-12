@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :system do
   let(:user) { create(:user) }
+  let(:other_user) { create(:user, name: 'other_user') }
+  let(:other_user_2) { create(:user) }
   let(:pic_path) { Rails.root.join('spec/fixture/image.jpg') }
   let(:photo) { Rack::Test::UploadedFile.new(pic_path) }
-  let(:post) { create(:post, user_id: user.id, photo: photo) }
+  let(:post) { create(:post, user_id: user.id, photo: photo, title: 'post_title') }
+  let(:other_post) { create(:post, user_id: other_user.id, photo: photo) }
+  let(:other_post_2) { create(:post, user_id: other_user_2.id, photo: photo) }
 
   describe 'Post CRUD' do
     before { login(user) }
@@ -141,16 +145,273 @@ RSpec.describe Post, type: :system do
   end
 
   describe 'view' do
-    before { login(user) }
+    before do
+      login(user)
+      post.save
+    end
 
-    describe '投稿情報の表示' do
-      it '投稿一覧画面に投稿した写真と投稿者のユーザー名が表示されているいること' do
-        post.save
-        visit posts_path
-        within ".bl_card" do
-          expect(page).to have_selector('.el_photo, [src="#{post/photo/url}"]')
-          expect(page).to have_content post.user.name
+    describe '投稿一覧画面' do
+      before { visit posts_path }
+
+      describe 'ヘッダー' do
+        it 'アプリケーションのロゴが表示されていること' do
+          within ".ly_header" do
+            expect(page).to have_selector 'h1', text: 'Share-Moments.'
+          end
         end
+
+        it 'アプリケーションのロゴをクリックすると投稿一覧ページに遷移すること' do
+          within ".ly_header" do
+            click_link 'Share-Moments.'
+          end
+          expect(current_path).to eq posts_path
+        end
+
+        it 'フリーワード検索フォームが表示されていること' do
+          within ".ly_header" do
+            expect(page).to have_selector 'form'
+          end
+        end
+
+        it 'フリーワード検索フォームに入力したキーワードを(住所 or カメラ名に)含む投稿のみが表示されること' do
+          @post_in_Tokyo = create(:post, address: 'Tokyo', photo: photo)
+          @post_in_Osaka = create(:post, address: 'Osaka', photo: photo)
+          within ".ly_header" do
+            fill_in 'フリーワードで検索', with: 'Tokyo'
+            find('#search-btn').click
+          end
+          expect(current_path).to eq search_posts_path
+          within ".ly_main_inner" do
+            expect(page).to have_selector "img[alt='投稿写真: #{@post_in_Tokyo.id}']"
+            expect(page).not_to have_selector "img[alt='投稿写真: #{@post_in_Osaka.id}']"
+          end
+        end
+
+        it '「投稿する」ボタンが表示されていること' do
+          within ".ly_header" do
+            expect(page).to have_selector 'a', text: '投稿する'
+          end
+        end
+
+        it '「投稿する」ボタンをクリックすると投稿作成ページに遷移すること' do
+          within ".ly_header" do
+            click_link '投稿する'
+          end
+          expect(current_path).to eq new_post_path
+          expect(page).to have_selector 'h2', text: '新規投稿'
+        end
+      end
+
+      describe 'サイドバー' do
+        it 'ナビメニュー「投稿する」が表示されていること' do
+          within ".ly_sidebar" do
+            expect(page).to have_selector 'a', text: '投稿する'
+          end
+        end
+
+        it 'ナビメニュー「投稿する」をクリックすると投稿作成ページに遷移すること' do
+          within ".ly_sidebar" do
+            click_link '投稿する'
+          end
+          expect(current_path).to eq new_post_path
+          expect(page).to have_selector 'h2', text: '新規投稿'
+        end
+
+        it 'ナビメニュー「全ての投稿」が表示されていること' do
+          within ".ly_sidebar" do
+            expect(page).to have_selector 'a', text: '全ての投稿'
+          end
+        end
+
+        it 'ナビメニュー「全ての投稿」をクリックすると投稿一覧ページに遷移すること' do
+          within ".ly_sidebar" do
+            click_link '全ての投稿'
+          end
+          expect(current_path).to eq posts_path
+          expect(page).to have_selector 'h2', text: '全ての投稿'
+        end
+
+        it 'ナビメニュー「お気に入りの投稿」が表示されていること' do
+          within ".ly_sidebar" do
+            expect(page).to have_selector 'a', text: 'お気に入りの投稿'
+          end
+        end
+
+        it 'ナビメニュー「お気に入りの投稿」をクリックするとお気に入りの投稿一覧ページに遷移すること' do
+          within ".ly_sidebar" do
+            click_link 'お気に入りの投稿'
+          end
+          expect(current_path).to eq favorite_index_posts_path
+          expect(page).to have_selector 'h2', text: 'お気に入りの投稿'
+        end
+
+        it 'ナビメニュー「フォロー中のユーザーの投稿」が表示されていること' do
+          within ".ly_sidebar" do
+            expect(page).to have_selector 'a', text: "フォロー中の"
+          end
+        end
+
+        it 'ナビメニュー「フォロー中のユーザーの投稿」をクリックするとフォロー中のユーザーの投稿一覧ページに遷移すること' do
+          within ".ly_sidebar" do
+            click_link 'フォロー中の'
+          end
+          expect(current_path).to eq following_posts_path
+          expect(page).to have_selector 'h2', text: 'フォロー中のユーザーの投稿'
+        end
+
+        it 'ナビメニュー「撮影地で探す」が表示されていること' do
+          within ".ly_sidebar" do
+            expect(page).to have_selector 'li', text: "撮影地で探す"
+          end
+        end
+
+        # it '撮影地検索フォームが表示されていること' do
+        #   find('#test').trigger(:mouseover)
+        #   expect(page).to have_selector 'h3', text: '撮影地で探す'
+        # end
+
+        it 'ナビメニュー「タグで探す」が表示されていること' do
+          within ".ly_sidebar" do
+            expect(page).to have_selector 'li', text: "タグで探す"
+          end
+        end
+
+        it 'ナビメニュー「カメラ名で探す」が表示されていること' do
+          within ".ly_sidebar" do
+            expect(page).to have_selector 'li', text: "カメラ名で探す"
+          end
+        end
+      end
+
+      describe 'メインコンテンツエリア' do
+        it '投稿した写真と投稿者のユーザー名が表示されていること' do
+          within ".bl_card" do
+            expect(page).to have_selector "img[alt='投稿写真: #{post.id}']"
+            expect(page).to have_content post.user.name
+          end
+        end
+
+        it '投稿写真をクリックすると投稿詳細ページへ遷移すること' do
+          within ".bl_card" do
+            click_on "投稿写真"
+          end
+          expect(current_path).to eq post_path(post.id)
+          expect(page).to have_content post.title
+        end
+      end
+    end
+
+    describe 'お気に入り投稿一覧ページ' do
+      before do
+        @favorite_post = other_post
+        @unfavorite_post = other_post_2
+        visit posts_path
+        all('#favorite-btn')[1].click
+        visit favorite_index_posts_path
+      end
+
+      it 'お気に入り登録している投稿が表示されていること' do
+        expect(page).to have_selector "img[alt='投稿写真: #{@favorite_post.id}']"
+      end
+
+      it 'お気に入り登録していない投稿が表示されていないこと' do
+        expect(page).not_to have_selector "img[alt='投稿写真: #{@unfavorite_post.id}']"
+      end
+    end
+
+    describe 'フォロー中のユーザーの投稿一覧ページ' do
+      before do
+        @following_users_post = other_post
+        @unfollowing_users_post = other_post_2
+        visit post_path(@following_users_post.id)
+        first('.bl_followBtn a').click
+        visit following_posts_path
+      end
+
+      it 'フォロー中のユーザーの投稿が表示されていること' do
+        expect(page).to have_selector "img[alt='投稿写真: #{@following_users_post.id}']"
+      end
+
+      it 'フォローしていないユーザーの投稿が表示されていないこと' do
+        expect(page).not_to have_selector "img[alt='投稿写真: #{@unfollowing_users_post.id}']"
+      end
+    end
+
+    # describe '撮影地検索結果一覧ページ' do
+    # end
+
+    # describe 'カメラ名検索結果一覧ページ' do
+    # end
+
+    # describe 'タグ検索結果一覧ページ' do
+    # end
+
+    describe '投稿詳細ページ' do
+      before do
+        @post = other_post
+        @post.camera = @post.photo.camera
+        @post.lens = @post.photo.lens_model
+        @post.exposure_time = @post.photo.exposure_time
+        @post.f_number = @post.photo.f_number
+        @post.iso_speed_ratings = @post.photo.iso_speed_ratings
+        @post.exposure_bias_value = @post.photo.exposure_bias_value
+        @post.focal_length = @post.photo.focal_length
+        @post.shooting_date_time = @post.photo.date_time_original
+        @post.save
+        visit post_path(@post.id)
+      end
+
+      it 'タイトルが表示されていること' do
+        binding.pry
+        expect(page).to have_selector 'h2', text: @post.title
+      end
+
+      it '投稿写真が表示されていること' do
+        expect(page).to have_selector "img[alt='投稿写真: #{@post.id}']"
+      end
+
+      it '投稿ユーザーのプロフィール写真が表示されていること' do
+        expect(page).to have_selector "img[alt='#{@post.user.name}さんのプロフィール写真']"
+      end
+
+      it '投稿ユーザーのユーザー名が表示されていること' do
+        expect(page).to have_selector 'p', text: @post.user.name
+      end
+
+      it 'フォローボタンが表示されていること' do
+        expect(page).to have_selector '.bl_followBtn a', text: 'フォローする'
+      end
+
+      it '「カメラ名」が表示されていること' do
+        expect(page).to have_selector 'a', text: @post.camera
+      end
+
+      it '「レンズ名」が表示されていること' do
+        expect(page).to have_selector 'p', text: @post.lens
+      end
+
+      it '「シャッタースピード」が表示されていること' do
+        expect(page).to have_selector 'p', text: @post.exposure_time
+      end
+
+      it '「絞り」が表示されていること' do
+        expect(page).to have_selector 'p', text: @post.f_number
+      end
+
+      it '「ISO感度」が表示されていること' do
+        expect(page).to have_selector 'p', text: @post.iso_speed_ratings
+      end
+
+      it '「露出補正値」が表示されていること' do
+        expect(page).to have_selector 'p', text: "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV"
+      end
+
+      it '「焦点距離」が表示されていること' do
+        expect(page).to have_selector 'p', text: "#{@post.focal_length}mm"
+      end
+
+      it '「撮影日時」が表示されていること' do
+        expect(page).to have_selector 'p', text: "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
       end
     end
 
