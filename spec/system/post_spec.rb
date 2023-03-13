@@ -10,13 +10,14 @@ RSpec.describe Post, type: :system do
   let(:other_post) { create(:post, user_id: other_user.id, photo: photo) }
   let(:other_post_2) { create(:post, user_id: other_user_2.id, photo: photo) }
 
-  describe 'Post CRUD' do
-    before { login(user) }
+  before { login(user) }
 
+  describe 'Post CRUD' do
     describe '投稿作成' do
+      before { visit posts_path }
+
       context 'フォームの入力値が正常' do
         it '投稿が成功すること' do
-          visit posts_path
           within ".ly_header" do
             click_link '投稿する'
           end
@@ -31,7 +32,6 @@ RSpec.describe Post, type: :system do
 
       context '投稿写真が指定されていない' do
         it '投稿が失敗すること' do
-          visit posts_path
           within ".ly_header" do
             click_link '投稿する'
           end
@@ -46,7 +46,6 @@ RSpec.describe Post, type: :system do
 
       context 'タイトルが未記入' do
         it '投稿が失敗すること' do
-          visit posts_path
           within ".ly_header" do
             click_link '投稿する'
           end
@@ -62,7 +61,6 @@ RSpec.describe Post, type: :system do
 
       context 'タイトルが21文字以上' do
         it '投稿が失敗すること' do
-          visit posts_path
           within ".ly_header" do
             click_link '投稿する'
           end
@@ -78,7 +76,6 @@ RSpec.describe Post, type: :system do
 
       context '投稿紹介が151文字以上' do
         it '投稿が失敗すること' do
-          visit posts_path
           within ".ly_header" do
             click_link '投稿する'
           end
@@ -139,28 +136,11 @@ RSpec.describe Post, type: :system do
           expect(page).to have_content '投稿紹介は150文字以内で入力して下さい。'
         end
       end
-
-      context '投稿の削除' do
-        it '「投稿を削除」ボタンをクリックすると投稿が削除されること' do
-          click_link '投稿を削除'
-          expect do
-            expect(page.accept_confirm).to eq "削除すると復元できません。よろしいですか？"
-            expect(page).to have_content "投稿を削除しました。"
-          end
-          expect(current_path).to eq posts_path
-          expect(page).not_to have_selector "img[alt='投稿写真: #{post.id}']"
-        end
-      end
     end
   end
 
   describe 'view' do
-    before do
-      login(user)
-      post.save
-    end
-
-    describe '投稿一覧ページ' do
+    describe '共通' do
       before { visit posts_path }
 
       describe 'ヘッダー' do
@@ -292,22 +272,27 @@ RSpec.describe Post, type: :system do
           end
         end
       end
+    end
 
-      describe 'メインコンテンツエリア' do
-        it '投稿した写真と投稿者のユーザー名が表示されていること' do
-          within ".bl_card" do
-            expect(page).to have_selector "img[alt='投稿写真: #{post.id}']"
-            expect(page).to have_content post.user.name
-          end
-        end
+    describe '全ての投稿一覧ページ' do
+      before do
+        post.save
+        visit posts_path
+      end
 
-        it '投稿写真をクリックすると投稿詳細ページへ遷移すること' do
-          within ".bl_card" do
-            click_on "投稿写真"
-          end
-          expect(current_path).to eq post_path(post.id)
-          expect(page).to have_content post.title
+      it '投稿した写真と投稿者のユーザー名が表示されていること' do
+        within ".bl_card" do
+          expect(page).to have_selector "img[alt='投稿写真: #{post.id}']"
+          expect(page).to have_content post.user.name
         end
+      end
+
+      it '投稿写真をクリックすると投稿詳細ページへ遷移すること' do
+        within ".bl_card" do
+          click_on "投稿写真"
+        end
+        expect(current_path).to eq post_path(post.id)
+        expect(page).to have_content post.title
       end
     end
 
@@ -374,7 +359,29 @@ RSpec.describe Post, type: :system do
         visit post_path(@post.id)
       end
 
-      context '自他共通' do
+      context '自分の投稿' do
+        it '「投稿を編集」リンクが表示されていること' do
+          expect(page).to have_selector 'a', text: '投稿を編集'
+        end
+
+        it 'フォローボタンが表示されていないこと' do
+          expect(page).not_to have_selector '.bl_followBtn a', text: 'フォローする'
+        end
+      end
+
+      context '他のユーザーの投稿' do
+        before { visit post_path(other_post.id) }
+
+        it '「投稿編集」リンクが表示されていないこと' do
+          expect(page).not_to have_selector 'a', text: '投稿を編集'
+        end
+
+        it 'フォローボタンが表示されていること' do
+          expect(page).to have_selector '.bl_followBtn a', text: 'フォローする'
+        end
+      end
+
+      context '共通' do
         it 'タイトルが表示されていること' do
           expect(page).to have_selector 'h2', text: @post.title
         end
@@ -498,28 +505,6 @@ RSpec.describe Post, type: :system do
           expect(page).not_to have_selector '.bl_comment'
         end
       end
-
-      context '自分の投稿' do
-        it '「投稿を編集」リンクが表示されていること' do
-          expect(page).to have_selector 'a', text: '投稿を編集'
-        end
-
-        it 'フォローボタンが表示されていないこと' do
-          expect(page).not_to have_selector '.bl_followBtn a', text: 'フォローする'
-        end
-      end
-
-      context '他のユーザーの投稿' do
-        before { visit post_path(other_post.id) }
-
-        it '「投稿編集」リンクが表示されていないこと' do
-          expect(page).not_to have_selector 'a', text: '投稿を編集'
-        end
-
-        it 'フォローボタンが表示されていること' do
-          expect(page).to have_selector '.bl_followBtn a', text: 'フォローする'
-        end
-      end
     end
 
     describe '投稿編集ページ' do
@@ -543,7 +528,7 @@ RSpec.describe Post, type: :system do
           expect(page.accept_confirm).to eq "削除すると復元できません。よろしいですか？"
           expect(page).to have_content "投稿を削除しました。"
         end
-        expect(current_path).to eq posts_path 
+        expect(current_path).to eq posts_path
         expect(page).not_to have_selector "img[alt='投稿写真: #{post.id}']"
       end
 
