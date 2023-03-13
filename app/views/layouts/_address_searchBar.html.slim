@@ -1,0 +1,19 @@
+.bl_searchBar.bl_searchBar__tab
+  .bl_list_item_title
+    h3
+      span
+        i.bi.bi-geo-alt
+      span 撮影地で探す
+  nav
+    = form_with url: address_search_posts_path, method: :get, class: 'bl_searchForm hp_flex', local: true do |f|
+      = f.text_field :address, placeholder:"地名で検索"
+      = button_tag type: 'submit', class: 'el_btn__square el_btn__sm' do
+        i.bi.bi-search
+    ul.bl_sideNav
+      - @prefectures.each do |prefecture|
+        = link_to address_search_posts_path(address: prefecture.name) do 
+          li.bl_sideNav_item
+            span
+              i.bi.bi-geo-alt
+            span
+              = prefecture.name

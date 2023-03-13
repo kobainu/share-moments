@@ -1,0 +1,57 @@
+section.ly_main_inner.bl_userDetail.hp_maxWidth.hp_centerColumn
+  .bl_pageHead
+    .bl_pageTitle
+      h2 ユーザー詳細
+    - if regular_user?
+      - if @user.id == current_user.id
+        .bl_btn
+          = link_to 'プロフィールを編集', profile_users_path, class: 'el_btn el_btn__sm'
+  .bl_userInfoContainer
+    .bl_userInfo
+      - if @user.image?
+        = image_tag(@user.image.url, class: 'el_profileImg__lg', alt: "#{@user.name}さんのプロフィール写真")
+      - else
+        = image_tag('user/default_user_icon.png', class: 'el_profileImg__lg', alt: "#{@user.name}さんのプロフィール写真")
+      p = @user.name
+    .bl_followContainer
+      - if current_user != @user
+        .bl_followBtn
+          - if current_user.following?(@user)
+            = link_to 'フォローを外す', user_relationships_path(@user.id), method: :delete, class: "el_btn__red el_btn__sm"
+          - else
+            = link_to 'フォローする', user_relationships_path(@user.id), method: :POST, class:"el_btn__blue el_btn__sm"
+      .bl_followInfo
+        = link_to follows_user_path(@user) do
+          .div
+            p = "フォロー:"
+            p = "#{@user.following_user.count}人"
+        = link_to followers_user_path(@user) do
+          .div
+            p = "フォロワー:"
+            p = "#{@user.follower_user.count}人"
+  - if @user.introduction?
+    .bl_list_item
+      .bl_list_item_title
+        p 自己紹介
+      .bl_list_item_content
+        p = @user.introduction
+  .bl_list_item
+    .bl_list_item_title
+      p = "#{@user.name}さんの投稿"
+    .bl_list_item_content.bl_flexWrap
+      - if @user.posts.exists?
+        - @posts.reverse_each do |post|
+          .bl_postImg.bl_postImg__sm
+            = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@user.name}さんの投稿写真: #{post.id}"), post_path(post.id), id: "user_post_#{post.id}"
+      - else
+        p 投稿はまだありません。
+  .bl_list_item
+    .bl_list_item_title
+      p = "#{@user.name}さんのお気に入りの投稿"
+    .bl_list_item_content.bl_flexWrap
+      - if @user_favorites.exists?
+        - @user_favorites.reverse_each do |favorite|
+          .bl_postImg.bl_postImg__sm
+            = link_to image_tag(favorite.post.photo.url, class: 'el_photo', alt: "#{@user.name}さんのお気に入りの投稿写真: #{favorite.post.id}"), post_path(favorite.post.id), id: "user_favorite_#{favorite.post.id}"
+      - else
+        p お気に入りの投稿はありません。

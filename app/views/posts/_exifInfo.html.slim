@@ -1,0 +1,58 @@
+.bl_postDetail_exifList
+  .bl_list_item
+    .bl_list_item_title
+      p カメラ:
+      p.el_refelence ※ クリックでカメラ検索へ
+    .bl_list_item_content#post-camera
+      - if @post.camera?
+        p = link_to camera_search_posts_path(camera: @post.camera), id: 'post-camera' do
+            = @post.camera
+            span
+              i.bi.bi-box-arrow-up-right
+      - else
+        p ---
+  .bl_list_item
+    .bl_list_item_title
+      p レンズ:
+    .bl_list_item_content
+      p = @post.lens ? @post.lens : '---'
+  .bl_list_item
+    .bl_list_item_title
+      p シャッタースピード:
+    .bl_list_item_content
+      p = @post.exposure_time != "" ? "#{@post.exposure_time}秒" : '---'
+  .bl_list_item
+    .bl_list_item_title
+      p 絞り:
+    .bl_list_item_content
+      p = @post.f_number != 0 ? "f/#{@post.f_number}" : '---'
+  .bl_list_item
+    .bl_list_item_title
+      p ISO感度:
+    .bl_list_item_content
+      p = @post.iso_speed_ratings != 0 ? "#{@post.iso_speed_ratings}" : '---'
+  .bl_list_item
+    .bl_list_item_title
+      p 露出補正値:
+    .bl_list_item_content
+      p = @post.exposure_bias_value != "" ? "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV" : '---'
+  .bl_list_item
+    .bl_list_item_title
+      p 焦点距離:
+    .bl_list_item_content
+      p  = @post.focal_length != 0 ? "#{@post.focal_length}mm" : '---'
+  .bl_list_item
+    .bl_list_item_title
+      p 撮影日時:
+    .bl_list_item_content
+      p = @post.shooting_date_time ? "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}" : '---'
+  .bl_list_item.bl_postDetail_secondaryImgContainer
+        .bl_list_item_title
+          p = "#{@post_user.name}さんの他の投稿"
+        .bl_list_item_content.bl_flexWrap
+          - if @posts.exists?
+            - @posts.reverse_each do |post|
+              .bl_postImg.bl_postImg__sm
+                = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@post_user.name}さんの他の投稿写真: #{post.id}"), post_path(post.id), id: "other_post_#{post.id}"
+          - else
+            p 他の投稿はまだありません。

@@ -1,0 +1,77 @@
+aside.ly_sidebar_sm
+  - if user_signed_in?
+    .bl_profile
+      .bl_userInfo
+        - if current_user.image?
+          = link_to image_tag(current_user.image.url, class: 'el_profileImg__sm', alt: "#{current_user.name}さんのプロフィール写真"), user_path(current_user.id)
+        - else
+          = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm', alt: "#{current_user.name}さんのプロフィール写真"), user_path(current_user.id)
+    nav
+      ul.bl_sideNav.ly_flex__col
+        = link_to new_post_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-pencil-square
+            .bl_sidebar_info
+              p 投稿する
+        = link_to posts_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-book
+            .bl_sidebar_info
+              p 全ての投稿
+        = link_to favorite_index_posts_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-star
+            .bl_sidebar_info
+              p お気に入りの投稿
+        = link_to following_posts_path do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-people
+            .bl_sidebar_info
+              p
+                |
+                  フォロー中の<br>
+                  ユーザーの投稿
+        li.bl_sideNav_item
+          span.el_icon
+            i.bi.bi-geo-alt
+          = render partial: 'layouts/address_searchBar'
+        li.bl_sideNav_item
+          span.el_icon
+            i.bi.bi-tags
+          = render partial: 'layouts/tag_searchBar'
+        li.bl_sideNav_item
+          span.el_icon
+            i.bi.bi-camera
+          = render partial: 'layouts/camera_searchBar'
+        - if regular_user?
+          = link_to profile_users_path do
+            li.bl_sideNav_item
+              span.el_icon
+                i.bi.bi-person-circle
+              .bl_sidebar_info
+                p プロフィール編集
+          = link_to edit_user_registration_path do
+            li.bl_sideNav_item
+              span.el_icon
+                i.bi.bi-person-badge
+              .bl_sidebar_info
+                p アカウント編集
+        = link_to destroy_user_session_path, method: :delete do
+          li.bl_sideNav_item
+            span.el_icon
+              i.bi.bi-door-closed
+            .bl_sidebar_info
+              p ログアウト
+  - else
+    nav
+      ul.ly_sidebar__nav
+        .bl_sideNav_item
+          li = link_to 'ログイン', new_user_session_path
+        .bl_sideNav_item
+          li = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post
+        .bl_sideNav_item
+          li = link_to 'アカウント登録', new_user_registration_path

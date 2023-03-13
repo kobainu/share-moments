@@ -1,0 +1,129 @@
+@import 'base';
+
+.ly_wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.ly_cont {
+  display: flex;
+  height: 100%;
+}
+
+.ly_header {
+  width: 100%;
+  padding: 10px 20px;
+  @include tab {
+    position: sticky;
+    top: 0px;
+    z-index: 3;
+    padding: 5px 15px;
+  }
+}
+
+.ly_header_inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & .bl_searchForm {
+    @include pc_sm {
+      display: none;
+    };
+  }
+  & .bl_btn .el_btn:nth-child(2) {
+    margin-left: 20px;
+  }
+  & .bl_userInfo {
+    display: none;
+    margin-right: 50px;
+    & .el_profileImg__sm {
+      @include sp {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    @include tab {
+      display: block;
+    }
+  }
+  @include tab {
+    height: 65px;
+    & .bl_btn {
+      display: none;
+    }
+  };
+  @include sp {
+    height: 55px;
+    padding: 0;
+  }
+}
+
+.ly_sidebar {
+  min-width: $sidebarWidth;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding-top: 20px;
+  @include pc_sm {
+    display: none;
+  };
+  & p {
+    font-size: 1.1rem;
+  }
+}
+
+.ly_sidebar_sm {
+  display: none;
+  width: 70px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  @media (max-width: ($pc_sm)) and (min-width: ($tab + 1px)) {
+    display: block;
+    & .bl_sideNav_item {
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: none;
+      .el_icon {
+        margin: 0;
+        font-size: 30px;
+      }
+      &:focus,
+      &:hover {
+        background-color: #d4d4d489;
+      }
+    }
+    & .bl_searchBar {
+      & .bl_sideNav_item {
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+.ly_main {
+  width: 100%;
+  max-width: calc(100% - $sidebarWidth);
+  min-height: 100vh;
+  flex-grow: 1;
+}
+
+.ly_main_inner {
+  padding: 10px 50px 0;
+  @include tab {
+    padding: 10px 10px;
+  }
+}
+
+.ly_footer {
+  position: sticky;
+  height: 70px;
+  z-index: 2;
+  @include sp {
+    height: 40px;
+  };
+}

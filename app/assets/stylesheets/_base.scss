@@ -1,0 +1,115 @@
+$sidebarWidth: 220px;
+$postAsideWidth: 370px;
+$pc_md: 1199px; // pc_md
+$pc_sm: 1024px; // pc_sm
+$tab: 768px; // タブレット
+$sp: 425px; // スマホ
+
+@mixin pc_md {
+  @media (max-width: ($pc_md)) {
+    @content;
+  }
+}
+
+@mixin pc_sm {
+  @media (max-width: ($pc_sm)) {
+    @content;
+  }
+}
+
+@mixin tab {
+  @media (max-width: ($tab)) {
+    @content;
+  }
+}
+
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}
+
+* {
+  font-family: "M PLUS Rounded 1c";
+  line-height: 1.5;
+}
+
+html {
+  font-size: 16px;
+}
+
+p,
+span,
+input,
+textarea {
+  font-size: 1.2rem;
+  @include tab() {
+    font-size: 1.0rem;
+  }
+  @include sp {
+    font-size: .9rem;
+  }
+}
+
+section {
+  margin-bottom: 100px;
+}
+
+a {
+  color: #000;
+}
+
+input,
+textarea {
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  border: none;
+  outline: none;
+}
+
+.ly_header,
+.ly_sidebar,
+.ly_sidebar_sm,
+.ly_main,
+.bl_searchBar {
+  background-color: #f7f7f7;
+  background-color: #fcf0e4;
+}
+
+.ly_main {
+  background-color: #f7f7f7;
+}
+
+
+.ly_footer {
+  background-color: #ebe2d5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notifications {
+  color: #fff;
+  text-align: center;
+  & .notice {
+    background-color: #20b12fa8;
+  }
+  & .alert {
+    background-color: #f99797;
+  }
+  & p {
+    @include sp {
+      font-size: .8rem;
+    }
+  }
+}
+
+.alert,
+#error_explanation,
+#error_explanation  ul {
+  background-color: #f99797;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 10px;
+}

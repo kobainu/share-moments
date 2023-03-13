@@ -3,7 +3,7 @@ ENV TZ Asia/Tokyo
 
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get update -qq \
-  && apt-get install -y nodejs \
+  && apt-get install -y nodejs graphviz \
   && npm install -g yarn
 
 WORKDIR /myapp
