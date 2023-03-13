@@ -42,7 +42,7 @@ section.ly_main_inner.bl_userDetail.hp_maxWidth.hp_centerColumn
       - if @user.posts.exists?
         - @posts.reverse_each do |post|
           .bl_postImg.bl_postImg__sm
-            = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@user.name}さんの投稿写真"), post_path(post.id)
+            = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@user.name}さんの投稿写真: #{post.id}"), post_path(post.id), id: "user_post_#{post.id}"
       - else
         p 投稿はまだありません。
   .bl_list_item
@@ -52,6 +52,6 @@ section.ly_main_inner.bl_userDetail.hp_maxWidth.hp_centerColumn
       - if @user_favorites.exists?
         - @user_favorites.reverse_each do |favorite|
           .bl_postImg.bl_postImg__sm
-            = link_to image_tag(favorite.post.photo.url, class: 'el_photo', alt: "#{@user.name}さんの投稿写真"), post_path(favorite.post.id)
+            = link_to image_tag(favorite.post.photo.url, class: 'el_photo', alt: "#{@user.name}さんのお気に入りの投稿写真: #{favorite.post.id}"), post_path(favorite.post.id), id: "user_favorite_#{favorite.post.id}"
       - else
         p お気に入りの投稿はありません。

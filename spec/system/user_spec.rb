@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :system do
   let(:user) { create(:user) }
+  let(:other_user) { create(:user, name: 'other_user') }
+  let(:pic_path) { Rails.root.join('spec/fixture/image.jpg') }
+  let(:photo) { Rack::Test::UploadedFile.new(pic_path) }
+  let(:post) { create(:post, user_id: user.id, photo: photo) }
+  let(:other_post) { create(:post, user_id: other_user.id, photo: photo) }
 
   describe 'User CRUD' do
     describe 'ログイン前' do
@@ -313,88 +318,104 @@ RSpec.describe User, type: :system do
   end
 
   describe 'view' do
-    describe '画面遷移' do
-      describe 'TOPページからの遷移' do
-        before  { visit root_path }
+    context 'ログイン前' do
+      describe 'TOPページ' do
+        before { visit root_path }
 
-        context 'アカウント登録ページへの遷移' do
-          it '「アカウント登録」をクリック' do
-            click_link 'アカウント登録'
-            expect(current_path).to eq new_user_registration_path
-            expect(page).to have_content 'アカウント登録'
-          end
+        it '「アカウント登録」リンクをクリックするとアカウント登録ページへの遷移すること' do
+          click_link 'アカウント登録'
+          expect(current_path).to eq new_user_registration_path
+          expect(page).to have_content 'アカウント登録'
         end
 
-        context 'ログインページへの遷移' do
-          it '「ログイン」をクリック' do
-            click_link 'ログイン'
-            expect(current_path).to eq new_user_session_path
-            expect(page).to have_content 'ログイン'
-          end
+        it '「ログイン」をクリックするとログインページへ遷移すること' do
+          click_link 'ログイン'
+          expect(current_path).to eq new_user_session_path
+          expect(page).to have_content 'ログイン'
         end
       end
 
-      describe 'アカウント登録ページからの遷移' do
-        before  { visit new_user_registration_path }
+      describe 'アカウント登録ページ' do
+        before { visit new_user_registration_path }
 
-        context 'ログインページへの遷移' do
-          it '「ログイン画面へ」をクリック' do
-            click_link 'ログイン画面へ'
-            expect(current_path).to eq new_user_session_path
-            expect(page).to have_content 'ログイン'
-          end
+        it '「ログイン画面へ」をクリックするとログインページへ遷移すること' do
+          click_link 'ログイン画面へ'
+          expect(current_path).to eq new_user_session_path
+          expect(page).to have_content 'ログイン'
         end
       end
 
-      describe 'ログインページからの遷移' do
-        before  { visit new_user_session_path }
+      describe 'ログインページ' do
+        before { visit new_user_session_path }
 
-        context 'アカウント登録画面への遷移' do
-          it '「アカウント登録画面へ」をクリック' do
-            click_link 'アカウント登録画面へ'
-            expect(current_path).to eq new_user_registration_path
-            expect(page).to have_content 'アカウント登録'
-          end
+        it '「アカウント登録画面へ」をクリックするとアカウント登録画面へ遷移すること' do
+          click_link 'アカウント登録画面へ'
+          expect(current_path).to eq new_user_registration_path
+          expect(page).to have_content 'アカウント登録'
         end
 
-        context 'パスワード再設定ページへの遷移' do
-          it '「パスワードをお忘れの場合はこちら」をクリック' do
-            click_link 'パスワードをお忘れの場合はこちら'
-            expect(current_path).to eq new_user_password_path
-            expect(page).to have_content 'パスワード再設定のメールを送信'
-          end
+        it '「パスワードをお忘れの場合はこちら」をクリックするとパスワード再設定ページへ遷移すること' do
+          click_link 'パスワードをお忘れの場合はこちら'
+          expect(current_path).to eq new_user_password_path
+          expect(page).to have_content 'パスワード再設定のメールを送信'
         end
       end
+    end
 
-      describe 'サイドバーメニューからの遷移' do
-        before do
-          login(user)
-          visit posts_path
-        end
+    context 'ログイン後' do
+      before { login(user) }
 
-        context 'アカウント編集画面への遷移' do
-          it '「アカウント編集」をクリック' do
+      describe '共通' do
+        before { visit posts_path }
+
+        describe 'サイドバー' do
+          it 'ユーザーのプロフィール画像が表示されていること' do
+            within '.ly_sidebar' do
+              expect(page).to have_selector "img[alt='#{user.name}さんのプロフィール写真']"
+            end
+          end
+
+          it 'ユーザーのプロフィール画像をクリックするとユーザー詳細ページへ遷移すること' do
+            within '.ly_sidebar' do
+              find('.bl_userInfo a').click
+              expect(current_path).to eq user_path(user.id)
+            end
+          end
+
+          it 'ユーザー名が表示されていること' do
+            within '.ly_sidebar' do
+              expect(page).to have_selector 'p', text: user.name
+            end
+          end
+
+          it '「アカウント編集」をクリックするとアカウント編集画面への遷移すること' do
             within ".ly_sidebar" do
               click_link 'アカウント編集'
             end
             expect(current_path).to eq edit_user_registration_path
             expect(page).to have_content 'アカウント編集'
           end
-        end
 
-        context 'プロフィール編集画面への遷移' do
-          it '「プロフィール編集」をクリック' do
+          it '「プロフィール編集」をクリックするとプロフィール編集画面へ遷移すること' do
             within ".ly_sidebar" do
               click_link 'プロフィール編集'
             end
             expect(current_path).to eq profile_users_path
             expect(page).to have_content 'プロフィール編集'
           end
+
+          it '「ログアウト」をクリックするとログアウト後TOPページへ遷移すること' do
+            within ".ly_sidebar" do
+              click_link 'ログアウト'
+            end
+            expect(current_path).to eq root_path
+            expect(page).to have_content 'ログアウトしました。'
+          end
         end
 
-        context 'ログアウト後にTOPページへの遷移' do
-          it '「ログアウト」をクリック' do
-            within ".ly_sidebar" do
+        describe 'ヘッダー' do
+          it '「ログアウト」をクリックするとログアウト後TOPページへ遷移すること' do
+            within ".ly_header" do
               click_link 'ログアウト'
             end
             expect(current_path).to eq root_path
@@ -403,19 +424,113 @@ RSpec.describe User, type: :system do
         end
       end
 
-      describe 'ヘッダーメニューからの遷移' do
-        before do
-          login(user)
-          visit posts_path
+      describe 'ユーザー詳細ページ' do
+        before { visit user_path(user.id) }
+
+        context '自分の詳細ページ' do
+          it '「プロフィール編集」リンクが表示されること' do
+            expect(page).to have_content 'プロフィールを編集'
+          end
         end
 
-        context 'ログアウト後にTOPページへの遷移' do
-          it '「ログアウト」をクリック' do
-            within ".ly_header" do
-              click_link 'ログアウト'
+        context '他のユーザーの詳細ページ' do
+          it '「プロフィール編集」リンクが表示されないこと' do
+            visit user_path(other_user.id)
+            expect(page).not_to have_content 'プロフィールを編集'
+          end
+        end
+
+        context '共通' do
+          it 'ページタイトルが表示されていること' do
+            expect(page).to have_selector 'h2', text: 'ユーザー詳細'
+          end
+
+          it 'ユーザーのプロフィール画像が表示されていること' do
+            within '.bl_userInfoContainer' do
+              expect(page).to have_selector "img[alt='#{user.name}さんのプロフィール写真']"
             end
-            expect(current_path).to eq root_path
-            expect(page).to have_content 'ログアウトしました。'
+          end
+
+          it 'ユーザー名が表示されていること' do
+            within '.bl_userInfoContainer' do
+              expect(page).to have_selector 'p', text: user.name
+            end
+          end
+
+          describe 'フォロー情報' do
+            before do
+              visit user_path(other_user.id)
+              click_link 'フォローする'
+              visit user_path(user.id)
+            end
+
+            it 'フォロー人数が表示されていること' do
+              expect(page).to have_selector 'p', text: "#{user.following_user.count}人"
+            end
+
+            it 'フォロー情報をクリックするとフォロー一覧ページに遷移すること' do
+              all('.bl_followInfo a')[0].click
+              expect(current_path).to eq follows_user_path(user)
+            end
+          end
+
+          describe 'フォロワー情報' do
+            before do
+              visit user_path(other_user.id)
+              click_link 'フォローする'
+              visit current_path
+            end
+
+            it 'フォロワー人数が表示されていること' do
+              expect(page).to have_selector 'p', text: "#{other_user.follower_user.count}人"
+            end
+
+            it 'フォロワー人数をクリックするとフォロー一覧ページに遷移すること' do
+              all('.bl_followInfo a')[1].click
+              expect(current_path).to eq followers_user_path(other_user)
+            end
+          end
+
+          it '自己紹介が表示されること' do
+            expect(page).to have_selector 'p', text: user.introduction
+          end
+
+          describe 'ユーザーの投稿' do
+            before do
+              post.save
+              visit current_path
+            end
+
+            it 'ユーザーの投稿写真が一覧表示されること' do
+              expect(page).to have_selector "img[alt='#{user.name}さんの投稿写真: #{post.id}']"
+            end
+
+            it 'ユーザーの投稿写真をクリックすると投稿詳細ページへ遷移すること' do
+              link = find('a', id: "user_post_#{post.id}")
+              link.click
+              expect(page).to have_selector 'h2', text: post.title
+              expect(current_path).to eq post_path(post.id)
+            end
+          end
+
+          describe 'ユーザーのお気に入りの投稿' do
+            before do
+              other_post.save
+              visit posts_path
+              find('#favorite-btn').click
+              visit user_path(user.id)
+            end
+
+            it 'ユーザーのお気に入り投稿写真が一覧表示されること' do
+              expect(page).to have_selector "img[alt='#{user.name}さんのお気に入りの投稿写真: #{other_post.id}']"
+            end
+
+            it 'ユーザーのお気に入り投稿写真をクリックすると投稿詳細ページへ遷移すること' do
+              link = find('a', id: "user_favorite_#{other_post.id}")
+              link.click
+              expect(page).to have_selector 'h2', text: other_post.title
+              expect(current_path).to eq post_path(other_post.id)
+            end
           end
         end
       end
