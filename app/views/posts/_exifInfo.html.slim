@@ -53,6 +53,6 @@
           - if @posts.exists?
             - @posts.reverse_each do |post|
               .bl_postImg.bl_postImg__sm
-                = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@post_user.name}さんの他の投稿写真: #{@post.id}"), post_path(post.id)
+                = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@post_user.name}さんの他の投稿写真: #{post.id}"), post_path(post.id), id: "other_post_#{post.id}"
           - else
             p 他の投稿はまだありません。

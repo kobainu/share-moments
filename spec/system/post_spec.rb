@@ -348,7 +348,7 @@ RSpec.describe Post, type: :system do
 
     describe '投稿詳細ページ' do
       before do
-        @post = other_post
+        @post = post
         @post.camera = @post.photo.camera
         @post.lens = @post.photo.lens_model
         @post.exposure_time = @post.photo.exposure_time
@@ -357,96 +357,148 @@ RSpec.describe Post, type: :system do
         @post.exposure_bias_value = @post.photo.exposure_bias_value
         @post.focal_length = @post.photo.focal_length
         @post.shooting_date_time = @post.photo.date_time_original
+        @post.latitude = 35.0395
+        @post.longitude = 135.728
         @post.save
         visit post_path(@post.id)
       end
 
-      it 'タイトルが表示されていること' do
-        expect(page).to have_selector 'h2', text: @post.title
-      end
+      context '自他共通' do
+        it 'タイトルが表示されていること' do
+          expect(page).to have_selector 'h2', text: @post.title
+        end
 
-      it '投稿写真が表示されていること' do
-        expect(page).to have_selector "img[alt='投稿写真: #{@post.id}']"
-      end
+        it '投稿写真が表示されていること' do
+          expect(page).to have_selector "img[alt='投稿写真: #{@post.id}']"
+        end
 
-      it '投稿ユーザーのプロフィール写真が表示されていること' do
-        expect(page).to have_selector "img[alt='#{@post.user.name}さんのプロフィール写真']"
-      end
+        it '投稿ユーザーのプロフィール写真が表示されていること' do
+          expect(page).to have_selector "img[alt='#{@post.user.name}さんのプロフィール写真']"
+        end
 
-      it '投稿ユーザーのユーザー名が表示されていること' do
-        expect(page).to have_selector 'p', text: @post.user.name
-      end
+        it '投稿ユーザーのユーザー名が表示されていること' do
+          expect(page).to have_selector 'p', text: @post.user.name
+        end
 
-      it 'フォローボタンが表示されていること' do
-        expect(page).to have_selector '.bl_followBtn a', text: 'フォローする'
-      end
+        it '「カメラ名」が表示されていること' do
+          expect(page).to have_selector 'a', text: @post.camera
+        end
 
-      it '「カメラ名」が表示されていること' do
-        expect(page).to have_selector 'a', text: @post.camera
-      end
+        it '「カメラ名」をクリックすると同じカメラで撮影された投稿のみの一覧が表示されること' do
+          @same_camera_post = create(:post, camera: @post.camera, photo: photo)
+          @different_camera_post = create(:post, camera: 'different_camera', photo: photo)
+          all('#post-camera')[1].click
+          expect(current_path).to eq camera_search_posts_path
+          expect(page).to have_selector "img[alt='投稿写真: #{@post.id}']"
+          expect(page).to have_selector "img[alt='投稿写真: #{@same_camera_post.id}']"
+          expect(page).not_to have_selector "img[alt='投稿写真: #{@different_camera_post.id}']"
+        end
 
-      it '「カメラ名」をクリックすると同じカメラで撮影された投稿のみの一覧が表示されること' do
-        @same_camera_post = create(:post, camera: @post.camera, photo: photo)
-        @different_camera_post = create(:post, camera: 'different_camera', photo: photo)
-        all('#post-camera')[1].click
-        expect(current_path).to eq camera_search_posts_path
-        expect(page).to have_selector "img[alt='投稿写真: #{@post.id}']"
-        expect(page).to have_selector "img[alt='投稿写真: #{@same_camera_post.id}']"
-        expect(page).not_to have_selector "img[alt='投稿写真: #{@different_camera_post.id}']"
-      end
+        it '「レンズ名」が表示されていること' do
+          expect(page).to have_selector 'p', text: @post.lens
+        end
 
-      it '「レンズ名」が表示されていること' do
-        expect(page).to have_selector 'p', text: @post.lens
-      end
+        it '「シャッタースピード」が表示されていること' do
+          expect(page).to have_selector 'p', text: @post.exposure_time
+        end
 
-      it '「シャッタースピード」が表示されていること' do
-        expect(page).to have_selector 'p', text: @post.exposure_time
-      end
+        it '「絞り」が表示されていること' do
+          expect(page).to have_selector 'p', text: @post.f_number
+        end
 
-      it '「絞り」が表示されていること' do
-        expect(page).to have_selector 'p', text: @post.f_number
-      end
+        it '「ISO感度」が表示されていること' do
+          expect(page).to have_selector 'p', text: @post.iso_speed_ratings
+        end
 
-      it '「ISO感度」が表示されていること' do
-        expect(page).to have_selector 'p', text: @post.iso_speed_ratings
-      end
+        it '「露出補正値」が表示されていること' do
+          expect(page).to have_selector 'p', text: "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV"
+        end
 
-      it '「露出補正値」が表示されていること' do
-        expect(page).to have_selector 'p', text: "#{@post.exposure_bias_value.to_r.to_f.round(1)}EV"
-      end
+        it '「焦点距離」が表示されていること' do
+          expect(page).to have_selector 'p', text: "#{@post.focal_length}mm"
+        end
 
-      it '「焦点距離」が表示されていること' do
-        expect(page).to have_selector 'p', text: "#{@post.focal_length}mm"
-      end
+        it '「撮影日時」が表示されていること' do
+          expect(page).to have_selector 'p', text: "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
+        end
 
-      it '「撮影日時」が表示されていること' do
-        expect(page).to have_selector 'p', text: "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
-      end
+        it '投稿写真に位置情報が存在する場合、撮影地がGoogle-mapで表示されていること' do
+          expect(page).to have_selector '#location-map'
+        end
 
-      # it '投稿ユーザーの他の投稿写真が表示されていること' do
-      #   @same_user_post = create(:post, user_id: @post.user_id, photo: photo)
-      #   @same_user_post.save
-      #   visit post_path(@post.id)
-      #   expect(page).to have_selector "img[alt='他の投稿写真: #{@same_user_post.id}']"
-      # end
+        it '投稿写真に位置情報が存在しない場合、撮影地がGoogle-mapで表示されていないこと' do
+          @post.latitude = nil
+          @post.longitude = nil
+          @post.save
+          visit current_path
+          expect(page).not_to have_selector '#location-map'
+        end
 
-      it 'コメントを送信すると、コメントの内容とコメントしたユーザーの情報が表示されること' do
-        fill_in 'comment[comment]', with: 'comment'
-        click_button '送信する'
-        within '.bl_comment' do
-          expect(page).to have_selector "img[alt='#{user.name}さんのプロフィール写真']"
-          expect(page).to have_selector 'p', text: user.name
-          expect(page).to have_selector 'p', text: 'comment'
+        it '投稿ユーザーの他の投稿写真が表示されていること' do
+          @other_post = create(:post, user_id: @post.user_id, photo: photo)
+          visit current_path
+          expect(page).to have_selector "img[alt='#{@post.user.name}さんの他の投稿写真: #{@other_post.id}']"
+          expect(page).not_to have_selector "img[alt='#{@post.user.name}さんの他の投稿写真: #{@post.id}']"
+        end
+
+        it '投稿ユーザーの他の投稿写真をクリックすると、対象の投稿詳細ページに遷移すること' do
+          @other_post = create(:post, user_id: @post.user_id, photo: photo, title: 'other')
+          visit current_path
+          within first('.bl_postDetail_secondaryImgContainer') do
+            link = find('a', id: "other_post_#{@other_post.id}")
+            link.click
+          end
+          expect(page).to have_selector 'h2', text: @other_post.title
+          expect(current_path).to eq post_path(@other_post.id)
+        end
+
+        it 'コメントを送信すると、コメントの内容とコメントしたユーザーの情報が表示されること' do
+          fill_in 'comment[comment]', with: 'comment'
+          click_button '送信する'
+          within '.bl_comment' do
+            expect(page).to have_selector "img[alt='#{user.name}さんのプロフィール写真']"
+            expect(page).to have_selector 'p', text: user.name
+            expect(page).to have_selector 'p', text: 'comment'
+          end
+        end
+
+        it 'コメントの「削除」ボタンをクリックするとコメントが削除されること' do
+          fill_in 'comment[comment]', with: 'comment'
+          click_button '送信する'
+          within '.bl_comment' do
+            expect(page).to have_selector "img[alt='#{user.name}さんのプロフィール写真']"
+            expect(page).to have_selector 'p', text: user.name
+            expect(page).to have_selector 'p', text: 'comment'
+            click_link '削除'
+          end
+          expect do
+            expect(page.accept_confirm).to eq "コメントを削除しますか？"
+            expect(page).to have_content "コメントを削除しました。"
+          end
+          expect(page).not_to have_selector '.bl_comment'
         end
       end
 
-      it '自分の投稿詳細ページには「投稿編集」リンクが表示されていること' do
-        visit post_path(post.id)
-        expect(page).to have_selector 'a', text: '投稿を編集'
+      context '自分の投稿' do
+        it '「投稿編集」リンクが表示されていること' do
+          expect(page).to have_selector 'a', text: '投稿を編集'
+        end
+
+        it 'フォローボタンが表示されていないこと' do
+          expect(page).not_to have_selector '.bl_followBtn a', text: 'フォローする'
+        end
       end
 
-      it '他のユーザーの投稿詳細ページには「投稿編集」リンクが表示されていないこと' do
-        expect(page).not_to have_selector 'a', text: '投稿を編集'
+      context '他のユーザーの投稿' do
+        before { visit post_path(other_post.id) }
+
+        it '「投稿編集」リンクが表示されていないこと' do
+          expect(page).not_to have_selector 'a', text: '投稿を編集'
+        end
+
+        it 'フォローボタンが表示されていること' do
+          expect(page).to have_selector '.bl_followBtn a', text: 'フォローする'
+        end
       end
     end
 
