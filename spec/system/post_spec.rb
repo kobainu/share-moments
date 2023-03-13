@@ -6,7 +6,7 @@ RSpec.describe Post, type: :system do
   let(:other_user_2) { create(:user) }
   let(:pic_path) { Rails.root.join('spec/fixture/image.jpg') }
   let(:photo) { Rack::Test::UploadedFile.new(pic_path) }
-  let(:post) { create(:post, user_id: user.id, photo: photo, title: 'post_title') }
+  let(:post) { create(:post, user_id: user.id, photo: photo) }
   let(:other_post) { create(:post, user_id: other_user.id, photo: photo) }
   let(:other_post_2) { create(:post, user_id: other_user_2.id, photo: photo) }
 
@@ -174,16 +174,16 @@ RSpec.describe Post, type: :system do
         end
 
         it 'フリーワード検索フォームに入力したキーワードを(住所 or カメラ名に)含む投稿のみが表示されること' do
-          @post_in_Tokyo = create(:post, address: 'Tokyo', photo: photo)
-          @post_in_Osaka = create(:post, address: 'Osaka', photo: photo)
+          @post_in_tokyo = create(:post, address: 'Tokyo', photo: photo)
+          @post_in_osaka = create(:post, address: 'Osaka', photo: photo)
           within ".ly_header" do
             fill_in 'フリーワードで検索', with: 'Tokyo'
             find('#search-btn').click
           end
           expect(current_path).to eq search_posts_path
           within ".ly_main_inner" do
-            expect(page).to have_selector "img[alt='投稿写真: #{@post_in_Tokyo.id}']"
-            expect(page).not_to have_selector "img[alt='投稿写真: #{@post_in_Osaka.id}']"
+            expect(page).to have_selector "img[alt='投稿写真: #{@post_in_tokyo.id}']"
+            expect(page).not_to have_selector "img[alt='投稿写真: #{@post_in_osaka.id}']"
           end
         end
 
@@ -362,7 +362,6 @@ RSpec.describe Post, type: :system do
       end
 
       it 'タイトルが表示されていること' do
-        binding.pry
         expect(page).to have_selector 'h2', text: @post.title
       end
 
@@ -384,6 +383,16 @@ RSpec.describe Post, type: :system do
 
       it '「カメラ名」が表示されていること' do
         expect(page).to have_selector 'a', text: @post.camera
+      end
+
+      it '「カメラ名」をクリックすると同じカメラで撮影された投稿のみの一覧が表示されること' do
+        @same_camera_post = create(:post, camera: @post.camera, photo: photo)
+        @different_camera_post = create(:post, camera: 'different_camera', photo: photo)
+        all('#post-camera')[1].click
+        expect(current_path).to eq camera_search_posts_path
+        expect(page).to have_selector "img[alt='投稿写真: #{@post.id}']"
+        expect(page).to have_selector "img[alt='投稿写真: #{@same_camera_post.id}']"
+        expect(page).not_to have_selector "img[alt='投稿写真: #{@different_camera_post.id}']"
       end
 
       it '「レンズ名」が表示されていること' do
@@ -412,6 +421,32 @@ RSpec.describe Post, type: :system do
 
       it '「撮影日時」が表示されていること' do
         expect(page).to have_selector 'p', text: "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
+      end
+
+      # it '投稿ユーザーの他の投稿写真が表示されていること' do
+      #   @same_user_post = create(:post, user_id: @post.user_id, photo: photo)
+      #   @same_user_post.save
+      #   visit post_path(@post.id)
+      #   expect(page).to have_selector "img[alt='他の投稿写真: #{@same_user_post.id}']"
+      # end
+
+      it 'コメントを送信すると、コメントの内容とコメントしたユーザーの情報が表示されること' do
+        fill_in 'comment[comment]', with: 'comment'
+        click_button '送信する'
+        within '.bl_comment' do
+          expect(page).to have_selector "img[alt='#{user.name}さんのプロフィール写真']"
+          expect(page).to have_selector 'p', text: user.name
+          expect(page).to have_selector 'p', text: 'comment'
+        end
+      end
+
+      it '自分の投稿詳細ページには「投稿編集」リンクが表示されていること' do
+        visit post_path(post.id)
+        expect(page).to have_selector 'a', text: '投稿を編集'
+      end
+
+      it '他のユーザーの投稿詳細ページには「投稿編集」リンクが表示されていないこと' do
+        expect(page).not_to have_selector 'a', text: '投稿を編集'
       end
     end
 

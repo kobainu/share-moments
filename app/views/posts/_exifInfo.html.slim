@@ -3,9 +3,9 @@
     .bl_list_item_title
       p カメラ:
       p.el_refelence ※ クリックでカメラ検索へ
-    .bl_list_item_content
+    .bl_list_item_content#post-camera
       - if @post.camera?
-        p = link_to camera_search_posts_path(camera: @post.camera) do
+        p = link_to camera_search_posts_path(camera: @post.camera), id: 'post-camera' do
             = @post.camera
             span
               i.bi.bi-box-arrow-up-right
@@ -50,6 +50,9 @@
         .bl_list_item_title
           p = "#{@post_user.name}さんの他の投稿"
         .bl_list_item_content.bl_flexWrap
-          - @posts.reverse_each do |post|
-            .bl_postImg.bl_postImg__sm
-              = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@post_user.name}さんの他の投稿写真"), post_path(post.id)
+          - if @posts.exists?
+            - @posts.reverse_each do |post|
+              .bl_postImg.bl_postImg__sm
+                = link_to image_tag(post.photo.url, class: 'el_photo', alt: "#{@post_user.name}さんの他の投稿写真: #{@post.id}"), post_path(post.id)
+          - else
+            p 他の投稿はまだありません。
