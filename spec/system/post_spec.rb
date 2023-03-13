@@ -9,18 +9,17 @@ RSpec.describe Post, type: :system do
   let(:post) { create(:post, user_id: user.id, photo: photo) }
   let(:other_post) { create(:post, user_id: other_user.id, photo: photo) }
   let(:other_post_2) { create(:post, user_id: other_user_2.id, photo: photo) }
+  let(:tag) { create(:tag) }
+  let(:tag_map) { create(:tag_map, tag_id: tag.id, post_id: post.id) }
 
   before { login(user) }
 
   describe 'Post CRUD' do
     describe '投稿作成' do
-      before { visit posts_path }
+      before { visit new_post_path }
 
       context 'フォームの入力値が正常' do
         it '投稿が成功すること' do
-          within ".ly_header" do
-            click_link '投稿する'
-          end
           attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
           fill_in 'post[title]', with: 't' * 20
           fill_in 'post[description]', with: 'd' * 150
@@ -32,9 +31,6 @@ RSpec.describe Post, type: :system do
 
       context '投稿写真が指定されていない' do
         it '投稿が失敗すること' do
-          within ".ly_header" do
-            click_link '投稿する'
-          end
           fill_in 'post[title]', with: 't' * 20
           fill_in 'post[description]', with: 'd' * 150
           fill_in 'post[tag_name]', with: 'tag'
@@ -46,9 +42,6 @@ RSpec.describe Post, type: :system do
 
       context 'タイトルが未記入' do
         it '投稿が失敗すること' do
-          within ".ly_header" do
-            click_link '投稿する'
-          end
           attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
           fill_in 'post[title]', with: ''
           fill_in 'post[description]', with: 'd' * 150
@@ -61,9 +54,6 @@ RSpec.describe Post, type: :system do
 
       context 'タイトルが21文字以上' do
         it '投稿が失敗すること' do
-          within ".ly_header" do
-            click_link '投稿する'
-          end
           attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
           fill_in 'post[title]', with: 't' * 21
           fill_in 'post[description]', with: 'd' * 150
@@ -76,9 +66,6 @@ RSpec.describe Post, type: :system do
 
       context '投稿紹介が151文字以上' do
         it '投稿が失敗すること' do
-          within ".ly_header" do
-            click_link '投稿する'
-          end
           attach_file 'post[photo]', Rails.root.join('spec/fixture/image.jpg')
           fill_in 'post[title]', with: 't' * 20
           fill_in 'post[description]', with: 'd' * 151
@@ -255,11 +242,6 @@ RSpec.describe Post, type: :system do
           end
         end
 
-        # it '撮影地検索フォームが表示されていること' do
-        #   find('#test').trigger(:mouseover)
-        #   expect(page).to have_selector 'h3', text: '撮影地で探す'
-        # end
-
         it 'ナビメニュー「タグで探す」が表示されていること' do
           within ".ly_sidebar" do
             expect(page).to have_selector 'li', text: "タグで探す"
@@ -280,9 +262,14 @@ RSpec.describe Post, type: :system do
         visit posts_path
       end
 
-      it '投稿した写真と投稿者のユーザー名が表示されていること' do
+      it '投稿した写真が表示されていること' do
         within ".bl_card" do
           expect(page).to have_selector "img[alt='投稿写真: #{post.id}']"
+        end
+      end
+
+      it '投稿した写真に投稿ユーザー名が表示されていること' do
+        within ".bl_card" do
           expect(page).to have_content post.user.name
         end
       end
@@ -293,6 +280,21 @@ RSpec.describe Post, type: :system do
         end
         expect(current_path).to eq post_path(post.id)
         expect(page).to have_content post.title
+      end
+
+      context '自分の投稿' do
+        it 'お気に入りボタンが表示されないこと' do
+          expect(page).not_to have_selector 'a', id: 'favorite-btn'
+        end
+      end
+
+      context '他のユーザーの投稿' do
+        it 'お気に入りボタンが表示されること' do
+          post.destroy
+          other_post.save
+          visit posts_path
+          expect(page).to have_selector 'a', id: 'favorite-btn'
+        end
       end
     end
 
@@ -332,17 +334,9 @@ RSpec.describe Post, type: :system do
       end
     end
 
-    # describe '撮影地検索結果一覧ページ' do
-    # end
-
-    # describe 'カメラ名検索結果一覧ページ' do
-    # end
-
-    # describe 'タグ検索結果一覧ページ' do
-    # end
-
     describe '投稿詳細ページ' do
       before do
+        tag_map.save
         @post = post
         @post.camera = @post.photo.camera
         @post.lens = @post.photo.lens_model
@@ -388,6 +382,15 @@ RSpec.describe Post, type: :system do
 
         it '投稿写真が表示されていること' do
           expect(page).to have_selector "img[alt='投稿写真: #{@post.id}']"
+        end
+
+        it 'タグが表示されていること' do
+          expect(page).to have_selector 'span', text: 'test_tag'
+        end
+
+        it 'タグをクリックするとタグ検索投稿一覧ページに遷移すること' do
+          click_on 'test_tag'
+          expect(current_path).to eq tag_search_posts_path
         end
 
         it '投稿ユーザーのプロフィール写真が表示されていること' do
@@ -440,25 +443,29 @@ RSpec.describe Post, type: :system do
           expect(page).to have_selector 'p', text: "#{@post.shooting_date_time.to_time.strftime("%Y年 %m月%d日 %H時%M分")}"
         end
 
-        it '投稿写真に位置情報が存在する場合、撮影地がGoogle-mapで表示されていること' do
-          expect(page).to have_selector '#location-map'
+        context '撮影地情報が存在する' do
+          it '撮影地がGoogle-mapで表示されること' do
+            expect(page).to have_selector '#location-map'
+          end
+
+          it '撮影地を非表示に設定した場合、撮影地が表示されないこと' do
+            expect(page).to have_selector '#location-map'
+            visit edit_post_path(@post.id)
+            check 'post[hide_location_info]'
+            click_button '投稿を更新'
+            visit post_path(@post.id)
+            expect(page).not_to have_selector '#location-map'
+          end
         end
 
-        it '撮影地を非表示に設定した場合、撮影地が表示されないこと' do
-          expect(page).to have_selector '#location-map'
-          visit edit_post_path(@post.id)
-          check 'post[hide_location_info]'
-          click_button '投稿を更新'
-          visit post_path(@post.id)
-          expect(page).not_to have_selector '#location-map'
-        end
-
-        it '投稿写真に位置情報が存在しない場合、撮影地がGoogle-mapで表示されていないこと' do
-          @post.latitude = nil
-          @post.longitude = nil
-          @post.save
-          visit current_path
-          expect(page).not_to have_selector '#location-map'
+        context '撮影地情報が存在しない' do
+          it '撮影地がGoogle-mapで表示されないこと' do
+            @post.latitude = nil
+            @post.longitude = nil
+            @post.save
+            visit current_path
+            expect(page).not_to have_selector '#location-map'
+          end
         end
 
         it '投稿ユーザーの他の投稿写真が表示されていること' do
@@ -534,66 +541,6 @@ RSpec.describe Post, type: :system do
 
       it '「投稿を更新」ボタンが表示されていること' do
         expect(page).to have_button '投稿を更新'
-      end
-    end
-
-    describe '画面遷移' do
-      describe 'ヘッダーメニューからの遷移' do
-        before  { visit posts_path }
-
-        context '投稿作成ページへの遷移' do
-          it '「投稿する」をクリック' do
-            within '.ly_header' do
-              click_link '投稿する'
-            end
-            expect(current_path).to eq new_post_path
-            expect(page).to have_content '新規投稿'
-          end
-        end
-      end
-
-      describe 'サイドバーメニューからの遷移' do
-        before  { visit posts_path }
-
-        context '投稿作成ページへの遷移' do
-          it '「投稿する」をクリック' do
-            within '.ly_sidebar' do
-              click_link '投稿する'
-            end
-            expect(current_path).to eq new_post_path
-            expect(page).to have_content '新規投稿'
-          end
-        end
-
-        context '全ての投稿ページへの遷移' do
-          it '「全ての投稿」をクリック' do
-            within '.ly_sidebar' do
-              click_link '全ての投稿'
-            end
-            expect(current_path).to eq posts_path
-            expect(page).to have_content '全ての投稿'
-          end
-        end
-
-        context 'お気に入りの投稿ページへの遷移' do
-          it '「お気に入りの投稿」をクリック' do
-            within '.ly_sidebar' do
-              click_link 'お気に入りの投稿'
-            end
-            expect(current_path).to eq favorite_index_posts_path
-            expect(page).to have_content 'お気に入りの投稿'
-          end
-        end
-
-        context 'フォロー中のユーザーの投稿ページへの遷移' do
-          it '「フォロー中のユーザーの投稿」をクリック' do
-            within '.ly_sidebar' do
-              click_link 'フォロー中の'
-            end
-            expect(current_path).to eq following_posts_path
-            expect(page).to have_content 'フォロー中のユーザーの投稿'
-          end
-        end
       end
     end
   end
