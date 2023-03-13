@@ -94,9 +94,10 @@ RSpec.describe Post, type: :system do
     end
 
     describe '投稿編集' do
+      before { visit edit_post_path(post.id) }
+
       context 'フォームの入力値が正常' do
         it '投稿の編集が成功すること' do
-          visit edit_post_path(post.id)
           fill_in 'post[title]', with: 'title_edit'
           fill_in 'post[description]', with: 'description_edit'
           fill_in 'post[tag_name]', with: 'tag_edit'
@@ -108,7 +109,6 @@ RSpec.describe Post, type: :system do
 
       context 'タイトルが未記入' do
         it '投稿の編集が失敗すること' do
-          visit edit_post_path(post.id)
           fill_in 'post[title]', with: ''
           fill_in 'post[description]', with: 'description_edit'
           fill_in 'post[tag_name]', with: 'tag_edit'
@@ -120,7 +120,6 @@ RSpec.describe Post, type: :system do
 
       context 'タイトルが21文字以上' do
         it '投稿の編集が失敗すること' do
-          visit edit_post_path(post.id)
           fill_in 'post[title]', with: 't' * 21
           fill_in 'post[description]', with: 'd' * 150
           fill_in 'post[tag_name]', with: 'tag'
@@ -132,13 +131,24 @@ RSpec.describe Post, type: :system do
 
       context '投稿紹介が151文字以上' do
         it '投稿の編集が失敗すること' do
-          visit edit_post_path(post.id)
           fill_in 'post[title]', with: 't' * 20
           fill_in 'post[description]', with: 'd' * 151
           fill_in 'post[tag_name]', with: 'tag'
           click_button '投稿を更新'
           expect(page).to have_content '更新に失敗しました。'
           expect(page).to have_content '投稿紹介は150文字以内で入力して下さい。'
+        end
+      end
+
+      context '投稿の削除' do
+        it '「投稿を削除」ボタンをクリックすると投稿が削除されること' do
+          click_link '投稿を削除'
+          expect do
+            expect(page.accept_confirm).to eq "削除すると復元できません。よろしいですか？"
+            expect(page).to have_content "投稿を削除しました。"
+          end
+          expect(current_path).to eq posts_path
+          expect(page).not_to have_selector "img[alt='投稿写真: #{post.id}']"
         end
       end
     end
@@ -150,7 +160,7 @@ RSpec.describe Post, type: :system do
       post.save
     end
 
-    describe '投稿一覧画面' do
+    describe '投稿一覧ページ' do
       before { visit posts_path }
 
       describe 'ヘッダー' do
@@ -357,6 +367,7 @@ RSpec.describe Post, type: :system do
         @post.exposure_bias_value = @post.photo.exposure_bias_value
         @post.focal_length = @post.photo.focal_length
         @post.shooting_date_time = @post.photo.date_time_original
+        @post.address = 'address'
         @post.latitude = 35.0395
         @post.longitude = 135.728
         @post.save
@@ -426,6 +437,15 @@ RSpec.describe Post, type: :system do
           expect(page).to have_selector '#location-map'
         end
 
+        it '撮影地を非表示に設定した場合、撮影地が表示されないこと' do
+          expect(page).to have_selector '#location-map'
+          visit edit_post_path(@post.id)
+          check 'post[hide_location_info]'
+          click_button '投稿を更新'
+          visit post_path(@post.id)
+          expect(page).not_to have_selector '#location-map'
+        end
+
         it '投稿写真に位置情報が存在しない場合、撮影地がGoogle-mapで表示されていないこと' do
           @post.latitude = nil
           @post.longitude = nil
@@ -480,7 +500,7 @@ RSpec.describe Post, type: :system do
       end
 
       context '自分の投稿' do
-        it '「投稿編集」リンクが表示されていること' do
+        it '「投稿を編集」リンクが表示されていること' do
           expect(page).to have_selector 'a', text: '投稿を編集'
         end
 
@@ -499,6 +519,36 @@ RSpec.describe Post, type: :system do
         it 'フォローボタンが表示されていること' do
           expect(page).to have_selector '.bl_followBtn a', text: 'フォローする'
         end
+      end
+    end
+
+    describe '投稿編集ページ' do
+      before { visit edit_post_path(post.id) }
+
+      it 'ページタイトルが表示されていること' do
+        expect(page).to have_selector 'h2', text: '投稿内容の編集'
+      end
+
+      it '投稿写真が表示されていること' do
+        expect(page).to have_selector "img[alt='投稿写真: #{post.id}']"
+      end
+
+      it '「投稿を削除」ボタンが表示されていること' do
+        expect(page).to have_selector 'a', text: '投稿を削除'
+      end
+
+      it '「投稿を削除」ボタンをクリックすると投稿が削除されること' do
+        click_link '投稿を削除'
+        expect do
+          expect(page.accept_confirm).to eq "削除すると復元できません。よろしいですか？"
+          expect(page).to have_content "投稿を削除しました。"
+        end
+        expect(current_path).to eq posts_path 
+        expect(page).not_to have_selector "img[alt='投稿写真: #{post.id}']"
+      end
+
+      it '「投稿を更新」ボタンが表示されていること' do
+        expect(page).to have_button '投稿を更新'
       end
     end
 
