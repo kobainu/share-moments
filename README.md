@@ -9,7 +9,7 @@ Share-Moments.は撮影時の設定項目や撮影地を共有できる写真共
 URL: https://share-moments.jp  
 
 ## TOPページ
-- ゲストログイン機能をにより、アカウントを作成せずにご利用頂くことも可能です。
+- ゲストログイン機能により、アカウントを作成せずにご利用頂くことも可能です。
 <img width="1400" alt="スクリーンショット 2023-03-14 14 57 42" src="https://user-images.githubusercontent.com/105051442/224932574-685e85cb-08d0-4021-9bde-26a5bd50f68e.png">  
 
 ## 投稿一覧ページ
