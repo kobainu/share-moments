@@ -587,3 +587,55 @@
     align-items: center;
   }
 }
+
+.bl_addressSearchBar,
+.bl_tagSearchBar,
+.bl_cameraSearchBar {
+  width: 280px;
+  height: 100%;
+  background-color: #fcf0e4;
+  position: fixed;
+  top: 0;
+  right: -280px;
+  z-index: 5;
+  transition: all .3s;
+  overflow-y: scroll;
+  @include sp {
+    width: 250px;
+  }
+  & li {
+    padding: 20px 15px;
+  }
+  & .bl_searchForm {
+    margin: 20px 10px;
+  }
+  & span {
+    font-size: 1.0rem;
+    @include sp {
+      font-size: .9rem;
+    }
+  }
+  & .bl_sideNav_item {
+    padding: 15px 30px;
+    &:hover {
+      background-color: #d4d4d489;
+    }
+    & span {
+      margin-right: 10px;
+    }
+  }
+  & .bl_list_item_title {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    & span:nth-child(1) {
+      margin-right: 5px;
+    }
+  }
+}
+
+.display_address .bl_addressSearchBar,
+.display_camera .bl_cameraSearchBar,
+.display_tag .bl_tagSearchBar {
+  right: 0;
+}

@@ -5,20 +5,16 @@
         .bl_list_item_title
           p 撮影地:
           #location-map
-          / APIを読み込み
           - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_map_api_key }&callback=initMap".html_safe
           script{ async src=google_api }
           javascript:
             let map;
             function initMap() {
               geocoder = new google.maps.Geocoder()
-              // マップを作成
               map = new google.maps.Map(document.getElementById('location-map'), {
-                // マップの中心に表示する場所の緯度経度を指定
                 center: { lat: #{@post.latitude}, lng: #{@post.longitude} },
                 zoom: 12,
               });
-              // マーカーを立てる場所の緯度経度を指定
               marker = new google.maps.Marker({
                 position: { lat: #{@post.latitude}, lng: #{@post.longitude} },
                 map: map

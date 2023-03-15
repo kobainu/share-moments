@@ -11,17 +11,12 @@ class Post < ApplicationRecord
   mount_uploader :photo, ImageUploader
 
   def save_tag(sent_tags)
-    # createアクションにて保存した@postに紐付いているタグが存在する場合、「タグの名前を配列として」全て取得する
     current_tags = tags.pluck(:tag_name) unless tags.nil?
-    # 取得した@postに存在するタグから、送信されてきたタグを除いたタグをold_tagsとする
     old_tags = current_tags - sent_tags
-    # 送信されてきたタグから、現在存在するタグを除いたタグをnew_tagsとする
     new_tags = sent_tags - current_tags
-    # 古いタグを削除
     old_tags.each do |old|
       tags.delete Tag.find_by(tag_name: old)
     end
-    # 新しいタグをDBに保存
     new_tags.each do |new|
       new_post_tag = Tag.find_or_create_by(tag_name: new)
       tags << new_post_tag

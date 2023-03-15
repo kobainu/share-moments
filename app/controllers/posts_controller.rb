@@ -31,8 +31,8 @@ class PostsController < ApplicationController
 
   def tag_search
     @tag_list = Tag.all
-    @tag = Tag.find(params[:tag_id]) # クリックしたタグ
-    @posts = @tag.posts.all # クリックしたタグに紐付けられた全ての投稿
+    @tag = Tag.find(params[:tag_id])
+    @posts = @tag.posts.all
   end
 
   def camera_search
@@ -84,12 +84,10 @@ class PostsController < ApplicationController
   def update
     tag_list = params[:post][:tag_name].split(nil)
     if @post.update(post_params)
-      # 更新時に一度タグとの関連を削除
       @old_relations = TagMap.where(post_id: @post.id)
       @old_relations.each do |relation|
         relation.delete
       end
-      # 新たにタグとの関連を登録
       @post.save_tag(tag_list)
       flash[:notice] = "投稿内容を更新しました。"
       redirect_to post_path(@post.id)

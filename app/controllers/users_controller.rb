@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: %i(show follows followers)
   def show
-    # @user = User.find(params[:id])
     @posts = Post.where(user_id: @user.id)
     @user_favorites = @user.favorites
     @following_users = @user.following_user
@@ -25,12 +24,10 @@ class UsersController < ApplicationController
   end
 
   def follows
-    # @user = User.find(params[:id])
     @users = @user.following_user
   end
 
   def followers
-    # @user = User.find(params[:id])
     @users = @user.follower_user
   end
 
