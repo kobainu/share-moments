@@ -1,0 +1,158 @@
+@import 'base';
+
+.el_btn {
+  display: inline-block;
+  width: fit-content;
+  padding: 10px 10px;
+  background-color: #ab987c;
+  border: 2px solid transparent;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+  color: #f7f7f7;
+  font-size: 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: .25s;
+  border-radius: 30px;
+  &:focus,
+  &:hover {
+    background-color: #f7f7f7;
+    border-color: currentColor;
+    color: #ab987c;
+  }
+  &__blue {
+    @extend .el_btn;
+    background-color: #4ab7ff;
+    &:focus,
+    &:hover {
+      background-color: #f7f7f7;
+      border-color: currentColor;
+      color: #4ab7ff;
+    }
+  }
+  &__red {
+    @extend .el_btn;
+    background-color: #f99797;
+    &:focus,
+    &:hover {
+      background-color: #f7f7f7;
+      border-color: currentColor;
+      color: #f99797;
+    }
+  }
+  &__green {
+    @extend .el_btn;
+    background-color: #38b359;
+    &:focus,
+    &:hover {
+      background-color: #f7f7f7;
+      border-color: currentColor;
+      color: #38b359;
+    }
+  }
+  &__square {
+    @extend .el_btn;
+    border-radius: 3px;
+  }
+  @include pc_sm{
+    padding: 5px 10px;
+  };
+  @include tab {
+    padding: 5px 10px;
+    font-size: 1.0rem;
+  };
+  @include sp {
+    padding: 0 10px;
+    font-size: .9rem;
+  };
+  &__sm {
+    @extend .el_btn;
+    padding: 0 10px;
+  }
+}
+
+.el_icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+  @include sp {
+    font-size: .9rem;
+  }
+}
+
+.el_header_logo {
+  h1 {
+    font-size: 2.5rem;
+    @include pc_sm {
+      font-size: 2.3rem;
+    };
+    @include tab {
+      font-size: 2.0rem;
+    };
+    @include sp {
+      font-size: 1.5rem;
+    };
+  }
+}
+
+.el_photo {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  object-fit: cover;
+  &__square {
+    position: none;
+    object-fit: cover;
+  }
+}
+
+.el_profileImg {
+  border-radius: 50%;
+  object-fit: cover;
+  &__sm {
+    @extend .el_profileImg;
+    width: 50px;
+    height: 50px;
+  }
+  &__lg {
+    @extend .el_profileImg;
+    width: 100px;
+    height: 100px;
+    @include sp {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.el_imgInput {
+  padding-left: 20px;
+}
+
+.el_checkBox {
+  width: 25px;
+  height: 25px;
+}
+
+.el_result p {
+  padding: 0 5%;
+  font-size: 1.4rem;
+  @include pc_sm {
+    font-size: 1.2rem;
+  };
+  @include tab {
+    font-size: 1.0rem;
+  };
+  @include sp {
+    font-size: .8rem;
+  };
+}
+
+.el_refelence {
+  font-size: .9rem;
+  @include tab {
+    font-size: .8rem;
+  }
+  @include sp {
+    font-size: .7rem;
+  }
+}

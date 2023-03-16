@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title
+      | Share-Moments.
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+    link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet"
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+  body
+    .ly_wrapper
+      = render partial: 'layouts/header'
+      .ly_cont
+        - if user_signed_in?
+          = render partial: 'layouts/sidebar'
+        main.ly_main  
+          = render partial: 'layouts/hamburgerMenu'
+          = render partial: 'layouts/flash'
+          = yield
+      = render partial: 'layouts/footer'
+    = javascript_pack_tag 'application'

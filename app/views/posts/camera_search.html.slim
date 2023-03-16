@@ -1,0 +1,21 @@
+section.ly_main_inner
+  .bl_pageHead
+    .bl_pageTitle
+      h2 = "「#{@camera}」で撮影された投稿 : #{@filtered_camera_posts.count}件"
+  - if @filtered_camera_posts.exists?
+    .bl_flexWrap
+      - @filtered_camera_posts.reverse_each do |post|
+        article.bl_card
+          .bl_postImg.bl_postImg__lg
+            = link_to image_tag(post.photo.url, class: 'el_photo', alt: "投稿写真: #{post.id}"), post_path(post.id)
+          .bl_postInfo
+            span = "投稿者: #{post.user.name}"
+            div
+              span.un_favorite id="post_#{post.id}"
+                = render 'post', post: post
+              span
+                i.bi.bi-chat-right-text
+                |  #{post.comments.count}
+  - else
+    .el_result
+      p 検索結果はありませんでした

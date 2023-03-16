@@ -2,7 +2,8 @@ name: test_and_deploy
 
 on:
   push:
-  # pull_request:
+    branches:
+      - main
 
 jobs:
   rspec:
@@ -30,6 +31,11 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.16.0'
+          cache: 'yarn'
       - name: Bundler and gem install
         run: |
           gem install bundler
@@ -37,11 +43,17 @@ jobs:
       - name: Yarn install
         run: yarn install --check-files
       - name: Database create and migrate
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           cp config/database.yml.ci config/database.yml
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
+      - name: compile webpacker
+        run: bundle exec bin/webpack
       - name: Run rspec
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bundle exec rspec
 
   rubocop:
@@ -85,6 +97,6 @@ jobs:
           # SSH接続して、git pullする
           echo "${{ secrets.GIT_PRIVATE_KEY }}" > private_key
           chmod 600 private_key
-          ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd /var/www/share-moments && git fetch --prune && git checkout feature/initial-setup && git pull origin feature/initial-setup"
+          ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd /var/www/share-moments && git fetch --prune && git checkout main && git pull origin main "
           # SSHのセキュリティグループを閉じる
           aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32

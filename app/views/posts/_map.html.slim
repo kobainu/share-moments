@@ -1,0 +1,34 @@
+.location-map-area
+  - if @post.latitude.present?
+    - if !@post.hide_location_info?
+      .bl_list_item
+        .bl_list_item_title
+          p 撮影地:
+          #location-map
+          - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ Rails.application.credentials.google_map_api_key }&callback=initMap".html_safe
+          script{ async src=google_api }
+          javascript:
+            let map;
+            function initMap() {
+              geocoder = new google.maps.Geocoder()
+              map = new google.maps.Map(document.getElementById('location-map'), {
+                center: { lat: #{@post.latitude}, lng: #{@post.longitude} },
+                zoom: 12,
+              });
+              marker = new google.maps.Marker({
+                position: { lat: #{@post.latitude}, lng: #{@post.longitude} },
+                map: map
+              });
+            }
+    - else
+      .bl_list_item
+        .bl_list_item_title
+          p 撮影地:
+        .bl_list_item_content
+          p ---
+  - else
+    .bl_list_item
+      .bl_list_item_title
+        p 撮影地:
+      .bl_list_item_content
+        p ---

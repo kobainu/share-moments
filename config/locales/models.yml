@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: ニックネーム
+        password: パスワード
+        introduction: 自己紹介
+      post:
+        photo: 投稿する写真
+        title: タイトル
+        description: 投稿紹介
+      comment:
+        comment: コメント
+      tag:
+        tag_name: タグ名

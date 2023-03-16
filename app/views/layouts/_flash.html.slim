@@ -1,0 +1,8 @@
+- if flash[:notice]
+  .notifications
+    p.notice
+      = notice
+- if flash[:alert]
+  .notifications
+    p.alert
+      = alert

@@ -1,0 +1,23 @@
+@import 'base';
+
+.hp_flex {
+  display: flex;
+}
+
+.hp_maxWidth {
+  max-width: 750px;
+  @include tab {
+    max-width: 530px;
+  };
+  @include sp {
+    max-width: 400px;
+  };
+}
+
+.hp_centerColumn {
+  margin: 0 auto;
+}
+
+.hp_mt__10px {
+  margin-top: 10px;
+}

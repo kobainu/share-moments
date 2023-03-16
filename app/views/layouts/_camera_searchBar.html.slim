@@ -1,0 +1,12 @@
+.bl_searchBar
+  .bl_list_item_title
+    h3 
+      span
+        i.bi.bi-camera
+      span カメラ名で探す
+  nav
+    = form_with url: camera_search_posts_path, method: :get, class: 'bl_searchForm hp_flex', local: true do |f|
+      = f.text_field :camera, placeholder:"カメラ名で検索"
+      = button_tag type: 'submit', class: 'el_btn__square el_btn__sm' do
+        i.bi.bi-search
+

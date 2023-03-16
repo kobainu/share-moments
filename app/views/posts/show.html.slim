@@ -1,0 +1,74 @@
+section.ly_main_inner.bl_postDetail
+  .bl_pageHead
+    .bl_pageTitle
+      h2 #{@post.title}
+    - if @post.user_id == current_user.id
+      .bl_btn
+        = link_to '投稿を編集', edit_post_path(@post.id), class: 'el_btn el_btn__sm'
+  .bl_postDetail_cont
+    .bl_postDetail_main
+      .bl_postImg.bl_postImg__xl
+        = image_tag(@post.photo.url, class: 'el_photo', alt: "投稿写真: #{@post.id}")
+      .bl_flexWrap
+        - @post_tags.each do |tag|
+          .bl_postDetail_tag
+            = link_to tag_search_posts_path(tag_id: tag.id) do
+              span
+                i.bi.bi-tag
+              span
+                = tag.tag_name
+      .bl_userInfoContainer
+        .bl_userInfo
+          - if @post.user.image?
+            = link_to image_tag(@post.user.image.url, class: 'el_profileImg__sm', alt: "#{@post.user.name}さんのプロフィール写真"), user_path(@post.user.id)
+          - else
+            = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm', alt: "#{@post.user.name}さんのプロフィール写真"), user_path(@post.user.id)
+          p = @post.user.name
+        .bl_followContainer
+          - if current_user != @post.user
+            .bl_followBtn
+              - if current_user.following?(@post.user)
+                = link_to 'フォローを外す', user_relationships_path(@post.user.id), method: :delete, class: "el_btn__red el_btn__sm"
+              - else
+                = link_to 'フォローする', user_relationships_path(@post.user.id), method: :POST, class:"el_btn__blue el_btn__sm"
+          .bl_followInfo
+            = link_to follows_user_path(@post.user) do
+              .div
+                p = "フォロー:"
+                p = "#{@post.user.following_user.count}人"
+            = link_to followers_user_path(@post.user) do
+              .div
+                p = "フォロワー:"
+                p = "#{@post.user.follower_user.count}人"
+      - if @post.description?
+        .bl_postDetail_description
+          p = @post.description
+      .bl_postDetail_aside__col1
+        = render partial: 'posts/exifInfo'
+      = render partial: 'map'
+      .bl_list_item.bl_postDetail_commentContainer
+        .bl_list_item_title
+          p コメント
+        .bl_list_item_content.bl_postDetail_commentForm
+          = form_with(model:[@post, @comment], local: true) do |f|
+            = f.text_area :comment, :size=>"60x3", placeholder: "コメントする(最大150文字まで)", required: true, maxlength: 150
+            = f.submit "送信する", class: 'el_btn__blue el_btn__sm'
+          .bl_commentCount
+            p = "コメント件数: #{@comments.count}"
+          .bl_postDetail_commentContents
+            - @comments.reverse_each do |comment|
+              .bl_comment
+                .bl_postDetail_commentUser
+                  .bl_userInfo
+                    - if comment.user.image?
+                      = link_to image_tag(comment.user.image.url, class: 'el_profileImg__sm', alt: "#{comment.user.name}さんのプロフィール写真"), user_path(comment.user.id)
+                    - else
+                      = link_to image_tag('user/default_user_icon.png', class: 'el_profileImg__sm', alt: "#{comment.user.name}さんのプロフィール写真"), user_path(current_user.id)
+                    p = comment.user.name
+                  - if comment.user == current_user
+                    .bl_btn
+                      = link_to "削除", post_comment_path(comment.post, comment), method: :delete, data: {confirm: "コメントを削除しますか？"}, class: 'el_btn__red el_btn__sm'
+                .bl_postDetail_commentContent 
+                  p = comment.comment
+    .bl_postDetail_aside__col2
+      = render partial: 'posts/exifInfo'
